@@ -11,6 +11,7 @@ _yardoc
 coverage
 doc/
 lib/bundler/man
+spec/fixtures
 pkg
 rdoc
 spec/reports
