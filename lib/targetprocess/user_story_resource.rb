@@ -2,17 +2,14 @@ require 'httparty'
 
 module Targetprocess
 	class UserStoryResource
+	 
 	  include HTTParty
 	  format :xml
+
 	  def initialize(u, p, uri)
-	  	if uri[-1] == '/'
-	  		@uri = uri
-	  	else
-	  		@uri = uri + '/'
-	  	end
+	  	@uri = uri + (uri[-1] == '/' ? "" : "/")
 	    @auth = {:username => u, :password => p}
 	  end
-
 
 	  def check_for_errors(response)
 	    if response.parsed_response["Error"]
@@ -25,12 +22,16 @@ module Targetprocess
 
 	  def all_stories(options={})
 	    options.merge!({:basic_auth => @auth})
-	    check_for_errors self.class.get(@uri + "api/v1/UserStories/", options)
+	    self.class.get(@uri + "api/v1/UserStories/", options)["UserStories"]["UserStory"].collect! do |userstory|
+				Userstory.new(userstory)	    	
+			end
 	  end
 
 	  def stories_by_project(acid,options={})
 	    options.merge!(:basic_auth => @auth, :body => {:acid => acid})
-	    check_for_errors self.class.get(@uri + "api/v1/userstories/", options)
+	    self.class.get(@uri + "api/v1/userstories/", options).parsed_response["UserStories"]["UserStory"].collect! do |userstory|
+	    	Userstory.new(userstory)
+	    end
 	  end
 
 	  def bugs_by_project(acid, options={})
@@ -38,17 +39,11 @@ module Targetprocess
 	    self.class.get(@uri + "api/v1/bugs", options)
 	  end
 
-
-	  def story_by_ids(ids)
-	    case ids
-	    when Fixnum
-	        check_for_errors self.class.get(@uri + "api/v1/userstories/#{ids}")
-	    when Array
-	        ids.collect!{|id| Userstory.new(check_for_errors(self.class.get(@uri + "api/v1/userstories/#{id}")).parsed_response["UserStory"])}
-	        ids
-	    else
-	      puts 'wrong input specify id or array of ids'
-	    end
+	  def story_by_ids(*args)
+	  	options = {}
+	  	options.merge!({:basic_auth => @auth})
+      args.collect!{|id| Userstory.new(self.class.get((@uri + "api/v1/userstories/#{id}"), options).parsed_response["UserStory"])}
+      return args.size == 1 ? args.first : args
 	  end
 
 	  def story_tasks(id)
