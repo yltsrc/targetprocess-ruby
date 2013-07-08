@@ -34,14 +34,8 @@ module Targetprocess
 	    end
 	  end
 
-	  def bugs_by_project(acid, options={})
-	    options.merge!(:body => {:acid => acid}) if acid
-	    self.class.get(@uri + "api/v1/bugs", options)
-	  end
-
 	  def story_by_ids(*args)
-	  	options = {}
-	  	options.merge!({:basic_auth => @auth})
+	  	options = {:basic_auth => @auth}
       args.collect!{|id| Userstory.new(self.class.get((@uri + "api/v1/userstories/#{id}"), options).parsed_response["UserStory"])}
       return args.size == 1 ? args.first : args
 	  end
@@ -50,5 +44,10 @@ module Targetprocess
 	    check_for_errors self.class.get(@uri + "api/v1/userstories/#{id}/tasks/")
 	  end
 
+	  def bugs_by_project(acid, options={})
+	    options.merge!(:body => {:acid => acid}) if acid
+	    self.class.get(@uri + "api/v1/bugs", options)
+	  end
+	  
 	end
 end
