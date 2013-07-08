@@ -36,8 +36,20 @@ module Targetprocess
 
 	  def story_by_ids(*args)
 	  	options = {:basic_auth => @auth}
-      args.collect!{|id| Userstory.new(self.class.get((@uri + "api/v1/userstories/#{id}"), options).parsed_response["UserStory"])}
+      args.collect!{ |id| Userstory.new(self.class.get((@uri + "api/v1/userstories/#{id}"), options).parsed_response["UserStory"]) }
       return args.size == 1 ? args.first : args
+	  end
+
+	  def users_by_ids(*args)
+	  	options={:basic_auth => @auth}
+	  	args.collect!{ |id| User.new(self.class.get(@uri + "api/v1/users/#{id}", options).parsed_response["User"]) }
+	  end
+
+	  def all_users(options={})
+	  	options.merge!({:basic_auth => @auth})
+	  	self.class.get(@uri + "api/v1/users/", options).parsed_response["Users"]["User"].collect! do |user|
+	  		User.new(user)
+	  	end
 	  end
 
 	  def story_tasks(id)
@@ -48,6 +60,8 @@ module Targetprocess
 	    options.merge!(:body => {:acid => acid}) if acid
 	    self.class.get(@uri + "api/v1/bugs", options)
 	  end
-	  
+
+
+
 	end
 end
