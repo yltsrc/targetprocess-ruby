@@ -18,17 +18,18 @@ module Targetprocess
 	end
 
 	def normalize_values  
-		self.class::ALL_VAR.each do |var|
+		klass = self.class
+		klass::ALL_VAR.each do |var|
 			current_val = self.send(var)
 			val = if self.send(var).nil?
 				nil 
-			elsif self.class::FLOAT_VAR.include?(var.to_s) 
+			elsif klass::FLOAT_VAR.include?(var.to_s) 
 				current_val.to_f
-			elsif self.class::INT_VAR.include?(var.to_s)
+			elsif klass::INT_VAR.include?(var.to_s)
 				current_val.to_i
-			elsif self.class::ARR_VAR.include?(var.to_s)
+			elsif klass::ARR_VAR.include?(var.to_s)
 				current_val.is_a?(Array) ? current_val : current_val.split(/, /) 
-			elsif self.class::DATE_VAR.include?(var.to_s)
+			elsif klass::DATE_VAR.include?(var.to_s)
 				DateTime.parse( current_val )
 			elsif current_val.is_a?(Hash)
 				Hash[current_val.map {|k, v| [k.downcase.to_sym, (k=="Id"? v.to_i : v) ] }]
