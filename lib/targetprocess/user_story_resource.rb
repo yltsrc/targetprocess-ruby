@@ -22,7 +22,7 @@ module Targetprocess
 
 	  def all_stories(options={})
 	    options.merge!({:basic_auth => @auth})
-	    self.class.get(@uri + "api/v1/UserStories/", options)["UserStories"]["UserStory"].collect! do |userstory|
+	    self.class.get(@uri + "api/v1/UserStories?take=100000", options)["UserStories"]["UserStory"].collect! do |userstory|
 				Userstory.new(userstory)	    	
 			end
 	  end
@@ -43,11 +43,12 @@ module Targetprocess
 	  def users_by_ids(*args)
 	  	options={:basic_auth => @auth}
 	  	args.collect!{ |id| User.new(self.class.get(@uri + "api/v1/users/#{id}", options).parsed_response["User"]) }
+	  	return args.size == 1 ? args.first : args
 	  end
 
 	  def all_users(options={})
 	  	options.merge!({:basic_auth => @auth})
-	  	self.class.get(@uri + "api/v1/users/", options).parsed_response["Users"]["User"].collect! do |user|
+	  	self.class.get(@uri + "api/v1/users?take=100000", options).parsed_response["Users"]["User"].collect! do |user|
 	  		User.new(user)
 	  	end
 	  end
@@ -60,8 +61,6 @@ module Targetprocess
 	    options.merge!(:body => {:acid => acid}) if acid
 	    self.class.get(@uri + "api/v1/bugs", options)
 	  end
-
-
 
 	end
 end

@@ -3,6 +3,7 @@ module Targetprocess
 	class Userstory
 		self.send(:include, Targetprocess)
 		
+		ARR_VAR = %w(tags)
     FLOAT_VAR = %w( effort effortcompleted efforttodo initialestimate numericpriority timeremain timespent )
     INT_VAR = %w( feature_id team_id owner_id iteration_id entitytype_id id entitystate_id priority_id project_id release_id lastcommenteduser_id)
     DATE_VAR = %w(createdate enddate lastcommentdate modifydate startdate)
