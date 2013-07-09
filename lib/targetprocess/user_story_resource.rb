@@ -20,46 +20,40 @@ module Targetprocess
 	    end
 	  end  
 
+	  def request(url, options={}, acid="")
+	  	options.merge!(:basic_auth => @auth)
+	  	options.merge!(:body => {:acid => acid}) unless acid.empty?
+	  	self.class.get(@uri+url, options)
+	  end
+
 	  def all_stories(options={})
-	    options.merge!({:basic_auth => @auth})
-	    self.class.get(@uri + "api/v1/UserStories?take=100000", options)["UserStories"]["UserStory"].collect! do |userstory|
-				Userstory.new(userstory)	    	
-			end
+	    request("api/v1/UserStories?take=100000")["UserStories"]["UserStory"].collect! { |userstory| Userstory.new(userstory) }
 	  end
 
 	  def stories_by_project(acid,options={})
-	    options.merge!(:basic_auth => @auth, :body => {:acid => acid})
-	    self.class.get(@uri + "api/v1/userstories/", options).parsed_response["UserStories"]["UserStory"].collect! do |userstory|
-	    	Userstory.new(userstory)
-	    end
+	    request("api/v1/userstories/", options, acid)["UserStories"]["UserStory"].collect! { |userstory|	Userstory.new(userstory) }
 	  end
 
 	  def story_by_ids(*args)
-	  	options = {:basic_auth => @auth}
-      args.collect!{ |id| Userstory.new(self.class.get((@uri + "api/v1/userstories/#{id}"), options).parsed_response["UserStory"]) }
+      args.collect!{ |id| Userstory.new(request("api/v1/userstories/#{id}")["UserStory"]) }
       return args.size == 1 ? args.first : args
 	  end
 
 	  def users_by_ids(*args)
-	  	options={:basic_auth => @auth}
-	  	args.collect!{ |id| User.new(self.class.get(@uri + "api/v1/users/#{id}", options).parsed_response["User"]) }
+	  	args.collect!{ |id| User.new(request("api/v1/users/#{id}")["User"]) }
 	  	return args.size == 1 ? args.first : args
 	  end
 
 	  def all_users(options={})
-	  	options.merge!({:basic_auth => @auth})
-	  	self.class.get(@uri + "api/v1/users?take=100000", options).parsed_response["Users"]["User"].collect! do |user|
-	  		User.new(user)
-	  	end
+	  	request("api/v1/users?take=100000", options)["Users"]["User"].collect! { |user|	User.new(user) }
 	  end
 
 	  def story_tasks(id)
-	    check_for_errors self.class.get(@uri + "api/v1/userstories/#{id}/tasks/")
+	    check_for_errors request("api/v1/userstories/#{id}/tasks/?take=100000")
 	  end
 
 	  def bugs_by_project(acid, options={})
-	    options.merge!(:body => {:acid => acid}) if acid
-	    self.class.get(@uri + "api/v1/bugs", options)
+	    request("api/v1/bugs", options, acid)
 	  end
 
 	end
