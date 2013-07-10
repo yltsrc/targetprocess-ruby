@@ -21,14 +21,14 @@ describe Targetprocess::UserStoryResource do
 	    end
 	  end	  
 
-	  it "should return array with 81 elements" do
-	  	expect(storyResource.all_stories(body:{take: "1000000"}).count).to eq(81) 
+	  it "should return array with 82 elements" do
+	  	expect(storyResource.all_stories(body:{take: "1000000"}).count).to eq(82) 
 	  end
 	end
 
 	describe "#stories_by_project", :vcr => true do
 		it "should be an instance of Array" do
-	 		expect(storyResource.stories_by_project("5FA0BB2EB47B24832C250EB73431AB2F").class).to eq(Array) 
+	 		expect(storyResource.stories_by_project("D6AC5DA358E9EFA3FE23C637038A54B5").class).to eq(Array) 
 	 	end
 
 	  it "shoould contain instances of Targetprocess::Userstory" do
@@ -61,10 +61,10 @@ describe Targetprocess::UserStoryResource do
 
 
 	describe "#users_by_ids", :vcr => true do
-		it "should return an Targetprocess::User instance or array of instances" do
+		it "should return an array of Targetprocess::User instances" do
 			first = storyResource.users_by_ids(1)
 			second = storyResource.users_by_ids(1,9,8)
-			expect(first.class).to eq(Targetprocess::User)
+			expect(first.class).to eq(Array)
 			expect(second.class).to eq Array
 			second.each { |instance| expect(instance.class).to eq(Targetprocess::User)  }
 		end
@@ -73,7 +73,7 @@ describe Targetprocess::UserStoryResource do
 			user = Targetprocess::User.new(:id => 1, :kind => "User", :firstname => "Administrator", :lastname => "Administrator", :email => "dm.brodnitskiy@gmail.com", login: "admin", createdate: "2013-07-02T00:00:25.457", modifydate: "2013-07-09T02:52:27",
 						 deletedate: nil, isactive: true, isadministrator: true, weeklyavailablehours: 40.0000, currentallocation: 220, currentavailablehours: 0.0000, availablefrom: nil, availablefutureallocation: 0, availablefuturehours: 0.0000,
 						 isobserver: true, skills: ["ruby", "rails"], activedirectoryname: "test", role_id: 1, role_name: "Developer", role: {id: 1, name: "Developer"} )
-			response_user = storyResource.users_by_ids(1)
+			response_user = storyResource.users_by_ids(1).first
 			expect(response_user).to eq(user)
 		end
 
@@ -129,6 +129,16 @@ describe Targetprocess::UserStoryResource do
 			expect(storyResource.find_task(119).id).to eq(119) 
 		end
 	end
+
+	describe "#tasks_by_project", :vcr => true do
+		it "should return an array with 235 task" do
+			request = storyResource.tasks_by_project("D6AC5DA358E9EFA3FE23C637038A54B5")
+			expect(request).to be_an_instance_of(Array)
+			expect(request.first).to be_an_instance_of(Targetprocess::Task)
+			expect(request.first.id).to eq(235)
+		end
+	end
+
 
 	describe "#bugs_by_project", :vcr => true do
 		it "should be an instance of HTTParty::Response" do
