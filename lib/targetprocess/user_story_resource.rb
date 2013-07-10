@@ -55,7 +55,7 @@ module Targetprocess
 	  	return_array_of(request("api/v1/tasks", options)["Tasks"]["Task"], Task)
 		end
 
-	  def story_tasks(story_id, options={})
+	  def tasks_by_story(story_id, options={})
 	    return_array_of(request("api/v1/userstories/#{story_id}/tasks", options)["Tasks"]["Task"], Task)
 	  end
 
@@ -72,8 +72,24 @@ module Targetprocess
 	  
 	  end
 
+	  def all_bugs(options={})
+	  	return_array_of(request("api/v1/bugs", options)["Bugs"]["Bug"], Bug)
+	  end
+
+	  def bugs_by_story(story_id, options={})
+	  	return_array_of(request("api/v1/userstories/#{story_id}/bugs", options)["Bugs"]["Bug"], Bug)
+	  end
+
 	  def bugs_by_project(acid, options={})
-	    request("api/v1/bugs", options, acid)
+	    return_array_of(request("api/v1/bugs", options, acid)["Bugs"]["Bug"], Bug)
+	  end
+
+	  def find_bug(id, options={})
+	  	Bug.new request("api/v1/bugs/#{id}", options)["Bug"]
+	  end
+
+	  def bugs_by_ids(*args)
+	  	args.collect!{ |id| Bug.new(request("api/v1/bugs/#{id}")["Bug"]) }
 	  end
 
 	end
