@@ -1,7 +1,6 @@
 require "targetprocess/assignable"
 module Targetprocess
-  class Task
+  class Feature
     include Assignable
   end
 end
-

@@ -139,7 +139,6 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		end
 	end
 
-
 	describe "#bugs_by_project" do
 		it "should be an instance of Array" do
 	 		expect(storyResource.bugs_by_project("5FA0BB2EB47B24832C250EB73431AB2F").class).to eq(Array) 
@@ -160,46 +159,88 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		end
 	end
 
-		describe "#bugs_by_story" do
-			it "should be an instance of Array" do
-		 		expect(storyResource.bugs_by_story(234).class).to eq(Array) 
-		 	end
+	describe "#bugs_by_story" do
+		it "should be an instance of Array" do
+	 		expect(storyResource.bugs_by_story(234).class).to eq(Array) 
+	 	end
 
-		  it "should contain 238 Bug" do
-				response = storyResource.bugs_by_story(234)
-				expect(response.first).to be_an_instance_of(Targetprocess::Bug)
-				expect(response.first.id).to eq(238)  
-			end
+	  it "should contain 238 Bug" do
+			response = storyResource.bugs_by_story(234)
+			expect(response.first).to be_an_instance_of(Targetprocess::Bug)
+			expect(response.first.id).to eq(238)  
+		end
+	end
+
+	describe "#find_bug" do
+		it "should be an instance of Targetprocess::Bug" do
+	 		expect(storyResource.find_bug(238)).to be_an_instance_of(Targetprocess::Bug) 
+	 	end
+
+	  it "should contain 238 Bug" do
+			response = storyResource.find_bug(238)
+			expect(response).to be_an_instance_of(Targetprocess::Bug)
+			expect(response.id).to eq(238)  
+		end
+	end
+
+	describe "#bugs_by_ids" do
+		it "should be an instance of Array" do
+	 		expect(storyResource.bugs_by_ids(238)).to be_an_instance_of(Array) 
+	 	end
+
+	  it "should contain 238 Bug" do
+			response = storyResource.bugs_by_ids(238)
+			expect(response.first).to be_an_instance_of(Targetprocess::Bug)  
+			expect(response.first.id).to eq(238)  
 		end
 
-		describe "#find_bug" do
-			it "should be an instance of Targetprocess::Bug" do
-		 		expect(storyResource.find_bug(238)).to be_an_instance_of(Targetprocess::Bug) 
-		 	end
-
-		  it "should contain 238 Bug" do
-				response = storyResource.find_bug(238)
-				expect(response).to be_an_instance_of(Targetprocess::Bug)
-				expect(response.id).to eq(238)  
-			end
+	  it "should contain 238, 223 Bugs" do
+			response_ids = storyResource.bugs_by_ids(238, 223).map(&:id)
+			expected_ids = [238, 223]
+			expect(expected_ids&response_ids).to eq(expected_ids)  
 		end
+	end
 
-		describe "#bugs_by_ids" do
-			it "should be an instance of Array" do
-		 		expect(storyResource.bugs_by_ids(238)).to be_an_instance_of(Array) 
-		 	end
-
-		  it "should contain 238 Bug" do
-				response = storyResource.bugs_by_ids(238)
-				expect(response.first).to be_an_instance_of(Targetprocess::Bug)  
-				expect(response.first.id).to eq(238)  
-			end
-
-		  it "should contain 238, 223 Bugs" do
-				response_ids = storyResource.bugs_by_ids(238, 223).map(&:id)
-				expected_ids = [238, 223]
-				expect(expected_ids&response_ids).to eq(expected_ids)  
-			end
+	describe "#all_features" do
+		it "should return an Array of Features" do
+			response = storyResource.all_features
+			expect(response).to be_an_instance_of(Array)
+			response.each {|item| expect(item).to be_an_instance_of(Targetprocess::Feature) }
 		end
+	end
+
+	describe "#features_by_project" do
+		it "should return array of Features" do
+			response = storyResource.features_by_project("D6AC5DA358E9EFA3FE23C637038A54B5")
+			expect(response).to be_an_instance_of(Array)
+			response.each { |item| expect(item).to be_an_instance_of(Targetprocess::Feature) }
+		end
+	end
+
+	describe "#features_by_project" do
+		it "should return array of Features" do
+			response = storyResource.features_by_project("D6AC5DA358E9EFA3FE23C637038A54B5")
+			expect(response).to be_an_instance_of(Array)
+			response.each { |item| expect(item).to be_an_instance_of(Targetprocess::Feature) }
+		end	
+	end
+
+	describe "#features_by_ids" do
+		it "should return array of 222 Feature" do
+			response = storyResource.features_by_ids(222)
+			expect(response).to be_an_instance_of(Array)
+			expect(response.first).to be_an_instance_of(Targetprocess::Feature) 
+			expect(response.first.id).to eq(222) 
+		end
+	end
+
+	describe "#find_feature" do
+		it "should return 222 Feature" do
+			response = storyResource.find_feature(222)
+			expect(response).to be_an_instance_of(Targetprocess::Feature)
+			expect(response.id).to eq(222)
+		end
+	end 
+
 end
 

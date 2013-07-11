@@ -1,0 +1,46 @@
+task: 
+  - userstory
+  - userstory_id
+  - userstory_name
+
+userstory:
+  - initialestimate
+  - feature
+  - feature_id
+  - feature_name
+
+feature:
+  - initialestimate
+
+bug:
+  - userstory 
+  - userstory_id 
+  - userstory_name 
+  - severity 
+  - severity_id 
+  - severity_name 
+  - build 
+  - build_id 
+  - build_name
+
+user:
+  - kind 
+  - firstname 
+  - lastname 
+  - email 
+  - login 
+  - deletedate 
+  - isactive 
+  - isadministrator 
+  - weeklyavaolablehours 
+  - currentallocation 
+  - currentavailablehours 
+  - availablefrom 
+  - availablefutureallocation 
+  - availablefuturehours 
+  - isobserver 
+  - skills 
+  - activedirectoryname 
+  - role_id 
+  - role_name 
+  - role

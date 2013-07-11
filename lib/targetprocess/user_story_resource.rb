@@ -92,5 +92,20 @@ module Targetprocess
 	  	args.collect!{ |id| Bug.new(request("api/v1/bugs/#{id}")["Bug"]) }
 	  end
 
+	  def all_features(options={})
+	  	return_array_of(request("api/v1/features", options)["Features"]["Feature"], Feature)
+	  end
+
+	  def features_by_project(acid, options={})
+	    return_array_of(request("api/v1/features", options, acid)["Features"]["Feature"], Feature)
+	  end
+
+	  def find_feature(id, options={})
+	  	Feature.new request("api/v1/features/#{id}", options)["Feature"]
+	  end
+
+	  def features_by_ids(*args)
+	  	args.collect!{ |id| Feature.new(request("api/v1/Features/#{id}")["Feature"]) }
+	  end
 	end
 end
