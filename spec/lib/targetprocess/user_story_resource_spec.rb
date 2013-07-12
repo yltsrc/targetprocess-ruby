@@ -286,7 +286,7 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		end
 	end 
 
-	describe "#all_releases" do
+	describe "#all_projects" do
 		it "should return an array of releases" do 
 			response = storyResource.all_projects
 			expect(response).to be_an_instance_of(Array)
@@ -353,4 +353,117 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		end
 	end
 
+	describe "#all_requests" do
+		it "should return an array of Requests" do 
+			response = storyResource.all_requests
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Request) 
+			end
+		end
+	end
+
+	describe "#requests_by_project" do
+		it "should return array of Requests" do
+			response = storyResource.requests_by_project("5FA0BB2EB47B24832C250EB73431AB2F")
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Request) 
+			end
+		end	
+	end
+
+	describe "#requests_by_ids" do
+		it "should return an array of Requests" do
+			response = storyResource.requests_by_ids(31, 29)
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Request) 
+			end
+		end
+	end
+
+	describe "#find_request" do
+		it "should return 132 Request" do
+			response = storyResource.find_request(31)
+			expect(response).to be_an_instance_of(Targetprocess::Request)
+			expect(response.id).to eq(31) 	
+		end
+	end
+
+		describe "#all_testcases" do
+		it "should return an array of Testcases" do 
+			response = storyResource.all_testcases
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Testcase) 
+			end
+		end
+	end
+
+	describe "#testcases_by_project" do
+		it "should return array of Testcases" do
+			response = storyResource.testcases_by_project("5FA0BB2EB47B24832C250EB73431AB2F")
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Testcase) 
+			end
+		end	
+	end
+
+	describe "#testcases_by_ids" do
+		it "should return an array of Testcases" do
+			response = storyResource.testcases_by_ids(213, 209)
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Testcase) 
+			end
+		end
+	end
+
+	describe "#find_testcase" do
+		it "should return 209 Testcase" do
+			response = storyResource.find_testcase(209)
+			expect(response).to be_an_instance_of(Targetprocess::Testcase)
+			expect(response.id).to eq(209) 	
+		end
+	end
+
+	describe "#all_impediments" do
+		it "should return an array of Impediments" do 
+			response = storyResource.all_impediments
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Impediment) 
+			end
+		end
+	end
+
+	describe "#impediments_by_project" do
+		it "should return array of Impediments" do
+			response = storyResource.impediments_by_project("5FA0BB2EB47B24832C250EB73431AB2F")
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Impediment) 
+			end
+		end	
+	end
+
+	describe "#impediments_by_ids" do
+		it "should return an array of Impediments" do
+			response = storyResource.impediments_by_ids(229, 227)
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Impediment) 
+			end
+		end
+	end
+
+	describe "#find_testcase" do
+		it "should return 229 Impediment" do
+			response = storyResource.find_impediment(229)
+			expect(response).to be_an_instance_of(Targetprocess::Impediment)
+			expect(response.id).to eq(229) 	
+		end
+	end
 end

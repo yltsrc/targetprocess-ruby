@@ -10,11 +10,11 @@ module Assignable
   ARR_VARS = %w( tags skills )
   FLOAT_VARS = %w( velocity weeklyavaolablehours currentavailablehours availablefuturehours 
                    timeremain timespent efforttodo effortcompleted effort initialestimate)
-  INT_VARS = %w( duration currentallocation availablefutureallocation role_id id entitystate_id
+  INT_VARS = %w( assignable_id responsible_id duration currentallocation availablefutureallocation role_id id entitystate_id
                  priority_id team_id teamiteration_id iteration_id release_id project_id 
                  lastcommenteduser_id owner_id entitytype_id numericpriority userstory_id 
                  severity_id build_id )
-  DATE_VARS = %w( deletedate availablefrom startdate enddate createdate modifydate lastcommentdate )
+  DATE_VARS = %w( lastrundate deletedate availablefrom startdate enddate createdate modifydate lastcommentdate )
   ALL_VARS = [:id, :name , :description, :startdate, :enddate, :createdate, :modifydate, 
               :lastcommentdate, :tags, :numericpriority, :effort, :effortcompleted, 
               :efforttodo, :timespent, :timeremain, :entitytype, :entitytype_id, 

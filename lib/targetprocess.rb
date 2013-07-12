@@ -7,6 +7,9 @@ require "targetprocess/bug"
 require "targetprocess/feature"
 require "targetprocess/project"
 require "targetprocess/release"
+require "targetprocess/request"
+require "targetprocess/testcase"
+require "targetprocess/impediment"
 
 module Targetprocess
 

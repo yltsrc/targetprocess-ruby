@@ -161,5 +161,54 @@ module Targetprocess
 	  def iterations_by_ids(*args)
 	  	args.collect!{ |id| Iteration.new(request("api/v1/iterations/#{id}")["Iteration"]) }
 	  end
+
+
+	  def all_requests(options={})
+	  	return_array_of(request("api/v1/requests", options)["Requests"]["Request"], Request)
+	  end
+
+	  def requests_by_project(acid, options={})
+	    return_array_of(request("api/v1/requests", options, acid)["Requests"]["Request"], Request)
+	  end
+
+	  def find_request(id, options={})
+	  	Request.new request("api/v1/requests/#{id}", options)["Request"]
+	  end
+
+	  def requests_by_ids(*args)
+	  	args.collect!{ |id| Request.new(request("api/v1/requests/#{id}")["Request"]) }
+	  end
+
+	  def all_testcases(options={})
+	  	return_array_of(request("api/v1/testcases", options)["TestCases"]["TestCase"], Testcase)
+	  end
+
+	  def testcases_by_project(acid, options={})
+	    return_array_of(request("api/v1/testcases", options, acid)["TestCases"]["TestCase"], Testcase)
+	  end
+
+	  def find_testcase(id, options={})
+	  	Testcase.new request("api/v1/testcases/#{id}", options)["TestCase"]
+	  end
+
+	  def testcases_by_ids(*args)
+	  	args.collect!{ |id| Testcase.new(request("api/v1/testcases/#{id}")["TestCase"]) }
+	  end
+
+	  def all_impediments(options={})
+	  	return_array_of(request("api/v1/impediments", options)["Impediments"]["Impediment"], Impediment)
+	  end
+
+	  def impediments_by_project(acid, options={})
+	    return_array_of(request("api/v1/impediments", options, acid)["Impediments"]["Impediment"], Impediment)
+	  end
+
+	  def find_impediment(id, options={})
+	  	Impediment.new request("api/v1/impediments/#{id}", options)["Impediment"]
+	  end
+
+	  def impediments_by_ids(*args)
+	  	args.collect!{ |id| Impediment.new(request("api/v1/impediments/#{id}")["Impediment"]) }
+	  end
 	end
 end

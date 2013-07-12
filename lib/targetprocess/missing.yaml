@@ -68,3 +68,34 @@ iteration:
   - duration
   - velocity
   - iscurrent
+
+request:
+  - sourcetype
+  - isreplied
+  - isprivate
+  - requesttype
+  - requesttype_id
+  - requesttype_name
+
+testcase:
+  - userstory
+  - userstory_id
+  - userstory_name
+  - steps
+  - success
+  - laststatus
+  - lastfailurecomment
+  - lastrundate
+
+impediment:
+  - isprivate
+  - assignable
+  - assignable_name
+  - assignable_id
+  - responsible
+  - responsible_id
+  - responsible_kind
+  - responsible_firstname
+  - responsible_lastname
+
+
