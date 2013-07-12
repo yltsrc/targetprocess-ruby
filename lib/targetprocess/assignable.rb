@@ -39,6 +39,19 @@ module Assignable
       self::ALL_MISSINGS[self.to_s.split(/::/).last.downcase].collect{ |var| var.to_sym }
     end
 
+    def constants_inclusion(value, var)
+      if self::FLOAT_VARS.include?(var.to_s) 
+        value.to_f
+      elsif self::INT_VARS.include?(var.to_s)
+        value.to_i
+      elsif self::ARR_VARS.include?(var.to_s)
+        value.is_a?(Array) ? value : value.split(/, /) 
+      elsif self::DATE_VARS.include?(var.to_s)
+        DateTime.parse( value )
+      else 
+        value
+      end
+    end
   end
 
   module InstanceMethods
@@ -68,32 +81,37 @@ module Assignable
     end
 
     def normalize_values  
-      klass = self.class
-      (klass::ALL_VARS+klass.missings).each do |var|
-        current_val = self.send(var)
-        val = if self.send(var).nil?
-          nil 
-        elsif klass::FLOAT_VARS.include?(var.to_s) 
-          current_val.to_f
-        elsif klass::INT_VARS.include?(var.to_s)
-          current_val.to_i
-        elsif klass::ARR_VARS.include?(var.to_s)
-          current_val.is_a?(Array) ? current_val : current_val.split(/, /) 
-        elsif klass::DATE_VARS.include?(var.to_s)
-          DateTime.parse( current_val )
-        elsif current_val.is_a?(Hash)
-          Hash[current_val.map {|k, v| [k.downcase.to_sym, (k=="Id"? v.to_i : v)] }]
-        elsif current_val == "true"
-          true
-        elsif current_val == "false"
-          false
-        else 
-          current_val
+      (self.class::ALL_VARS+self.class.missings).each do |var|
+        value = self.send(var)
+        if self.send(var).nil?
+          value = nil 
+        else
+          value = self.class.constants_inclusion(value, var)
+          value = bool_normalize(value)
+          value = hash_normalize(value)
         end
-        self.instance_variable_set("@#{var}".to_sym, val) 
+        self.instance_variable_set("@#{var}".to_sym, value) 
       end
     end
     
+    def bool_normalize(value)
+      if value == "true"
+        true
+      elsif value == "false"
+        false
+      else 
+        value
+      end
+    end
+
+    def hash_normalize(value)
+      if value.is_a?(Hash)
+        Hash[value.map {|k, v| [k.downcase.to_sym, (k=="Id"? v.to_i : v)] }]
+      else
+        value  
+      end
+    end
+
   end
 
 end
