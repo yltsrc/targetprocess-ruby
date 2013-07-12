@@ -5,6 +5,8 @@ require "targetprocess/user"
 require "targetprocess/task"
 require "targetprocess/bug"
 require "targetprocess/feature"
+require "targetprocess/project"
+require "targetprocess/release"
 
 module Targetprocess
 

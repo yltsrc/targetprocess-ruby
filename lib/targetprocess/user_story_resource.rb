@@ -39,6 +39,7 @@ module Targetprocess
 	  	Userstory.new(request("api/v1/userstories/#{id}", options)["UserStory"])
 	  end
 
+
 	  def users_by_ids(*args)
 	  	args.collect!{ |id| User.new(request("api/v1/users/#{id}")["User"]) }
 	  end
@@ -50,6 +51,7 @@ module Targetprocess
 	  def find_user(id, options={})
 	  	User.new(request("api/v1/users/#{id}", options)["User"])
 	  end
+
 
 	  def all_tasks(options={})
 	  	return_array_of(request("api/v1/tasks", options)["Tasks"]["Task"], Task)
@@ -69,8 +71,8 @@ module Targetprocess
 
 	  def tasks_by_project(acid, options={})
 	  	return_array_of(request("api/v1/tasks", options, acid)["Tasks"]["Task"], Task)
-	  
 	  end
+
 
 	  def all_bugs(options={})
 	  	return_array_of(request("api/v1/bugs", options)["Bugs"]["Bug"], Bug)
@@ -92,6 +94,7 @@ module Targetprocess
 	  	args.collect!{ |id| Bug.new(request("api/v1/bugs/#{id}")["Bug"]) }
 	  end
 
+
 	  def all_features(options={})
 	  	return_array_of(request("api/v1/features", options)["Features"]["Feature"], Feature)
 	  end
@@ -106,6 +109,57 @@ module Targetprocess
 
 	  def features_by_ids(*args)
 	  	args.collect!{ |id| Feature.new(request("api/v1/Features/#{id}")["Feature"]) }
+	  end
+
+
+	  def all_projects(options={})
+	  	return_array_of(request("api/v1/projects", options)["Projects"]["Project"], Project)
+	  end
+
+	  # def projects_by_project(acid, options={})
+	  #   return_array_of(request("api/v1/projects", options, acid)["Projects"]["Project"], Project)
+	  # end
+
+	  def find_project(id, options={})
+	  	Project.new request("api/v1/projects/#{id}", options)["Project"]
+	  end
+
+	  def projects_by_ids(*args)
+	  	args.collect!{ |id| Project.new(request("api/v1/projects/#{id}")["Project"]) }
+	  end
+
+	  
+	  def all_releases(options={})
+	  	return_array_of(request("api/v1/releases", options)["Releases"]["Release"], Release)
+	  end
+
+	  def releases_by_project(acid, options={})
+	    return_array_of(request("api/v1/releases", options, acid)["Releases"]["Release"], Release)
+	  end
+
+	  def find_release(id, options={})
+	  	Release.new request("api/v1/releases/#{id}", options)["Release"]
+	  end
+
+	  def releases_by_ids(*args)
+	  	args.collect!{ |id| Release.new(request("api/v1/releases/#{id}")["Release"]) }
+	  end
+
+
+	  def all_iterations(options={})
+	  	return_array_of(request("api/v1/iterations", options)["Iterations"]["Iteration"], Iteration)
+	  end
+
+	  def iterations_by_project(acid, options={})
+	    return_array_of(request("api/v1/iterations", options, acid)["Iterations"]["Iteration"], Iteration)
+	  end
+
+	  def find_iteration(id, options={})
+	  	Iteration.new request("api/v1/iterations/#{id}", options)["Iteration"]
+	  end
+
+	  def iterations_by_ids(*args)
+	  	args.collect!{ |id| Iteration.new(request("api/v1/iterations/#{id}")["Iteration"]) }
 	  end
 	end
 end

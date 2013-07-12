@@ -44,3 +44,27 @@ user:
   - role_id 
   - role_name 
   - role
+
+project:
+  - isactive
+  - isproduct 
+  - abbreviation 
+  - mailreplyaddress 
+  - color 
+  - program 
+  - program_id 
+  - program_name
+  - process 
+  - process_id 
+  - process_name 
+  - company
+  - company_id
+  - company_name
+
+release:
+  - iscurrent
+
+iteration:
+  - duration
+  - velocity
+  - iscurrent

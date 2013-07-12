@@ -2,12 +2,8 @@ require 'spec_helper'
 
 describe Targetprocess::UserStoryResource, :vcr => true do
 
-	subject(:storyResource) { Targetprocess::UserStoryResource.new('admin','admin','http://kamrad.tpondemand.com') }
-
-	describe "storyResource" do
-	  it "must be an instance of UserStoryResource" do 
-  		expect(storyResource).to be_an_instance_of(Targetprocess::UserStoryResource)
-	  end
+	subject(:storyResource) do 
+		Targetprocess::UserStoryResource.new('admin','admin','http://kamrad.tpondemand.com') 
 	end
 
 	describe "#all_stories" do
@@ -28,7 +24,8 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 
 	describe "#stories_by_project" do
 		it "should be an instance of Array" do
-	 		expect(storyResource.stories_by_project("D6AC5DA358E9EFA3FE23C637038A54B5").class).to eq(Array) 
+			response = storyResource.stories_by_project("D6AC5DA358E9EFA3FE23C637038A54B5")
+	 		expect(response.class).to eq(Array) 
 	 	end
 
 	  it "shoould contain instances of Targetprocess::Userstory" do
@@ -41,13 +38,30 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 	describe "#story_by_ids" do
 		it "should be similar to Userstory instance" do
  				response = storyResource.story_by_ids(182).first
-				story = Targetprocess::Userstory.new(:id=>182, :name=>"Edit Area 1", :release=>{:id=>58, :name=>"Release #2"}, :project=>{:id=>13, :name=>"Tau Product Web Site - Scrum #1"}, :priority=>{:id=>2, :name=>"Great"},
-							  :owner=>{:id=>7, :firstname=>"Jack", :lastname=>"Blue"}, :entitytype=>{:id=>4, :name=>"UserStory"}, :entitystate=>{:id=>46, :name=>"Open"}, :lastcommenteduser=> {:id=>1, :firstname=>"Administrator", 
-							  :lastname=>"Administrator"}, :description=>nil, :createdate=>"2013-06-18T09:20:00", :modifydate=>"2013-07-08T08:01:27", :startdate=>"2013-07-08T05:05:19", :enddate=>nil,
-							  :lastcommentdate=>"2013-07-08T02:36:54", :lastcommenteduser_firstname => "Administrator", :lastcommenteduser_id=>1, :lastcommenteduser_lastname=>"Administrator", :tags=> ["asd", "qwe"], 
-							  :numericpriority=>59.875, :effort=>8.0, :effortcompleted=>0.0, :efforttodo=>8.0, :timespent=>0.0, :timeremain=>8.0, :initialestimate=>8.0, :entitytype_id=>4, :entitytype_name=>"UserStory", 
-							  :owner_id=>7, :owner_firstname=>"Jack", :owner_lastname=>"Blue", :project_id=>13, :project_name=> "Tau Product Web Site - Scrum #1", :release_id=>58, :release_name=>"Release #2", :iteration_id=> 116, 
-							  :iteration=>{:id=>116, :name=>"Sprint #2.3"}, :teamiteration=>nil, :team=>nil, :priority_id=>2, :priority_name=>"Great", :entitystate_id=>46, :entitystate_name=>"Open", :feature=>nil, :customfields=>nil)
+				story = Targetprocess::Userstory.new(:id=>182, :name=>"Edit Area 1", 
+								:release=>{:id=>58, :name=>"Release #2"}, 
+								:project=>{:id=>13, :name=>"Tau Product Web Site - Scrum #1"}, 
+								:priority=>{:id=>2, :name=>"Great"},
+							  :owner=>{:id=>7, :firstname=>"Jack", :lastname=>"Blue"}, 
+							  :entitytype=>{:id=>4, :name=>"UserStory"}, 
+							  :entitystate=>{:id=>46, :name=>"Open"}, 
+							  :lastcommenteduser=> {:id=>1, :firstname=>"Administrator", 
+							  :lastname=>"Administrator"}, :description=>nil, 
+							  :createdate=>"2013-06-18T09:20:00", :modifydate=>"2013-07-08T08:01:27",
+							  :startdate=>"2013-07-08T05:05:19", :enddate=>nil,
+							  :lastcommentdate=>"2013-07-08T02:36:54", 
+							  :lastcommenteduser_firstname => "Administrator", :lastcommenteduser_id=>1, 
+							  :lastcommenteduser_lastname=>"Administrator", :tags=> ["asd", "qwe"], 
+							  :numericpriority=>59.875, :effort=>8.0, :effortcompleted=>0.0, 
+							  :efforttodo=>8.0, :timespent=>0.0, :timeremain=>8.0, :initialestimate=>8.0,
+							  :entitytype_id=>4, :entitytype_name=>"UserStory", 
+							  :owner_id=>7, :owner_firstname=>"Jack", :owner_lastname=>"Blue", 
+							  :project_id=>13, :project_name=> "Tau Product Web Site - Scrum #1", 
+							  :release_id=>58, :release_name=>"Release #2", :iteration_id=> 116, 
+							  :iteration=>{:id=>116, :name=>"Sprint #2.3"}, :teamiteration=>nil, 
+							  :team=>nil, :priority_id=>2, :priority_name=>"Great", 
+							  :entitystate_id=>46, :entitystate_name=>"Open", :feature=>nil, 
+							  :customfields=>nil)
 				expect(response).to eq story
 	 	end
 	end	
@@ -70,9 +84,17 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		end
 
 		it "should be equal to User instance" do
-			user = Targetprocess::User.new(:id => 1, :kind => "User", :firstname => "Administrator", :lastname => "Administrator", :email => "dm.brodnitskiy@gmail.com", login: "admin", createdate: "2013-07-02T00:00:25.457", modifydate: "2013-07-09T02:52:27",
-						 deletedate: nil, isactive: true, isadministrator: true, weeklyavailablehours: 40.0000, currentallocation: 220, currentavailablehours: 0.0000, availablefrom: nil, availablefutureallocation: 0, availablefuturehours: 0.0000,
-						 isobserver: true, skills: ["ruby", "rails"], activedirectoryname: "test", role_id: 1, role_name: "Developer", role: {id: 1, name: "Developer"} )
+			user = Targetprocess::User.new(:id => 1, :kind => "User", 
+						 :firstname => "Administrator", :lastname => "Administrator", 
+						 :email => "dm.brodnitskiy@gmail.com", login: "admin", 
+						 createdate: "2013-07-02T00:00:25.457", modifydate: "2013-07-09T02:52:27",
+						 deletedate: nil, isactive: true, isadministrator: true,
+						 weeklyavailablehours: 40.0000, currentallocation: 220, 
+						 currentavailablehours: 0.0000, availablefrom: nil, 
+						 availablefutureallocation: 0, availablefuturehours: 0.0000,
+						 isobserver: true, skills: ["ruby", "rails"], 
+						 activedirectoryname: "test", role_id: 1, role_name: "Developer", 
+						 role: {id: 1, name: "Developer"} )
 			response_user = storyResource.users_by_ids(1).first
 			expect(response_user).to eq(user)
 		end
@@ -111,14 +133,28 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 
 	describe "#tasks_by_ids" do
 	 	it "should be equal to Task instance" do
-	 		task = Targetprocess::Task.new(:id => 43, :release => {id: 32, name: "Release #1"}, :description => nil, :name => "Discuss development platform", :createdate =>"2013-05-12T00:00:00", 
-	 					 :modifydate => "2013-05-14T10:20:00", :startdate => "2013-05-13T09:50:00", :enddate => "2013-05-14T10:20:00", :lastcommentdate => nil, :tags => nil, :priority =>{id: 11, name: "-"}, 
-	 					 :numericpriority => 11, :effort => 6.0000, :effortcompleted => 6.0000, :efforttodo => 0.0000, :timespent => 6.0000, :timeremain => 0.0000, :entitytype => {id: 5, name: "Task"}, :entitytype_id => 5, 
-	 					 :entitytype_name => "Task", :owner => {id: 2, firstname: "Target", lastname: "Process"}, :owner_id => 2, :owner_firstname => "Target", :owner_lastname => "Process", :lastcommenteduser => nil, 
-	 					 :project => {id: 13, name: "Tau Product Web Site - Scrum #1"}, :project_id => 13, :project_name => "Tau Product Web Site - Scrum #1" , :release_id => 32, :release_name => "Release #1",
-	 					 :iteration => {id: 33, name: "Sprint #1.1"}, :teamiteration => nil, :team_id => nil, :team_name => nil, :team => nil, :priority_id => 11, :priority_name => "-", :iteration_name => "Sprint #1.1",
-	 					 :iteration_id => 33, :entitystate_id => 52, :entitystate => {id: 52, name: "Done"}, :entitystate_name => "Done", :customfields => nil, :lastcommenteduser_id => nil, 
-	 					 :userstory => {id: 40, name: "Select development platform"}, :userstory_id => 40, :userstory_name => "Select development platform", :customfields => nil)
+	 		task = Targetprocess::Task.new(:id => 43, :release => {id: 32, name: "Release #1"},
+	 					 :description => nil, :name => "Discuss development platform", 
+	 					 :createdate =>"2013-05-12T00:00:00", :modifydate => "2013-05-14T10:20:00", 
+	 					 :startdate => "2013-05-13T09:50:00", :enddate => "2013-05-14T10:20:00", 
+	 					 :lastcommentdate => nil, :tags => nil, :priority =>{id: 11, name: "-"}, 
+	 					 :numericpriority => 11, :effort => 6.0000, :effortcompleted => 6.0000, 
+	 					 :efforttodo => 0.0000, :timespent => 6.0000, :timeremain => 0.0000, 
+	 					 :entitytype => {id: 5, name: "Task"}, :entitytype_id => 5, 
+	 					 :entitytype_name => "Task", :owner => {id: 2, firstname: "Target", 
+	 					 lastname: "Process"}, :owner_id => 2, :owner_firstname => "Target", 
+	 					 :owner_lastname => "Process", :lastcommenteduser => nil, 
+	 					 :project => {id: 13, name: "Tau Product Web Site - Scrum #1"}, 
+	 					 :project_id => 13, :project_name => "Tau Product Web Site - Scrum #1" ,
+	 					 :release_id => 32, :release_name => "Release #1",
+	 					 :iteration => {id: 33, name: "Sprint #1.1"}, :teamiteration => nil,
+	 					 :team_id => nil, :team_name => nil, :team => nil, :priority_id => 11,
+	 					 :priority_name => "-", :iteration_name => "Sprint #1.1",
+	 					 :iteration_id => 33, :entitystate_id => 52, :entitystate => {id: 52, name: "Done"},
+	 					 :entitystate_name => "Done", :customfields => nil, :lastcommenteduser_id => nil, 
+	 					 :userstory => {id: 40, name: "Select development platform"}, 
+	 					 :userstory_id => 40, :userstory_name => "Select development platform", 
+	 					 :customfields => nil)
 			response = storyResource.tasks_by_ids(43)
 			expect(response.first).to eq(task)
 	 	end
@@ -141,11 +177,13 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 
 	describe "#bugs_by_project" do
 		it "should be an instance of Array" do
-	 		expect(storyResource.bugs_by_project("5FA0BB2EB47B24832C250EB73431AB2F").class).to eq(Array) 
+			response = storyResource.bugs_by_project("5FA0BB2EB47B24832C250EB73431AB2F")
+	 		expect(response.class).to eq(Array) 
 	 	end
 
 	  it "should contain Bugs" do
-			expect(storyResource.bugs_by_project("5FA0BB2EB47B24832C250EB73431AB2F").first).to be_an_instance_of(Targetprocess::Bug)
+	  	response = storyResource.bugs_by_project("5FA0BB2EB47B24832C250EB73431AB2F")
+			expect(response.first).to be_an_instance_of(Targetprocess::Bug)
 		end
 	end
 
@@ -155,7 +193,9 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 	 	end
 
 	  it "should contain Bugs" do
-			storyResource.all_bugs.each{ |bug|  expect(bug).to be_an_instance_of(Targetprocess::Bug)}
+			storyResource.all_bugs.each do |bug|  
+				expect(bug).to be_an_instance_of(Targetprocess::Bug)
+			end
 		end
 	end
 
@@ -213,7 +253,9 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		it "should return array of Features" do
 			response = storyResource.features_by_project("D6AC5DA358E9EFA3FE23C637038A54B5")
 			expect(response).to be_an_instance_of(Array)
-			response.each { |item| expect(item).to be_an_instance_of(Targetprocess::Feature) }
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Feature) 
+			end
 		end
 	end
 
@@ -221,7 +263,9 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		it "should return array of Features" do
 			response = storyResource.features_by_project("D6AC5DA358E9EFA3FE23C637038A54B5")
 			expect(response).to be_an_instance_of(Array)
-			response.each { |item| expect(item).to be_an_instance_of(Targetprocess::Feature) }
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Feature) 
+			end
 		end	
 	end
 
@@ -242,5 +286,71 @@ describe Targetprocess::UserStoryResource, :vcr => true do
 		end
 	end 
 
-end
+	describe "#all_releases" do
+		it "should return an array of releases" do 
+			response = storyResource.all_projects
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Project) 
+			end
+		end
+	end
 
+	describe "#projects_by_ids" do
+		it "should return an array of Projects" do
+			response = storyResource.projects_by_ids(2)
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Project) 
+			end
+		end
+	end
+
+	describe "#find_project" do
+		it "should return 2 Project" do
+			response = storyResource.find_project(2)
+			expect(response).to be_an_instance_of(Targetprocess::Project)
+			expect(response.id).to eq(2) 	
+		end
+	end
+
+
+	describe "#all_releases" do
+		it "should return an array of Releases" do 
+			response = storyResource.all_releases
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Release) 
+			end
+		end
+	end
+
+	describe "#releases_by_project" do
+		it "should return array of Releases" do
+			response = storyResource.releases_by_project("5FA0BB2EB47B24832C250EB73431AB2F")
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Release) 
+			end
+		end	
+	end
+
+	describe "#releases_by_ids" do
+		it "should return an array of Releases" do
+			response = storyResource.releases_by_ids(132, 6)
+			expect(response).to be_an_instance_of(Array)
+			response.each do |item| 
+				expect(item).to be_an_instance_of(Targetprocess::Release) 
+			end
+		end
+	end
+
+	describe "#find_release" do
+		it "should return 132 Release" do
+			response = storyResource.find_release(132)
+			expect(response).to be_an_instance_of(Targetprocess::Release)
+			expect(response.id).to eq(132) 	
+		end
+	end
+
+end
