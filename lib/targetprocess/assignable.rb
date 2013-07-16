@@ -1,6 +1,11 @@
 require "yaml"
+require 'active_support/inflector'
+require 'httparty'
 
 module Assignable
+
+  include HTTParty
+  format :xml
 
   def self.included(base)
     base.send(:include, InstanceMethods)
@@ -10,10 +15,11 @@ module Assignable
   ARR_VARS = %w( tags skills )
   FLOAT_VARS = %w( velocity weeklyavaolablehours currentavailablehours availablefuturehours 
                    timeremain timespent efforttodo effortcompleted effort initialestimate)
-  INT_VARS = %w( assignable_id responsible_id duration currentallocation availablefutureallocation role_id id entitystate_id
-                 priority_id team_id teamiteration_id iteration_id release_id project_id 
-                 lastcommenteduser_id owner_id entitytype_id numericpriority userstory_id 
-                 severity_id build_id )
+  INT_VARS = %w( assignable_id responsible_id duration currentallocation availablefutureallocation 
+                 role_id id entitystate_id priority_id team_id teamiteration_id 
+                 iteration_id release_id project_id lastcommenteduser_id owner_id 
+                 entitytype_id numericpriority userstory_id severity_id build_id 
+                 parentid general_id)
   DATE_VARS = %w( lastrundate deletedate availablefrom startdate enddate createdate modifydate lastcommentdate )
   ALL_VARS = [:id, :name , :description, :startdate, :enddate, :createdate, :modifydate, 
               :lastcommentdate, :tags, :numericpriority, :effort, :effortcompleted, 
@@ -36,7 +42,8 @@ module Assignable
     end             
 
     def missings
-      self::ALL_MISSINGS[self.to_s.split(/::/).last.downcase].collect{ |var| var.to_sym }
+      miss = self::ALL_MISSINGS[self.to_s.split(/::/).last.downcase]
+      miss.nil? ? [] : miss.collect{ |var| var.to_sym }
     end
 
     def constants_inclusion(value, var)
@@ -52,6 +59,48 @@ module Assignable
         value
       end
     end
+
+    def where(params_str)
+      options = {:body => {:where => params_str}}
+      self.all(options)
+    end
+
+    def all(options={})
+      self.find(:all, options)
+    end
+
+    def find(id, options={})
+      klass = self.to_s.split(/::/).last
+      u = Targetprocess::USERNAME
+      p = Targetprocess::PASSWORD
+      case id
+      when Fixnum
+        url = Targetprocess::URI + "#{klass.pluralize}/#{id}"
+         response = request(url, u, p, options)
+         response.nil? ? nil : response[klass]
+      when :all
+        url = Targetprocess::URI + "#{klass.pluralize}"
+        response = request(url, u, p, options)
+        response.nil? ? nil : return_array_of(response[klass.pluralize][klass])
+      end
+    end
+
+    def request(url, u, p, options={})
+      options.merge!(:basic_auth => {username: u, password: p })
+      error_check Assignable::get(url, options)
+    end
+
+    def return_array_of(response)
+      response.is_a?(Hash) ? [self.new(response)] : response.collect! do |item| 
+        self.new(item) 
+      end 
+    end
+
+    def error_check(response)
+      response["Error"].nil? ? response : nil 
+    end
+
+
   end
 
   module InstanceMethods

@@ -1,6 +1,6 @@
 require "targetprocess/assignable"
 module Targetprocess
-  class Testcase
+  class TestCase
     include Assignable
   end
 end

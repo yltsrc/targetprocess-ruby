@@ -24,5 +24,6 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "httparty"
   spec.add_development_dependency "vcr"
-  spec.add_development_dependency "webmock"
+  spec.add_development_dependency "webmock", "1.8"
+  spec.add_development_dependency "active_support"
 end

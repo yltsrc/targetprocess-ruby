@@ -1,6 +1,6 @@
 require "targetprocess/assignable"
 module Targetprocess
-	class Userstory
+	class UserStory
     include Assignable
 	end
 end
