@@ -1,6 +1,7 @@
 # Targetprocess
 
-Gem provides ruby interface for interaction with [Targetprocess](http://www.targetprocess.com/) through REST api.
+Gem provides ruby interface for interaction with 
+[Targetprocess](http://www.targetprocess.com/) through REST api.
 
 ## Installation
 
