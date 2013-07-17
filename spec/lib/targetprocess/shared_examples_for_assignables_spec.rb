@@ -1,6 +1,12 @@
 require 'spec_helper'
 require 'targetprocess/assignable'
 
+  Targetprocess.configure do |config|
+    config.domain = "http://kamrad.tpondemand.com/api/v1/"
+    config.username = "admin"
+    config.password = "admin"
+  end
+
 shared_examples "an assignable" do
   let(:assignable) { described_class.find(:all).first}
   context "initialized" do

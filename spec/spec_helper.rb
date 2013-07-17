@@ -9,6 +9,7 @@ VCR.configure do |c|
   c.configure_rspec_metadata!
 end
 			
-# Run this commands in case you want to send any request to api, otherwise VCR and WebMock will not allow you
+# Run this commands in case you want to send any request to api, otherwise
+# VCR and WebMock will not allow you
 # VCR.turn_off!
 # WebMock.allow_net_connect!

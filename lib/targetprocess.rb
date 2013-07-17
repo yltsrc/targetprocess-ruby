@@ -13,8 +13,24 @@ require "targetprocess/iteration"
 require "targetprocess/comment"
 
 module Targetprocess
+ 
+  class << self
+    attr_accessor :configuration 
+  end
 
-  URI = 'http://kamrad.tpondemand.com/api/v1/'
-  USERNAME = 'admin'
-  PASSWORD = 'admin'
+  def self.configure
+    self.configuration ||= Configuration.new
+    yield(configuration)
+  end
+
+  class Configuration
+    attr_accessor :domain, :username, :password
+
+    def initialize 
+      @domain = ""
+      @username = ""
+      @password = ""
+    end
+  end
+
 end
