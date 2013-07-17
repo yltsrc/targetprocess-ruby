@@ -5,4 +5,3 @@ describe "Targetprocess::VERSION" do
     expect(Targetprocess::VERSION).to_not be_nil
   end
 end
- 
