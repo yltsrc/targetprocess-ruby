@@ -25,12 +25,6 @@ module Targetprocess
 
   class Configuration
     attr_accessor :domain, :username, :password
-
-    def initialize 
-      @domain = ""
-      @username = ""
-      @password = ""
-    end
   end
 
 end

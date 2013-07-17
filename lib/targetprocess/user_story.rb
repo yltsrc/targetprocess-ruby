@@ -4,5 +4,3 @@ module Targetprocess
     include Assignable
 	end
 end
-
-

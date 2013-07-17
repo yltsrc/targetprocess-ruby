@@ -106,6 +106,3 @@ shared_examples "an assignable" do
   end
 
 end
-
-
-

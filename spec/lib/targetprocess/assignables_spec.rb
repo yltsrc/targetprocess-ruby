@@ -38,4 +38,3 @@ describe "assignables", vcr: true do
     it_behaves_like "an assignable"
   end
 end
-
