@@ -2,6 +2,13 @@ require 'spec_helper.rb'
 
 describe Targetprocess do
   describe '#configure' do
+    it 'raises configuration error with no credentials' do
+      Targetprocess.configuration = nil
+      expect {
+        Targetprocess.configuration
+      }.to raise_error(Targetprocess::ConfigurationError)
+    end
+
     it 'set http credentials' do
       Targetprocess.configure do |c|
         c.domain = 'domain'
@@ -14,12 +21,6 @@ describe Targetprocess do
       expect(config.domain).to eql('domain')
       expect(config.username).to eql('admin')
       expect(config.password).to eql('secret')
-    end
-
-    it 'raises configuration error with no credentials' do
-      expect {
-        Targetprocess.configuration
-      }.to raise(Targetprocess::ConfigurationError)
     end
   end  
 end

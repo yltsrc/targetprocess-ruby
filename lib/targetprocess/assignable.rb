@@ -40,8 +40,7 @@ module Targetprocess
     module ClassMethods 
 
       def where(params_str)
-        options = {:body => {:where => params_str}}
-        self.all(options)
+        self.all({:where => params_str})
       end
 
       def all(options={})
@@ -50,6 +49,7 @@ module Targetprocess
 
       def find(id, options={})
         klass = self.to_s.split(/::/).last
+        options = {:body => options} unless options.empty?
         case id
         when :all
           url = Targetprocess.configuration.domain + "#{klass.pluralize}"
@@ -58,7 +58,7 @@ module Targetprocess
         else
           url = Targetprocess.configuration.domain + "#{klass.pluralize}/#{id}"
           response = request(url, options)
-          response.nil? ? nil : response[klass]
+          response.nil? ? nil : self.new(response[klass])
         end
       end
 
@@ -77,7 +77,11 @@ module Targetprocess
         elsif self::INT_VARS.include?(var.to_s)
           value.to_i
         elsif self::ARR_VARS.include?(var.to_s)
-          value.is_a?(Array) ? value : value.split(/, /) 
+          case value 
+          when Array then value
+          when String then value.split(/, /)
+          when nil then []
+          end
         elsif self::DATE_VARS.include?(var.to_s)
           DateTime.parse( value )
         else 
@@ -116,9 +120,9 @@ module Targetprocess
 
     module InstanceMethods
 
-      def initialize(hash)
+      def initialize(hash={})
         self.class.add_accessors self.class.missings
-        hash_to_obj(hash)
+        hash_to_obj(hash) 
         self.normalize_values
       end
 
@@ -133,7 +137,7 @@ module Targetprocess
         (self.class::ALL_VARS+self.class.missings).each do |var|
           value = self.send(var)
           if self.send(var).nil?
-            value = nil 
+            value = nil
           else
             value = self.class.constants_inclusion(value, var)
             value = bool_normalize(value)

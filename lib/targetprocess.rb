@@ -17,10 +17,18 @@ module Targetprocess
   include HTTParty
   class << self
     attr_accessor :configuration 
+
+    def configuration
+      if @configuration.nil? 
+        raise Targetprocess::ConfigurationError
+      else
+        @configuration
+      end
+    end
   end
 
   def self.configure
-    self.configuration ||= Configuration.new
+    @configuration ||= Configuration.new
     yield(configuration)
   end
 
