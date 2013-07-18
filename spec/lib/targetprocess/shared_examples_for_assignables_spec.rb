@@ -1,5 +1,6 @@
 require 'spec_helper'
 require 'targetprocess/assignable'
+require 'httparty'
 
   Targetprocess.configure do |config|
     config.domain = "http://kamrad.tpondemand.com/api/v1/"
@@ -36,17 +37,11 @@ shared_examples "an assignable" do
     end
 
     describe" it has defined getters" do
-      (described_class::ALL_VARS + described_class.missings ).each do |method|
-        context do
-          it{ expect(assignable).to respond_to(method) } 
+      it{
+        (described_class::ALL_VARS + described_class.missings ).each do |method|
+          expect(assignable).to respond_to(method)  
         end
-      end
-    end
-
-    describe ".missings" do
-      context do
-        it { expect(described_class.missings).to be_an_instance_of(Array) }
-      end
+      }
     end
 
     describe ".find" do
@@ -57,15 +52,21 @@ shared_examples "an assignable" do
       context "count for (id = :all, options={body=>{take: 1}})" do
         it { expect(described_class.find(:all, body: {take: 1}).count).to eq(1)}
       end
-    end
 
-    describe ".error_check" do
       context "find_with literal id" do
-        it { expect(described_class.find("asd")).to be_nil }
+        it do 
+          expect{
+            described_class.find("asd")
+          }.to raise_error(Targetprocess::BadRequest)
+        end
       end
 
-      context "find with unexisted id" do
-        it { expect(described_class.find(1234)).to be_nil }
+      context "find with unexisted id" do                     
+        it do 
+          expect {
+            described_class.find(1234)
+          }.to raise_error(Targetprocess::NotFound) 
+        end
       end
     end
 
@@ -89,16 +90,18 @@ shared_examples "an assignable" do
 
       context "with 1 unexisted parameter" do
         it do 
-          response = described_class.where('asdsd lt "1286"') 
-          expect(response).to be_an_instance_of(NilClass) 
+          expect {
+            described_class.where('asdsd lt 1286')
+          }.to raise_error(Targetprocess::BadRequest) 
         end
       end
 
       context "with 1 existed and 1 unexisted parameters" do
         it do
           conditions = '(asdsd lt 1286)and(createdate lt "2013-10-10")'
-          response = described_class.where(conditions) 
-          expect(response).to be_an_instance_of(NilClass) 
+          expect {
+            described_class.where(conditions)
+          }.to raise_error(Targetprocess::BadRequest) 
         end
       end
     end
