@@ -7,9 +7,7 @@ require 'httparty'
 module Targetprocess
   module Assignable
     extend ActiveSupport::Concern
-    include HTTParty
-    format :xml
-
+    
     ARR_VARS = %w( tags skills )
     FLOAT_VARS = %w( velocity weeklyavaolablehours currentavailablehours 
                      availablefuturehours timeremain timespent efforttodo 
@@ -53,14 +51,14 @@ module Targetprocess
       def find(id, options={})
         klass = self.to_s.split(/::/).last
         case id
-        when Fixnum
-          url = Targetprocess.configuration.domain + "#{klass.pluralize}/#{id}"
-          response = request(url, options)
-          response.nil? ? nil : response[klass]
         when :all
           url = Targetprocess.configuration.domain + "#{klass.pluralize}"
           response = request(url, options)
           response.nil? ? nil : return_array_of(response[klass.pluralize][klass])
+        else
+          url = Targetprocess.configuration.domain + "#{klass.pluralize}/#{id}"
+          response = request(url, options)
+          response.nil? ? nil : response[klass]
         end
       end
 
@@ -86,6 +84,17 @@ module Targetprocess
           value
         end
       end
+
+      def error_check(response)
+        if response["Error"]
+          error = response["Error"]
+          type = "Targetprocess::" + error["Status"]  
+          msg = error["Message"]
+          raise type.constantize , msg
+        else
+          response
+        end 
+      end
       
       private 
 
@@ -102,9 +111,6 @@ module Targetprocess
         end 
       end
 
-      def error_check(response)
-        response["Error"].nil? ? response : nil 
-      end
 
     end
 

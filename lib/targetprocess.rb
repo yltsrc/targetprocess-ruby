@@ -11,9 +11,10 @@ require "targetprocess/testcase"
 require "targetprocess/impediment"
 require "targetprocess/iteration"
 require "targetprocess/comment"
+require "targetprocess/errors"
 
 module Targetprocess
- 
+  include HTTParty
   class << self
     attr_accessor :configuration 
   end
