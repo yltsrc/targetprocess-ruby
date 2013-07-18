@@ -2,23 +2,24 @@ require 'spec_helper.rb'
 
 describe Targetprocess do
   describe '#configure' do
-    context "should be difined" do
-      it { expect(Targetprocess).to respond_to(:configure)}
+    it 'set http credentials' do
+      Targetprocess.configure do |c|
+        c.domain = 'domain'
+        c.username = 'admin'
+        c.password = 'secret'
+      end
+      config = Targetprocess.configuration
+
+      expect(config).to be_an_instance_of(Targetprocess::Configuration)
+      expect(config.domain).to eql('domain')
+      expect(config.username).to eql('admin')
+      expect(config.password).to eql('secret')
     end
 
-    context "should set the attributes" do 
-      it do
-        Targetprocess.configure do |c|
-          c.domain = "domain"
-          c.username = "admin"
-          c.password = "secret"
-        end
-        result =Targetprocess.configuration
-        expect(result.domain).to eq("domain") 
-        expect(result.username).to eq("admin") 
-        expect(result.password).to eq("secret") 
-      end
+    it 'raises configuration error with no credentials' do
+      expect {
+        Targetprocess.configuration
+      }.to raise(Targetprocess::ConfigurationError)
     end
-    
   end  
 end
