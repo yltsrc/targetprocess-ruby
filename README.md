@@ -55,7 +55,7 @@ Gem provides 3 read methods: `.find(id)`, `.all(options={})`,
 `.where(search condition)`
 (Yeah, the goal was to make it mostly similar to ActiveRecord).
 
-#####.find(id, options={})
+#####.find(id)
 Return instance with specified `:id`.
 
     > Targetprocess::UserStory.find(160) #=>
