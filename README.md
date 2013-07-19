@@ -33,8 +33,9 @@ config/initializers/targetprocess.rb or use anywhere you need it.
       config.password = "SECRET"
     end  
     
-Do not confuse: ACCOUNT - targetprocess.com login;
-PASSWORD and USERNAME - your entire ACCOUNT.tpondemand.com credential.   
+Do not confuse: 
+ACCOUNT - targetprocess.com login;
+PASSWORD and USERNAME - your bugtracker's inner ACCOUNT.tpondemand.com credentials.   
     
 To check configuration:
 
@@ -50,7 +51,7 @@ Now we support next entities: `UserStory`, `User`, `Task`, `TestCase`, `Project`
 `Release`, `Request`, `Iteration`, `Impediment`, `Feature`, `Comment`, `Bug`.
 Others coming soon.
 ####Read
-Gem provides 3 read methods: `.find(id, options={})`, `.all(options={})`, 
+Gem provides 3 read methods: `.find(id)`, `.all(options={})`, 
 `.where(search condition)`
 (Yeah, the goal was to make it mostly similar to ActiveRecord).
 
@@ -119,10 +120,6 @@ Is not null|	Description is not null
 Also you can combine several filtering conditions using operator `and`:
 
 `.where("(createdate gt '2011-01-01') and (enddate lt '2011-02-01')")`
-
-#####Available options
-
-
 
 ## Contributing
 
