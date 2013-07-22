@@ -1,27 +1,17 @@
 task: 
   - userstory
-  - userstory_id
-  - userstory_name
 
 userstory:
   - initialestimate
   - feature
-  - feature_id
-  - feature_name
 
 feature:
   - initialestimate
 
 bug:
   - userstory 
-  - userstory_id 
-  - userstory_name 
   - severity 
-  - severity_id 
-  - severity_name 
   - build 
-  - build_id 
-  - build_name
 
 user:
   - kind 
@@ -41,8 +31,6 @@ user:
   - isobserver 
   - skills 
   - activedirectoryname 
-  - role_id 
-  - role_name 
   - role
 
 project:
@@ -52,14 +40,8 @@ project:
   - mailreplyaddress 
   - color 
   - program 
-  - program_id 
-  - program_name
   - process 
-  - process_id 
-  - process_name 
   - company
-  - company_id
-  - company_name
 
 release:
   - iscurrent
@@ -74,13 +56,9 @@ request:
   - isreplied
   - isprivate
   - requesttype
-  - requesttype_id
-  - requesttype_name
 
 testcase:
   - userstory
-  - userstory_id
-  - userstory_name
   - steps
   - success
   - laststatus
@@ -90,12 +68,4 @@ testcase:
 impediment:
   - isprivate
   - assignable
-  - assignable_name
-  - assignable_id
   - responsible
-  - responsible_id
-  - responsible_kind
-  - responsible_firstname
-  - responsible_lastname
-
-

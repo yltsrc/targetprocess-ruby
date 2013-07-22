@@ -14,12 +14,12 @@ require "targetprocess/comment"
 require "targetprocess/errors"
 
 module Targetprocess
-  include HTTParty
   class << self
     attr_accessor :configuration 
 
     def configuration
-      if @configuration.nil? 
+      c = @configuration
+      if c.nil? || c.domain.nil? || c.username.nil? || c.password.nil?
         raise Targetprocess::ConfigurationError
       else
         @configuration
@@ -29,11 +29,15 @@ module Targetprocess
 
   def self.configure
     @configuration ||= Configuration.new
-    yield(configuration)
+    yield(@configuration)
   end
 
   class Configuration
     attr_accessor :domain, :username, :password
+
+    def domain 
+      @domain[-1] == "/" ? @domain : @domain + "/" unless @domain.nil?
+    end
   end
 
 end
