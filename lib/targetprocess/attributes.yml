@@ -1,0 +1,267 @@
+common_getable: &common_getable
+  - id 
+  - name 
+  - description 
+  - startdate 
+  - enddate 
+  - createdate 
+  - modifydate 
+  - lastcommentdate 
+  - tags 
+  - numericpriority 
+  - effort
+  - effortcompleted 
+  - efforttodo 
+  - timespent 
+  - timeremain 
+  - entitytype 
+  - owner 
+  - lastcommenteduser 
+  - project 
+  - release 
+  - iteration 
+  - teamiteration 
+  - team 
+  - priority 
+  - entitystate
+  - customfields
+
+common  unsettable: &common_unsettable
+  - createdate
+  - modifydate
+  - effort
+  - effortcompleted
+  - efforttodo
+  - timespent
+  - timeremain
+  - entitytype
+  - lastcommenteduser
+  - customfields
+
+task: 
+  readable:
+    <<: *common_getable
+    - userstory
+  unsettable:
+    <<: *common_unsettable
+
+userstory:
+  readable:
+    <<: *common_getable
+    - initialestimate
+    - feature
+  unsettable:
+    <<: *common_unsettable
+
+feature:
+  readable:
+    <<: *common_getable
+    - initialestimate
+  unsettable:
+    <<: *common_unsettable
+
+bug:
+  readable:
+    <<: *common_getable
+    - userstory 
+    - severity 
+    - build 
+  unsettable:
+    <<: *common_unsettable
+
+user:
+  readable:
+    - id 
+    - kind 
+    - firstname 
+    - lastname 
+    - email 
+    - login 
+    - createdate
+    - modifydate
+    - deletedate 
+    - isactive 
+    - isadministrator 
+    - weeklyavaolablehours 
+    - currentallocation 
+    - currentavailablehours 
+    - availablefrom 
+    - availablefutureallocation 
+    - availablefuturehours 
+    - isobserver 
+    - skills 
+    - activedirectoryname 
+    - role
+  unsettable:
+    - createdate
+    - modifydate
+    - kind
+    - deletedate
+
+project:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - isactive
+    - isproduct
+    - abbreviation
+    - mailreplyaddress
+    - color
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - program
+    - process
+    - company
+    - customfields
+  unsettable:
+    - createdate
+    - modifydate
+    - entitytype
+    - lastcommenteduser
+    - customfields
+
+release:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - iscurrent
+    - entitytype
+    - release
+    - lastcommenteduser
+    - project
+    - customfields
+  unsettable:
+    - iscurrent
+    - createdate
+    - modifydate
+    - entitytype
+    - lastcommenteduser
+    - customfields
+
+iteration:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - iscurrent
+    - velocity
+    - duration
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - release
+    - customfields
+  unsettable:
+    - createdate
+    - iscurrent
+    - entitytype
+    - lastcommenteduser
+    - customfields
+
+request:
+  readable:
+    <<: *common_getable
+    - sourcetype
+    - isreplied
+    - isprivate
+    - requesttype
+  unsettable:
+    <<: *common_unsettable
+
+testcase:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - steps
+    - success
+    - laststatus
+    - lastfailurecomment
+    - lastrundate
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - userstory
+    - priority
+    - customfields
+  unsettable:
+    - createdate
+    - modifydate
+    - entitytype
+    - lastcommenteduser
+    - customfields
+
+impediment:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - isprivate
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - assignable
+    - entitystate
+    - priority
+    - responsible
+    - customfields
+  unsettable:
+    - createdate
+    - modifydate
+    - entitytype
+    - lastcommenteduser
+    - customfields
+
+comment:
+  readable:
+    - id 
+    - description 
+    - parent_id 
+    - createdate 
+    - general 
+    - owner 
+  unsettable:
+    - createdate
+

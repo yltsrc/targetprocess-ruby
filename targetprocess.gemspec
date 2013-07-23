@@ -26,4 +26,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "webmock", "1.8"
   spec.add_runtime_dependency "active_support"
   spec.add_runtime_dependency "httparty"
+  spec.add_runtime_dependency "oj"
 end

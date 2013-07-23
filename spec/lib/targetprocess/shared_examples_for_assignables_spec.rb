@@ -106,6 +106,19 @@ shared_examples "an assignable" do
       end
     end
 
+    describe ".save" do
+      context "can be used for creation new remote entity" do
+        it "send #{described_class} instance to remote host " do
+          item = described_class.new({id: 243, name: "#{described_class} test 3", project: {id:221, name: "gem"}})
+          item.save
+          remote_item = described_class.find(243)
+          expect(remote_item).to eq(item)
+        end
+      end
+
+
+    end
+
   end
 end     
 

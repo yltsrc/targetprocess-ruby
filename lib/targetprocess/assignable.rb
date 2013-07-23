@@ -1,23 +1,18 @@
 require "yaml"
 require 'active_support/inflector'
-require 'active_support/concern'
 require 'httparty'
+require 'oj'
 
 module Targetprocess
   module Assignable
-    extend ActiveSupport::Concern
-   
-    ALL_VARS = [:id, :name, :description, :startdate, :enddate, :createdate, 
-                :modifydate, :lastcommentdate, :tags, :numericpriority, :effort,
-                :effortcompleted, :efforttodo, :timespent, :timeremain, 
-                :entitytype, :owner, :lastcommenteduser, :project, :release, 
-                :iteration, :teamiteration, :team, :priority, :entitystate,
-                :customfields]
-    file = File.join(File.dirname(__FILE__), 'missing.yaml')            
-    ALL_MISSINGS = YAML::load_file(file)
-    
-    (ALL_VARS).each { |v| attr_accessor v }
+    def self.included(base)
+      base.send(:include, InstanceMethods)   
+      base.extend(ClassMethods)
+      base.define_accessors
+    end
 
+    ATTR_FILE = File.join(File.dirname(__FILE__), 'attributes.yml')            
+    
     module ClassMethods 
 
       def where(params_str,options={})
@@ -44,11 +39,6 @@ module Targetprocess
         end
       end
 
-      def missings
-        miss = self::ALL_MISSINGS[self.to_s.demodulize]
-        miss.nil? ? [] : miss.collect{ |var| var.to_sym }
-      end
-      
       def add_accessors(array)
         array.each { |var| attr_accessor var }
       end             
@@ -64,7 +54,21 @@ module Targetprocess
         end 
       end
       
+      def define_accessors
+        self.attributes["readable"].each { |a| attr_reader a }
+        editable = self.attributes["readable"]-self.attributes["unsettable"]
+        editable.each {|a| attr_writer a} 
+      end
+      
+      def attributes 
+        all_attributes = YAML::load_file(ATTR_FILE)
+        class_name = self.to_s.demodulize.downcase
+        all_attributes[class_name]    
+      end 
+
       private 
+
+
 
       def request(url, options={})
         auth = {username: Targetprocess.configuration.username,
@@ -83,13 +87,24 @@ module Targetprocess
 
     module InstanceMethods
 
+      def save 
+        uri = self.class.to_s.demodulize.pluralize
+        url = Targetprocess.configuration.domain + uri
+        p url
+        header = { 'Content-Type' => 'application/json' }
+        garbage = "\"^o\":\"#{self}\","
+        content = Oj::dump(self, :mode => :compat)
+        content.slice!(garbage)
+        p content
+        self.class.error_check HTTParty::post(url, body: content ,:headers => header)
+      end
+
       def initialize(hash={})
-        self.class.add_accessors self.class.missings
         hash_to_obj(hash) 
       end
 
       def ==(obj)
-        (self.class::ALL_VARS+self.class.missings).each  do |var| 
+        self.class.attributes["readable"].each  do |var| 
           return false unless self.send(var) == obj.send(var) 
         end
         true
