@@ -1,73 +1,245 @@
-common_getable: &common_getable
-  - id 
-  - name 
-  - description 
-  - startdate 
-  - enddate 
-  - createdate 
-  - modifydate 
-  - lastcommentdate 
-  - tags 
-  - numericpriority 
-  - effort
-  - effortcompleted 
-  - efforttodo 
-  - timespent 
-  - timeremain 
-  - entitytype 
-  - owner 
-  - lastcommenteduser 
-  - project 
-  - release 
-  - iteration 
-  - teamiteration 
-  - team 
-  - priority 
-  - entitystate
-  - customfields
-
-common  unsettable: &common_unsettable
-  - createdate
-  - modifydate
-  - effort
-  - effortcompleted
-  - efforttodo
-  - timespent
-  - timeremain
-  - entitytype
-  - lastcommenteduser
-  - customfields
+# common_getable:
+  # - id 
+  # - name 
+  # - description 
+  # - startdate 
+  # - enddate 
+  # - createdate 
+  # - modifydate 
+  # - lastcommentdate 
+  # - tags 
+  # - numericpriority 
+  # - effort
+  # - effortcompleted 
+  # - efforttodo 
+  # - timespent 
+  # - timeremain 
+  # - entitytype 
+  # - owner 
+  # - lastcommenteduser 
+  # - project 
+  # - release 
+  # - iteration 
+  # - teamiteration 
+  # - team 
+  # - priority 
+  # - entitystate
+  # - customfields
+# common_writable: 
+  # - id
+  # - name
+  # - description
+  # - startdate
+  # - enddate
+  # - lastcommentdate
+  # - tags
+  # - numericpriority
+  # - owner
+  # - project
+  # - release
+  # - iteration
+  # - teamiteration
+  # - team
+  # - priority
+  # - entitystate
 
 task: 
   readable:
-    <<: *common_getable
+    - id 
+    - name 
+    - description 
+    - startdate 
+    - enddate 
+    - createdate 
+    - modifydate 
+    - lastcommentdate 
+    - tags 
+    - numericpriority 
+    - effort
+    - effortcompleted 
+    - efforttodo 
+    - timespent 
+    - timeremain 
+    - entitytype 
+    - owner 
+    - lastcommenteduser 
+    - project 
+    - release 
+    - iteration 
+    - teamiteration 
+    - team 
+    - priority 
+    - entitystate
+    - customfields
     - userstory
-  unsettable:
-    <<: *common_unsettable
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - userstory
 
 userstory:
   readable:
-    <<: *common_getable
+    - id 
+    - name 
+    - description 
+    - startdate 
+    - enddate 
+    - createdate 
+    - modifydate 
+    - lastcommentdate 
+    - tags 
+    - numericpriority 
+    - effort
+    - effortcompleted 
+    - efforttodo 
+    - timespent 
+    - timeremain 
+    - entitytype 
+    - owner 
+    - lastcommenteduser 
+    - project 
+    - release 
+    - iteration 
+    - teamiteration 
+    - team 
+    - priority 
+    - entitystate
+    - customfields
     - initialestimate
     - feature
-  unsettable:
-    <<: *common_unsettable
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - initialestimate
+    - feature
 
 feature:
   readable:
-    <<: *common_getable
+    - id 
+    - name 
+    - description 
+    - startdate 
+    - enddate 
+    - createdate 
+    - modifydate 
+    - lastcommentdate 
+    - tags 
+    - numericpriority 
+    - effort
+    - effortcompleted 
+    - efforttodo 
+    - timespent 
+    - timeremain 
+    - entitytype 
+    - owner 
+    - lastcommenteduser 
+    - project 
+    - release 
+    - iteration 
+    - teamiteration 
+    - team 
+    - priority 
+    - entitystate
+    - customfields
     - initialestimate
-  unsettable:
-    <<: *common_unsettable
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - initialestimate
 
 bug:
   readable:
-    <<: *common_getable
+    - id 
+    - name 
+    - description 
+    - startdate 
+    - enddate 
+    - createdate 
+    - modifydate 
+    - lastcommentdate 
+    - tags 
+    - numericpriority 
+    - effort
+    - effortcompleted 
+    - efforttodo 
+    - timespent 
+    - timeremain 
+    - entitytype 
+    - owner 
+    - lastcommenteduser 
+    - project 
+    - release 
+    - iteration 
+    - teamiteration 
+    - team 
+    - priority 
+    - entitystate
+    - customfields
     - userstory 
     - severity 
     - build 
-  unsettable:
-    <<: *common_unsettable
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - userstory
+    - severity
+    - build
 
 user:
   readable:
@@ -77,12 +249,13 @@ user:
     - lastname 
     - email 
     - login 
+    - password
     - createdate
     - modifydate
     - deletedate 
     - isactive 
     - isadministrator 
-    - weeklyavaolablehours 
+    - weeklyavailablehours 
     - currentallocation 
     - currentavailablehours 
     - availablefrom 
@@ -92,11 +265,25 @@ user:
     - skills 
     - activedirectoryname 
     - role
-  unsettable:
-    - createdate
-    - modifydate
-    - kind
-    - deletedate
+  writable:
+    - id
+    - firstname
+    - lastname
+    - email
+    - login
+    - password
+    - isactive
+    - isadministrator
+    - weeklyavailablehours
+    - currentallocation
+    - currentavailablehours
+    - availablefrom
+    - availablefutureallocation
+    - availablefuturehours
+    - isobserver
+    - skills
+    - activedirectoryname
+    - role
 
 project:
   readable:
@@ -123,12 +310,25 @@ project:
     - process
     - company
     - customfields
-  unsettable:
-    - createdate
-    - modifydate
-    - entitytype
-    - lastcommenteduser
-    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - isactive
+    - isproduct
+    - abbreviation
+    - mailreplyaddress
+    - color
+    - owner
+    - project
+    - program
+    - process
+    - company
 
 release:
   readable:
@@ -148,13 +348,17 @@ release:
     - lastcommenteduser
     - project
     - customfields
-  unsettable:
-    - iscurrent
-    - createdate
-    - modifydate
-    - entitytype
-    - lastcommenteduser
-    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - release
+    - project
 
 iteration:
   readable:
@@ -177,22 +381,75 @@ iteration:
     - project
     - release
     - customfields
-  unsettable:
-    - createdate
-    - iscurrent
-    - entitytype
-    - lastcommenteduser
-    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - velocity
+    - duration
+    - owner
+    - project
+    - release
 
 request:
   readable:
-    <<: *common_getable
+    - id 
+    - name 
+    - description 
+    - startdate 
+    - enddate 
+    - createdate 
+    - modifydate 
+    - lastcommentdate 
+    - tags 
+    - numericpriority 
+    - effort
+    - effortcompleted 
+    - efforttodo 
+    - timespent 
+    - timeremain 
+    - entitytype 
+    - owner 
+    - lastcommenteduser 
+    - project 
+    - release 
+    - iteration 
+    - teamiteration 
+    - team 
+    - priority 
+    - entitystate
+    - customfields
     - sourcetype
     - isreplied
     - isprivate
     - requesttype
-  unsettable:
-    <<: *common_unsettable
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - sourcetype
+    - isreplied
+    - isprivate
+    - requesttype
 
 testcase:
   readable:
@@ -218,12 +475,24 @@ testcase:
     - userstory
     - priority
     - customfields
-  unsettable:
-    - createdate
-    - modifydate
-    - entitytype
-    - lastcommenteduser
-    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - steps
+    - success
+    - laststatus
+    - lastfailurecomment
+    - lastrundate
+    - owner
+    - project
+    - userstory
+    - priority
 
 impediment:
   readable:
@@ -247,12 +516,22 @@ impediment:
     - priority
     - responsible
     - customfields
-  unsettable:
-    - createdate
-    - modifydate
-    - entitytype
-    - lastcommenteduser
-    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - isprivate
+    - owner
+    - project
+    - assignable
+    - entitystate
+    - priority
+    - responsible
 
 comment:
   readable:
@@ -262,6 +541,9 @@ comment:
     - createdate 
     - general 
     - owner 
-  unsettable:
-    - createdate
-
+  writable:
+    - id
+    - description
+    - parent_id
+    - general
+    - owner

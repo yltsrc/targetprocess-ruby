@@ -30,11 +30,11 @@ module Targetprocess
         case id
         when :all
           url = Targetprocess.configuration.domain + "#{klass.pluralize}"
-          response = request(url, options)
+          response = request(:get, url, options)
           return_array_of response["Items"]          
         else
           url = Targetprocess.configuration.domain + "#{klass.pluralize}/#{id}"
-          response = request(url, options)
+          response = request(:get, url, options)
           self.new response
         end
       end
@@ -56,8 +56,7 @@ module Targetprocess
       
       def define_accessors
         self.attributes["readable"].each { |a| attr_reader a }
-        editable = self.attributes["readable"]-self.attributes["unsettable"]
-        editable.each {|a| attr_writer a} 
+        self.attributes["writable"].each { |a| attr_writer a } 
       end
       
       def attributes 
@@ -66,17 +65,16 @@ module Targetprocess
         all_attributes[class_name]    
       end 
 
-      private 
-
-
-
-      def request(url, options={})
+      def request(http, url, options={})
         auth = {username: Targetprocess.configuration.username,
                 password: Targetprocess.configuration.password }
-        default = {:basic_auth => auth, :body => {:format => "json"}}        
+        default = {:basic_auth => auth}
+        default.merge!(:body => {:format => "json"}) if http ==:get  
         options.merge!(default) { |k,v1,v2| v1.merge(v2)  }
-        error_check HTTParty::get(url, options)
+        error_check HTTParty.send(http, url, options)
       end
+
+      private 
 
       def return_array_of(response)
         response.is_a?(Hash) ? [self.new(response)] : response.collect! do |item| 
@@ -90,13 +88,14 @@ module Targetprocess
       def save 
         uri = self.class.to_s.demodulize.pluralize
         url = Targetprocess.configuration.domain + uri
-        p url
         header = { 'Content-Type' => 'application/json' }
-        garbage = "\"^o\":\"#{self}\","
-        content = Oj::dump(self, :mode => :compat)
-        content.slice!(garbage)
-        p content
-        self.class.error_check HTTParty::post(url, body: content ,:headers => header)
+        content = Oj::dump(self.to_hash, :mode => :compat)
+        resp = self.class.request(:post, url, {body: content ,headers: header})
+        saved = self.class.new resp
+        self.class.attributes["readable"].each do |at|
+          self.instance_variable_set("@#{at}", saved.send(at))
+        end
+        self
       end
 
       def initialize(hash={})
@@ -110,6 +109,21 @@ module Targetprocess
         true
       end
       
+      def to_hash
+        hash = {}
+        self.class.attributes["writable"].each do |k|
+          value = self.send(k)
+          value = json_date(value) if !value.nil? && k.match(/date/)
+          hash.merge!(k.to_sym => value) unless value.nil?
+        end
+        p hash
+        hash
+      end
+
+      def json_date(time)
+        "\/Date(#{time.to_i}000+0#{time.utc_offset/3600}00)\/"
+      end
+
       private
 
       def hash_to_obj(hash) 
@@ -117,7 +131,7 @@ module Targetprocess
           case v 
           when Hash
             v = Hash[v.map {|nk, nv| [nk.downcase.to_sym, nv] }]
-          when /Date\((\d*)-(\d*)\)/
+          when /Date\((\d+)-(\d+)\)/
             v = Time.at($1.to_i/1000)
           end
           self.instance_variable_set("@#{k.downcase}", v)

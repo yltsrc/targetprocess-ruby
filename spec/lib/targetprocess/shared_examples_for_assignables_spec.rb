@@ -20,17 +20,18 @@ shared_examples "an assignable" do
       end
 
       it 'can parse json date' do
-        item = described_class.new({:modifydate => "\/Date(1374506427000-0500)\/"})
+        item = described_class.new({:createdate => "\/Date(1374506427000-0500)\/"})
         real_time = Time.new(2013,07,22,18,20,27,"+03:00")
 
-        expect(item.modifydate).to eq(real_time) 
+        expect(item.createdate).to eq(real_time) 
       end      
 
       it 'can normalize hash value' do
-        item = described_class.new({:owner => {"Id"=>1, "Name" => "boss"}})
-        normalized_hash = {owner: {id:1, name: "boss"}}
+        item = described_class.new({:project => {"Id"=>1, "Name" => "boss"}})
+        normalized_hash = {id:1, name: "boss"}
+        real_hash = item.instance_variable_get(:@project)
 
-        expect(item.owner).to eq(normalized_hash[:owner]) 
+        expect(real_hash).to eq(normalized_hash)
       end
     end
 
@@ -107,16 +108,22 @@ shared_examples "an assignable" do
     end
 
     describe ".save" do
-      context "can be used for creation new remote entity" do
-        it "send #{described_class} instance to remote host " do
-          item = described_class.new({id: 243, name: "#{described_class} test 3", project: {id:221, name: "gem"}})
-          item.save
-          remote_item = described_class.find(243)
-          expect(remote_item).to eq(item)
+      it "create #{described_class} new instance to remote host " do
+        item = described_class.new
+        {name: "Test #{described_class}-#{Time.now.to_i}", description: "something",
+         project: {id: 221}, owner:{id: 2}, 
+         enddate: Time.now, general: {id:182},
+         startdate: Time.new(2013,12,25,8,0,0,"+03:00"),
+         enddate: Time.new(2013,12,26,8,0,0,"+03:00"),
+         release:{id: 282}, userstory: {id: 234},
+         steps: "check", success: "ok", 
+         email: "test#{Time.now.to_i}@gmail.com",
+         login: "user-#{Time.now.to_i}", password: "secretsecret"
+         }.each do |k,v|
+          item.send(k.to_s+"=", v) if item.respond_to?(k) && !described_class.to_s.downcase.match(k.to_s) 
         end
+        expect(item.save).to be_an_instance_of(described_class)
       end
-
-
     end
 
   end
