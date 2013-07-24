@@ -50,6 +50,43 @@ To check configuration:
 Now we support next entities: `UserStory`, `User`, `Task`, `TestCase`, `Project`,
 `Release`, `Request`, `Iteration`, `Impediment`, `Feature`, `Comment`, `Bug`.
 Others coming soon.
+Here you can browse TP's REST CRUD api 
+[summary](http://dev.targetprocess.com/blog/2011/09/02/rest-crud-summary-table/).
+####Create
+
+    >project = Targetprocess::Project.new(name: "demo project") #=> to create it locally
+        <Targetprocess::Project:0x00000002939e58 @name="demo project">
+    >project.save #=> to save to remote host
+        #<Targetprocess::Project:0x00000002939e58
+         @abbreviation="DP",
+         @color=nil,
+         @company=nil,
+         @createdate=2013-07-24 18:19:45 +0300,
+         @customfields=[],
+         @description=nil,
+         @enddate=nil,
+         @entitytype={:id=>1, :name=>"Project"},
+         @id=367,
+         @isactive=true,
+         @isproduct=false,
+         @lastcommentdate=nil,
+         @lastcommenteduser=nil,
+         @mailreplyaddress=nil,
+         @modifydate=2013-07-24 18:19:45 +0300,
+         @name="demo project",
+         @numericpriority=12.0,
+         @owner={:id=>1, :firstname=>"Administrator", :lastname=>"Administrator"},
+         @process={:id=>3, :name=>"Scrum"},
+         @program=nil,
+         @project=nil,
+         @startdate=nil,
+         @tags="">
+As you can see, some attributes setts by default or calculates with TP's logic.
+Also not all of it available to modify.
+To find out which attributes are required, or unmodifiable browse this 
+[reference](http://md5.tpondemand.com/api/v1/index/meta).
+
+
 ####Read
 Gem provides 3 read methods: `.find(id)`, `.all(options={})`, 
 `.where(search condition)`
@@ -120,6 +157,19 @@ Is not null|	Description is not null
 Also you can combine several filtering conditions using operator `and`:
 
 `.where("(createdate gt '2011-01-01') and (enddate lt '2011-02-01')")`
+
+####Update
+Example:
+
+    >bug = Targetprocess::Bug.find(123)
+    >bug.description = "new description"
+    >bug.save
+To find out what attributes you can modify browse this 
+[reference](http://md5.tpondemand.com/api/v1/index/meta).
+
+####Delete
+    Coming soon!!
+
 
 ## Contributing
 
