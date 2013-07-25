@@ -1,0 +1,63 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/UserStories
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"Test Targetprocess::UserStory-1374677902","description":"something","startdate":"/Date(1387861200000+0300)/","enddate":"/Date(1387947600000+0300)/","owner":{"id":2},"project":{"id":221},"release":{"id":282}}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Wed, 24 Jul 2013 14:58:23 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '1031'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '322'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Id\": 355,\r\n  \"Name\": \"Test Targetprocess::UserStory-1374677902\",\r\n
+        \ \"Description\": \"something\",\r\n  \"StartDate\": \"\\/Date(1387861200000-0600)\\/\",\r\n
+        \ \"EndDate\": null,\r\n  \"CreateDate\": \"\\/Date(1374677910000-0500)\\/\",\r\n
+        \ \"ModifyDate\": \"\\/Date(1374677910000-0500)\\/\",\r\n  \"LastCommentDate\":
+        null,\r\n  \"Tags\": \"\",\r\n  \"NumericPriority\": 104.5,\r\n  \"Effort\":
+        0.0000,\r\n  \"EffortCompleted\": 0.0000,\r\n  \"EffortToDo\": 0.0000,\r\n
+        \ \"TimeSpent\": 0.0000,\r\n  \"TimeRemain\": 0.0000,\r\n  \"InitialEstimate\":
+        0.0000,\r\n  \"EntityType\": {\r\n    \"Id\": 4,\r\n    \"Name\": \"UserStory\"\r\n
+        \ },\r\n  \"Owner\": {\r\n    \"Id\": 2,\r\n    \"FirstName\": \"Target\",\r\n
+        \   \"LastName\": \"Process\"\r\n  },\r\n  \"LastCommentedUser\": null,\r\n
+        \ \"Project\": {\r\n    \"Id\": 221,\r\n    \"Name\": \"gem\"\r\n  },\r\n
+        \ \"Release\": {\r\n    \"Id\": 282,\r\n    \"Name\": \"gem 0.0\"\r\n  },\r\n
+        \ \"Iteration\": null,\r\n  \"TeamIteration\": null,\r\n  \"Team\": null,\r\n
+        \ \"Priority\": {\r\n    \"Id\": 5,\r\n    \"Name\": \"Nice To Have\"\r\n
+        \ },\r\n  \"EntityState\": {\r\n    \"Id\": 46,\r\n    \"Name\": \"Open\"\r\n
+        \ },\r\n  \"Feature\": null,\r\n  \"CustomFields\": []\r\n}"
+    http_version: 
+  recorded_at: Wed, 24 Jul 2013 14:58:23 GMT
+recorded_with: VCR 2.5.0
