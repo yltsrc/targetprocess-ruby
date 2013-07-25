@@ -51,7 +51,9 @@ Now we support next entities: `UserStory`, `User`, `Task`, `TestCase`, `Project`
 `Release`, `Request`, `Iteration`, `Impediment`, `Feature`, `Comment`, `Bug`.
 Others coming soon.
 Here you can browse TP's REST CRUD api 
-[summary](http://dev.targetprocess.com/blog/2011/09/02/rest-crud-summary-table/).
+[summary](http://dev.targetprocess.com/blog/2011/09/02/rest-crud-summary-table/)
+to find out what fields a required to save new instance or what CRUD operations 
+available with current entity.
 ####Create
 
     >project = Targetprocess::Project.new(name: "demo project") #=> to create it locally
@@ -89,7 +91,7 @@ To find out which attributes are required, or unmodifiable browse this
 
 ####Read
 Gem provides 3 read methods: `.find(id)`, `.all(options={})`, 
-`.where(search condition)`
+`.where(search condition, options={})`
 (Yeah, the goal was to make it mostly similar to ActiveRecord).
 
 #####.find(id)
@@ -121,7 +123,7 @@ If you want to get next 1000 you can specify 'skip' parameter like this:
     > Targetprocess::UserStory.all(take:50) #=> #return array of 50 Userstories
     > Targetprocess::UserStory.all(take:50, skip: 50) #=> #return array of next 50 Userstories
     
-#####.where(search_condition)
+#####.where(search_condition, options={})
 Return array of filter entities according to specified request. 
 You can filter by any of parameters with avaliable matchers:
 
@@ -154,12 +156,24 @@ Is not null|	Description is not null
         @parent_id=nil,
         @parentid=nil>]
 
+#####Multiple fields search:
 Also you can combine several filtering conditions using operator `and`:
 
 `.where("(createdate gt '2011-01-01') and (enddate lt '2011-02-01')")`
 
+#####Sorting 
+You can order the REST API results using any field .
+Use 'orderby=field' or 'orderbydesc=field' to sort data ascending or 
+descending. For example, this request will return all bugs ordered by 
+creation date (recent bugs on top)
+    
+    Targetprocess::Bug.all(orderbydesc: "creationdate")
+
+
 ####Update
 Example:
+After you get remote Entity as local instance and modify it, 
+you can update remote entity with `#save` method:
 
     >bug = Targetprocess::Bug.find(123)
     >bug.description = "new description"
@@ -168,7 +182,19 @@ To find out what attributes you can modify browse this
 [reference](http://md5.tpondemand.com/api/v1/index/meta).
 
 ####Delete
-    Coming soon!!
+
+    >bug  = Targetprocess::Bug.find(347) #=>
+        #<Targetprocess::Bug:0x007fccb0739360
+         @build=nil,
+         @createdate=2013-07-24 17:56:21 +0300,
+         @customfields=[],
+         @description="something",
+            .   .   .   
+         @userstory={:id=>234, :name=>"story1"}>
+    >bug.delete #=>
+        nil
+    >Targetprocess::Bug.find(347) #=>
+        Targetprocess::NotFound: Bug with Id 347 not found
 
 
 ## Contributing
