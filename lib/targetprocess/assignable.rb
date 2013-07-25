@@ -74,6 +74,11 @@ module Targetprocess
         error_check HTTParty.send(http, url, options)
       end
 
+      def url
+        url = Targetprocess.configuration.domain
+        url + self.to_s.demodulize.pluralize
+      end
+
       private 
 
       def return_array_of(response)
@@ -85,9 +90,13 @@ module Targetprocess
 
     module InstanceMethods
 
+      def delete
+        url = self.entity_url
+        resp = self.class.request(:delete, url)
+      end
+
       def save 
-        uri = self.class.to_s.demodulize.pluralize
-        url = Targetprocess.configuration.domain + uri
+        url = self.class.url
         header = { 'Content-Type' => 'application/json' }
         content = Oj::dump(self.to_hash, :mode => :compat)
         resp = self.class.request(:post, url, {body: content ,headers: header})
@@ -96,6 +105,10 @@ module Targetprocess
           self.instance_variable_set("@#{at}", saved.send(at))
         end
         self
+      end
+
+      def entity_url
+        self.class.url + "/#{self.id}"
       end
 
       def initialize(hash={})
@@ -116,7 +129,6 @@ module Targetprocess
           value = json_date(value) if !value.nil? && k.match(/date/)
           hash.merge!(k.to_sym => value) unless value.nil?
         end
-        p hash
         hash
       end
 

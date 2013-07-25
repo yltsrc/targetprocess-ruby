@@ -107,7 +107,7 @@ shared_examples "an assignable" do
       end
     end
 
-    describe ".save" do
+    describe "#save" do
       it "create #{described_class} new instance to remote host " do
         item = described_class.new
         {name: "Test #{described_class}-#{Time.now.to_i}", description: "something",
@@ -123,6 +123,16 @@ shared_examples "an assignable" do
           item.send(k.to_s+"=", v) if item.respond_to?(k) && !described_class.to_s.downcase.match(k.to_s) 
         end
         expect(item.save).to be_an_instance_of(described_class)
+      end
+    end
+
+    describe "#delete" do
+      it "delete #{described_class} with the greatest id" do
+        item = described_class.all(orderbydesc: "id").first
+        item.delete
+        expect{
+          described_class.find(item.id) 
+        }.to raise_error(Targetprocess::NotFound)
       end
     end
 
