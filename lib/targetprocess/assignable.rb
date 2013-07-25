@@ -25,15 +25,14 @@ module Targetprocess
       end
 
       def find(id, options={})
-        klass = self.to_s.demodulize
         options = {:body => options} 
         case id
         when :all
-          url = Targetprocess.configuration.domain + "#{klass.pluralize}"
+          url = self.url
           response = request(:get, url, options)
           return_array_of response["Items"]          
         else
-          url = Targetprocess.configuration.domain + "#{klass.pluralize}/#{id}"
+          url = self.url+"/#{id}"
           response = request(:get, url, options)
           self.new response
         end

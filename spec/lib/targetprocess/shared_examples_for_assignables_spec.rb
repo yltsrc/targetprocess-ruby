@@ -2,6 +2,7 @@ require 'spec_helper'
 
 shared_examples "an assignable" do
   let(:id) { described_class.find(:all).first.id}
+  let(:update_item) {described_class.all(orderbydesc: "id", take: 1).first}
 
   describe described_class do
     before do
@@ -108,20 +109,22 @@ shared_examples "an assignable" do
     end
 
     describe "#save" do
-      it "create #{described_class} new instance to remote host " do
+      it "create #{described_class} on remote host " do
         item = described_class.new
         {name: "Test #{described_class}-#{Time.now.to_i}", description: "something",
          project: {id: 221}, owner:{id: 2}, 
          enddate: Time.now, general: {id:182},
-         startdate: Time.new(2013,12,25,8,0,0,"+03:00"),
-         enddate: Time.new(2013,12,26,8,0,0,"+03:00"),
+         startdate: Time.new(2013,12,27,8,0,0,"+03:00"),
+         enddate: Time.new(2013,12,28,8,0,0,"+03:00"),
          release:{id: 282}, userstory: {id: 234},
          steps: "check", success: "ok", 
          email: "test#{Time.now.to_i}@gmail.com",
          login: "user-#{Time.now.to_i}", password: "secretsecret"
          }.each do |k,v|
-          item.send(k.to_s+"=", v) if item.respond_to?(k) && !described_class.to_s.downcase.match(k.to_s) 
-        end
+           if item.respond_to?(k) && !described_class.to_s.downcase.match(k.to_s) 
+              item.send(k.to_s+"=", v) 
+           end
+         end
         expect(item.save).to be_an_instance_of(described_class)
       end
     end
