@@ -1,0 +1,145 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Comments
+    body:
+      encoding: US-ASCII
+      string: format=json
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Thu, 25 Jul 2013 15:04:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '6829'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '36'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Items\": [\r\n    {\r\n      \"Id\": 21,\r\n      \"Description\":
+        \"something\",\r\n      \"ParentId\": null,\r\n      \"CreateDate\": \"\\/Date(1374759531000-0500)\\/\",\r\n
+        \     \"General\": {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area
+        1\"\r\n      },\r\n      \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\":
+        \"Target\",\r\n        \"LastName\": \"Process\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 20,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374757579000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        19,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374757421000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        18,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374755388000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        16,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374677792000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        15,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374677461000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        14,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374676971000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        13,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374676597000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        12,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374675905000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        11,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374675018000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        10,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374673889000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 2,\r\n        \"FirstName\": \"Target\",\r\n
+        \       \"LastName\": \"Process\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        9,\r\n      \"Description\": \"something\",\r\n      \"ParentId\": null,\r\n
+        \     \"CreateDate\": \"\\/Date(1374673253000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 8,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374672761000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 7,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374669643000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 6,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374669642000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 5,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374668536000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 4,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374668535000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 3,\r\n      \"Description\": \"something\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1374667261000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 2,\r\n      \"Description\": \"<div>123</div>\\n\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1373269014000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 182,\r\n        \"Name\": \"Edit Area 1\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 1,\r\n      \"Description\": \"<div>qweqwe</div>\\n\",\r\n      \"ParentId\":
+        null,\r\n      \"CreateDate\": \"\\/Date(1372755501000-0500)\\/\",\r\n      \"General\":
+        {\r\n        \"Id\": 91,\r\n        \"Name\": \"Do HTML coding\"\r\n      },\r\n
+        \     \"Owner\": {\r\n        \"Id\": 1,\r\n        \"FirstName\": \"Administrator\",\r\n
+        \       \"LastName\": \"Administrator\"\r\n      }\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Thu, 25 Jul 2013 15:04:59 GMT
+recorded_with: VCR 2.5.0
