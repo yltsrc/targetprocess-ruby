@@ -1,0 +1,249 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Entitystates
+    body:
+      encoding: US-ASCII
+      string: format=json
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Fri, 26 Jul 2013 11:14:40 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '10698'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '28'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Next\": \"http://kamrad.tpondemand.com/api/v1/EntityStates/?format=json&take=25&skip=25\",\r\n
+        \ \"Items\": [\r\n    {\r\n      \"Id\": 1,\r\n      \"Name\": \"Open\",\r\n
+        \     \"IsInitial\": true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        1.0,\r\n      \"Role\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"Developer\"\r\n
+        \     },\r\n      \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\":
+        \"UserStory\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\": 1,\r\n
+        \       \"Name\": \"All Practices\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        3,\r\n      \"Name\": \"Open\",\r\n      \"IsInitial\": true,\r\n      \"IsFinal\":
+        false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\": false,\r\n
+        \     \"NumericPriority\": 3.0,\r\n      \"Role\": {\r\n        \"Id\": 1,\r\n
+        \       \"Name\": \"Developer\"\r\n      },\r\n      \"EntityType\": {\r\n
+        \       \"Id\": 5,\r\n        \"Name\": \"Task\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 5,\r\n      \"Name\": \"Open\",\r\n      \"IsInitial\":
+        true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 5.0,\r\n      \"Role\": {\r\n        \"Id\":
+        1,\r\n        \"Name\": \"Developer\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 8,\r\n        \"Name\": \"Bug\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 6,\r\n      \"Name\": \"Fixed\",\r\n      \"IsInitial\":
+        false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 6.0,\r\n      \"Role\": {\r\n        \"Id\":
+        9,\r\n        \"Name\": \"QA Engineer\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 8,\r\n        \"Name\": \"Bug\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 7,\r\n      \"Name\": \"Invalid\",\r\n      \"IsInitial\":
+        false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 7.0,\r\n      \"Role\": {\r\n        \"Id\":
+        9,\r\n        \"Name\": \"QA Engineer\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 8,\r\n        \"Name\": \"Bug\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 9,\r\n      \"Name\": \"Open\",\r\n      \"IsInitial\":
+        true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 9.0,\r\n      \"Role\": {\r\n        \"Id\":
+        9,\r\n        \"Name\": \"QA Engineer\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 14,\r\n        \"Name\": \"TestPlanRun\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 15,\r\n      \"Name\": \"Open\",\r\n
+        \     \"IsInitial\": true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        15.0,\r\n      \"Role\": null,\r\n      \"EntityType\": {\r\n        \"Id\":
+        16,\r\n        \"Name\": \"Impediment\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 17,\r\n      \"Name\": \"New\",\r\n      \"IsInitial\":
+        true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 17.0,\r\n      \"Role\": {\r\n        \"Id\":
+        6,\r\n        \"Name\": \"Support Person\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 17,\r\n        \"Name\": \"Request\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 18,\r\n      \"Name\": \"Active\",\r\n
+        \     \"IsInitial\": false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        18.0,\r\n      \"Role\": {\r\n        \"Id\": 6,\r\n        \"Name\": \"Support
+        Person\"\r\n      },\r\n      \"EntityType\": {\r\n        \"Id\": 17,\r\n
+        \       \"Name\": \"Request\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\":
+        1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 20,\r\n      \"Name\": \"New\",\r\n      \"IsInitial\": true,\r\n
+        \     \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 20.0,\r\n      \"Role\": {\r\n        \"Id\":
+        6,\r\n        \"Name\": \"Support Person\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 9,\r\n        \"Name\": \"Feature\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 21,\r\n      \"Name\": \"In Progress\",\r\n
+        \     \"IsInitial\": false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        21.0,\r\n      \"Role\": {\r\n        \"Id\": 6,\r\n        \"Name\": \"Support
+        Person\"\r\n      },\r\n      \"EntityType\": {\r\n        \"Id\": 9,\r\n
+        \       \"Name\": \"Feature\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\":
+        1,\r\n        \"Name\": \"All Practices\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 23,\r\n      \"Name\": \"Open\",\r\n      \"IsInitial\": true,\r\n
+        \     \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 23.0,\r\n      \"Role\": null,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 25,\r\n      \"Name\": \"Open\",\r\n
+        \     \"IsInitial\": true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        25.0,\r\n      \"Role\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"Developer\"\r\n
+        \     },\r\n      \"EntityType\": {\r\n        \"Id\": 5,\r\n        \"Name\":
+        \"Task\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\":
+        \"Kanban\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 26,\r\n      \"Name\":
+        \"In Progress\",\r\n      \"IsInitial\": false,\r\n      \"IsFinal\": false,\r\n
+        \     \"IsPlanned\": false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        26.0,\r\n      \"Role\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"Developer\"\r\n
+        \     },\r\n      \"EntityType\": {\r\n        \"Id\": 5,\r\n        \"Name\":
+        \"Task\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\":
+        \"Kanban\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 28,\r\n      \"Name\":
+        \"Open\",\r\n      \"IsInitial\": true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        28.0,\r\n      \"Role\": null,\r\n      \"EntityType\": {\r\n        \"Id\":
+        8,\r\n        \"Name\": \"Bug\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\":
+        2,\r\n        \"Name\": \"Kanban\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        30,\r\n      \"Name\": \"Open\",\r\n      \"IsInitial\": true,\r\n      \"IsFinal\":
+        false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\": false,\r\n
+        \     \"NumericPriority\": 30.0,\r\n      \"Role\": {\r\n        \"Id\": 9,\r\n
+        \       \"Name\": \"QA Engineer\"\r\n      },\r\n      \"EntityType\": {\r\n
+        \       \"Id\": 14,\r\n        \"Name\": \"TestPlanRun\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 32,\r\n      \"Name\": \"Open\",\r\n      \"IsInitial\":
+        true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 32.0,\r\n      \"Role\": null,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 16,\r\n        \"Name\": \"Impediment\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 34,\r\n      \"Name\": \"New\",\r\n
+        \     \"IsInitial\": true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        34.0,\r\n      \"Role\": {\r\n        \"Id\": 6,\r\n        \"Name\": \"Support
+        Person\"\r\n      },\r\n      \"EntityType\": {\r\n        \"Id\": 17,\r\n
+        \       \"Name\": \"Request\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\":
+        2,\r\n        \"Name\": \"Kanban\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        35,\r\n      \"Name\": \"Active\",\r\n      \"IsInitial\": false,\r\n      \"IsFinal\":
+        false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\": false,\r\n
+        \     \"NumericPriority\": 35.0,\r\n      \"Role\": {\r\n        \"Id\": 6,\r\n
+        \       \"Name\": \"Support Person\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 17,\r\n        \"Name\": \"Request\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 37,\r\n      \"Name\": \"New\",\r\n
+        \     \"IsInitial\": true,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        37.0,\r\n      \"Role\": {\r\n        \"Id\": 6,\r\n        \"Name\": \"Support
+        Person\"\r\n      },\r\n      \"EntityType\": {\r\n        \"Id\": 9,\r\n
+        \       \"Name\": \"Feature\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\":
+        2,\r\n        \"Name\": \"Kanban\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        38,\r\n      \"Name\": \"In Progress\",\r\n      \"IsInitial\": false,\r\n
+        \     \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 38.0,\r\n      \"Role\": {\r\n        \"Id\":
+        6,\r\n        \"Name\": \"Support Person\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 9,\r\n        \"Name\": \"Feature\"\r\n      },\r\n      \"Process\":
+        {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 40,\r\n      \"Name\": \"Planned\",\r\n      \"IsInitial\":
+        false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\": true,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 40.0,\r\n      \"Role\": {\r\n        \"Id\":
+        1,\r\n        \"Name\": \"Developer\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 41,\r\n      \"Name\": \"In Progress\",\r\n
+        \     \"IsInitial\": false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        false,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        41.0,\r\n      \"Role\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"Developer\"\r\n
+        \     },\r\n      \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\":
+        \"UserStory\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\": 2,\r\n
+        \       \"Name\": \"Kanban\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        42,\r\n      \"Name\": \"In Testing\",\r\n      \"IsInitial\": false,\r\n
+        \     \"IsFinal\": false,\r\n      \"IsPlanned\": false,\r\n      \"IsCommentRequired\":
+        false,\r\n      \"NumericPriority\": 42.0,\r\n      \"Role\": {\r\n        \"Id\":
+        9,\r\n        \"Name\": \"QA Engineer\"\r\n      },\r\n      \"EntityType\":
+        {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n      },\r\n
+        \     \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\": \"Kanban\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 43,\r\n      \"Name\": \"Planned\",\r\n
+        \     \"IsInitial\": false,\r\n      \"IsFinal\": false,\r\n      \"IsPlanned\":
+        true,\r\n      \"IsCommentRequired\": false,\r\n      \"NumericPriority\":
+        43.0,\r\n      \"Role\": {\r\n        \"Id\": 1,\r\n        \"Name\": \"Developer\"\r\n
+        \     },\r\n      \"EntityType\": {\r\n        \"Id\": 8,\r\n        \"Name\":
+        \"Bug\"\r\n      },\r\n      \"Process\": {\r\n        \"Id\": 2,\r\n        \"Name\":
+        \"Kanban\"\r\n      }\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Fri, 26 Jul 2013 11:14:40 GMT
+- request:
+    method: get
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Entitystates/1
+    body:
+      encoding: US-ASCII
+      string: format=json
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Fri, 26 Jul 2013 11:14:41 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '345'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '27'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Id\": 1,\r\n  \"Name\": \"Open\",\r\n  \"IsInitial\": true,\r\n
+        \ \"IsFinal\": false,\r\n  \"IsPlanned\": false,\r\n  \"IsCommentRequired\":
+        false,\r\n  \"NumericPriority\": 1.0,\r\n  \"Role\": {\r\n    \"Id\": 1,\r\n
+        \   \"Name\": \"Developer\"\r\n  },\r\n  \"EntityType\": {\r\n    \"Id\":
+        4,\r\n    \"Name\": \"UserStory\"\r\n  },\r\n  \"Process\": {\r\n    \"Id\":
+        1,\r\n    \"Name\": \"All Practices\"\r\n  }\r\n}"
+    http_version: 
+  recorded_at: Fri, 26 Jul 2013 11:14:40 GMT
+recorded_with: VCR 2.5.0

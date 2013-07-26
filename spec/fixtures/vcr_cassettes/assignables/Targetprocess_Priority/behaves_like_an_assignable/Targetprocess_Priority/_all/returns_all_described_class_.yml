@@ -1,0 +1,104 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Priorities
+    body:
+      encoding: US-ASCII
+      string: format=json
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Fri, 26 Jul 2013 10:12:59 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '3938'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '16'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Items\": [\r\n    {\r\n      \"Id\": 1,\r\n      \"Name\":
+        \"Must Have\",\r\n      \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 6,\r\n      \"Name\": \"Fix ASAP\",\r\n
+        \     \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 8,\r\n        \"Name\": \"Bug\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 8,\r\n      \"Name\": \"Must Have\",\r\n      \"Importance\":
+        1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        9,\r\n        \"Name\": \"Feature\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        11,\r\n      \"Name\": \"-\",\r\n      \"Importance\": 1,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 5,\r\n        \"Name\":
+        \"Task\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 12,\r\n      \"Name\":
+        \"-\",\r\n      \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 14,\r\n        \"Name\": \"TestPlanRun\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 17,\r\n      \"Name\": \"Critical\",\r\n
+        \     \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 16,\r\n        \"Name\": \"Impediment\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 20,\r\n      \"Name\": \"Urgent\",\r\n      \"Importance\":
+        1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        17,\r\n        \"Name\": \"Request\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        23,\r\n      \"Name\": \"Highest\",\r\n      \"Importance\": 1,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 12,\r\n        \"Name\":
+        \"TestCase\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 2,\r\n      \"Name\":
+        \"Great\",\r\n      \"Importance\": 2,\r\n      \"IsDefault\": false,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 7,\r\n      \"Name\": \"Fix If
+        Time\",\r\n      \"Importance\": 2,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 8,\r\n        \"Name\": \"Bug\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 18,\r\n      \"Name\": \"Moderate\",\r\n      \"Importance\":
+        2,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        16,\r\n        \"Name\": \"Impediment\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 21,\r\n      \"Name\": \"Normal\",\r\n      \"Importance\":
+        2,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        17,\r\n        \"Name\": \"Request\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        22,\r\n      \"Name\": \"High\",\r\n      \"Importance\": 2,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 12,\r\n        \"Name\":
+        \"TestCase\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 3,\r\n      \"Name\":
+        \"Good\",\r\n      \"Importance\": 3,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 9,\r\n      \"Name\": \"Average\",\r\n      \"Importance\":
+        3,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        9,\r\n        \"Name\": \"Feature\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        19,\r\n      \"Name\": \"Small\",\r\n      \"Importance\": 3,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 16,\r\n        \"Name\":
+        \"Impediment\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 25,\r\n      \"Name\":
+        \"Moderate\",\r\n      \"Importance\": 3,\r\n      \"IsDefault\": true,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 12,\r\n        \"Name\": \"TestCase\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 4,\r\n      \"Name\": \"Average\",\r\n
+        \     \"Importance\": 4,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 10,\r\n      \"Name\": \"Nice To Have\",\r\n
+        \     \"Importance\": 4,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 9,\r\n        \"Name\": \"Feature\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 24,\r\n      \"Name\": \"Low\",\r\n      \"Importance\":
+        4,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        12,\r\n        \"Name\": \"TestCase\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        5,\r\n      \"Name\": \"Nice To Have\",\r\n      \"Importance\": 5,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\":
+        \"UserStory\"\r\n      }\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Fri, 26 Jul 2013 10:12:59 GMT
+recorded_with: VCR 2.5.0

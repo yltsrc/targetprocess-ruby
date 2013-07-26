@@ -547,3 +547,292 @@ comment:
     - parent_id
     - general
     - owner
+
+process:
+  readable:
+    - id
+    - name
+    - isdefault
+    - description
+  writable:
+    - id
+    - name
+    - isdefault
+    - description
+
+priority:
+  readable:
+    - id
+    - name
+    - importance
+    - isdefault
+    - entitytype
+  writable:
+    - id
+    - name
+    - importance
+    - isdefault
+    - entitytype
+
+severity:
+  readable:
+    - id
+    - name
+    - importance
+    - isdefault
+  writable:
+    - id
+    - name
+    - importance
+    - isdefault
+
+entitystate:    
+  readable:
+    - id
+    - name
+    - isinitial
+    - isfinal
+    - isplanned
+    - iscommentrequired
+    - numericpriority
+    - role
+    - entitytype
+    - process
+  writable:
+    - id
+    - name
+    - isinitial
+    - isfinal
+    - isplanned
+    - iscommentrequired
+    - numericpriority
+    - role
+    - entitytype
+    - process
+
+program:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - customfields
+
+testplan:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - initialestimate
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - initialestimate
+    - owner
+    - project
+    - customfields
+
+testplanrun:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - effort
+    - effortcompleted
+    - efforttodo
+    - timespent
+    - timeremain
+    - passedcount
+    - failedcount
+    - notruncount
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - build
+    - testplan
+    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - passedcount
+    - failedcount
+    - notruncount
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - build
+    - testplan
+    - customfields
+
+testcaserun:
+  readable:
+    - id
+    - executed
+    - passedcount
+    - comment
+    - rundate
+    - testplanrun
+  writable:
+    - id
+    - executed
+    - passedcount
+    - comment
+    - rundate
+    - testplanrun
+
+time:
+  readable:
+    - id
+    - description
+    - spent
+    - remain
+    - isestimation
+    - deletedate
+    - createdate
+    - project
+    - user
+    - assignable
+    - role
+    - customactivity
+    - customfields
+  writable:
+    - id
+    - description
+    - spent
+    - remain
+    - isestimation
+    - deletedate
+    - project
+    - user
+    - assignable
+    - role
+    - customactivity
+
+assignment:
+  readable:
+    - id
+    - assignable
+    - generaluser
+    - role
+  writable:
+    - id
+    - assignable
+    - generaluser
+    - role
+
+role:
+  readable:
+    - id
+    - name
+    - ispair
+    - haseffort
+  writable:
+    - id
+    - name
+    - ispair
+    - haseffort
+
+roleeffort:
+  readable:
+    - id
+    - initialestimate
+    - effortcompleted
+    - efforttodo
+    - timespent
+    - timeremain
+    - assignable
+    - role
+  writable:
+    - id
+    - initialestimate
+    - effortcompleted
+    - efforttodo
+    - timespent
+    - timeremain
+    - assignable
+    - role
+
+projectmember:
+  readable:
+    - id
+    - weeklyavailablehours
+    - membershipstartdate
+    - membershipenddate
+    - allocation 
+    - project
+    - user
+    - role
+  writable:
+    - id
+    - weeklyavailablehours
+    - membershipstartdate
+    - membershipenddate
+    - allocation 
+    - project
+    - user
+    - role

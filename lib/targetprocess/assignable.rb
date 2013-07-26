@@ -3,7 +3,6 @@ require 'active_support/inflector'
 require 'httparty'
 require 'oj'
 
-module Targetprocess
   module Assignable
     def self.included(base)
       base.send(:include, InstanceMethods)   
@@ -151,4 +150,3 @@ module Targetprocess
     end
 
   end
-end

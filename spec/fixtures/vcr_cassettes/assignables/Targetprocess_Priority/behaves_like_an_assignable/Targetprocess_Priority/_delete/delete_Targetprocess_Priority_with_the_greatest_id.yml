@@ -1,0 +1,183 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Priorities
+    body:
+      encoding: US-ASCII
+      string: orderbydesc=id&format=json
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Fri, 26 Jul 2013 10:13:06 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '3938'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '25'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Items\": [\r\n    {\r\n      \"Id\": 25,\r\n      \"Name\":
+        \"Moderate\",\r\n      \"Importance\": 3,\r\n      \"IsDefault\": true,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 12,\r\n        \"Name\": \"TestCase\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 24,\r\n      \"Name\": \"Low\",\r\n
+        \     \"Importance\": 4,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 12,\r\n        \"Name\": \"TestCase\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 23,\r\n      \"Name\": \"Highest\",\r\n      \"Importance\":
+        1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        12,\r\n        \"Name\": \"TestCase\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        22,\r\n      \"Name\": \"High\",\r\n      \"Importance\": 2,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 12,\r\n        \"Name\":
+        \"TestCase\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 21,\r\n      \"Name\":
+        \"Normal\",\r\n      \"Importance\": 2,\r\n      \"IsDefault\": false,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 17,\r\n        \"Name\": \"Request\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 20,\r\n      \"Name\": \"Urgent\",\r\n
+        \     \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 17,\r\n        \"Name\": \"Request\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 19,\r\n      \"Name\": \"Small\",\r\n      \"Importance\":
+        3,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        16,\r\n        \"Name\": \"Impediment\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 18,\r\n      \"Name\": \"Moderate\",\r\n      \"Importance\":
+        2,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        16,\r\n        \"Name\": \"Impediment\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 17,\r\n      \"Name\": \"Critical\",\r\n      \"Importance\":
+        1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        16,\r\n        \"Name\": \"Impediment\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 12,\r\n      \"Name\": \"-\",\r\n      \"Importance\": 1,\r\n
+        \     \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        14,\r\n        \"Name\": \"TestPlanRun\"\r\n      }\r\n    },\r\n    {\r\n
+        \     \"Id\": 11,\r\n      \"Name\": \"-\",\r\n      \"Importance\": 1,\r\n
+        \     \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        5,\r\n        \"Name\": \"Task\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        10,\r\n      \"Name\": \"Nice To Have\",\r\n      \"Importance\": 4,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 9,\r\n        \"Name\":
+        \"Feature\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 9,\r\n      \"Name\":
+        \"Average\",\r\n      \"Importance\": 3,\r\n      \"IsDefault\": false,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 9,\r\n        \"Name\": \"Feature\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 8,\r\n      \"Name\": \"Must Have\",\r\n
+        \     \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 9,\r\n        \"Name\": \"Feature\"\r\n      }\r\n    },\r\n
+        \   {\r\n      \"Id\": 7,\r\n      \"Name\": \"Fix If Time\",\r\n      \"Importance\":
+        2,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        8,\r\n        \"Name\": \"Bug\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        6,\r\n      \"Name\": \"Fix ASAP\",\r\n      \"Importance\": 1,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 8,\r\n        \"Name\":
+        \"Bug\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 5,\r\n      \"Name\":
+        \"Nice To Have\",\r\n      \"Importance\": 5,\r\n      \"IsDefault\": false,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n
+        \     }\r\n    },\r\n    {\r\n      \"Id\": 4,\r\n      \"Name\": \"Average\",\r\n
+        \     \"Importance\": 4,\r\n      \"IsDefault\": false,\r\n      \"EntityType\":
+        {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n      }\r\n
+        \   },\r\n    {\r\n      \"Id\": 3,\r\n      \"Name\": \"Good\",\r\n      \"Importance\":
+        3,\r\n      \"IsDefault\": false,\r\n      \"EntityType\": {\r\n        \"Id\":
+        4,\r\n        \"Name\": \"UserStory\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\":
+        2,\r\n      \"Name\": \"Great\",\r\n      \"Importance\": 2,\r\n      \"IsDefault\":
+        false,\r\n      \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\":
+        \"UserStory\"\r\n      }\r\n    },\r\n    {\r\n      \"Id\": 1,\r\n      \"Name\":
+        \"Must Have\",\r\n      \"Importance\": 1,\r\n      \"IsDefault\": false,\r\n
+        \     \"EntityType\": {\r\n        \"Id\": 4,\r\n        \"Name\": \"UserStory\"\r\n
+        \     }\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Fri, 26 Jul 2013 10:13:06 GMT
+- request:
+    method: delete
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Priorities/25
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers: {}
+  response:
+    status:
+      code: 403
+      message: Forbidden
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Fri, 26 Jul 2013 10:13:06 GMT
+      Content-Type:
+      - text/xml; charset=utf-8
+      Content-Length:
+      - '4024'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "<Error>\r\n  <Status>Forbidden</Status>\r\n  <Message>Could not delete
+        priority which already associated with TestCase</Message>\r\n  <Type>Tp.Web.Mvc.Exceptions.ForbiddenException</Type>\r\n
+        \ <StackTrace nil=\"true\" />\r\n  <Error>\r\n    <Message>Could not delete
+        priority which already associated with TestCase</Message>\r\n    <Type>Tp.Integration.Common.EntityCouldNotBeDeletedException</Type>\r\n
+        \   <StackTrace>   at Tp.BusinessObjects.Priority.OnBeforeDelete() in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Entities\\Priority\\Priority.cs:line
+        83\r\n   at Tp.BusinessObjects.Entity.OnDelete() in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Entity.cs:line
+        606\r\n   at Tp.BusinessObjects.Data.Interceptors.TriggerInterceptor.OnDelete(Object
+        entity, Object id, Object[] state, String[] propertyNames, IType[] types)
+        in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Data\\Interceptors\\TriggerInterceptor.cs:line
+        110\r\n   at NHibernate.Event.Default.DefaultDeleteEventListener.DeleteEntity(IEventSource
+        session, Object entity, EntityEntry entityEntry, Boolean isCascadeDeleteEnabled,
+        IEntityPersister persister, ISet transientEntities)\r\n   at NHibernate.Event.Default.DefaultDeleteEventListener.OnDelete(DeleteEvent
+        event, ISet transientEntities)\r\n   at NHibernate.Impl.SessionImpl.FireDelete(DeleteEvent
+        event)\r\n   at NHibernate.Impl.SessionImpl.Delete(Object obj)\r\n   at Tp.Data.Portal.Delete(IEntity
+        entity) in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Data\\Portal.cs:line
+        1677\r\n   at Tp.Data.SerializingRepository.&lt;&gt;c__DisplayClass4.&lt;Delete&gt;b__3()
+        in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Data\\SerializingRepository.cs:line
+        53\r\n   at Tp.Data.SerializingRepository.WithLock(WithLockAction action)
+        in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Data\\SerializingRepository.cs:line
+        80\r\n   at Tp.BusinessObjects.Entity.Delete() in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.BusinessObjects\\Entity.cs:line
+        529\r\n   at Tp.Rest.Commands.RepositoryCommand.Run(IResource resource, ResourceCollectionItemMappingBehavior
+        collectionMapMode, Action`2 action) in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.Rest\\Commands\\RepositoryCommand.cs:line
+        64\r\n   at Tp.Rest.Commands.RepositoryCommand.Execute(IResource input) in
+        c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.Rest\\Commands\\RepositoryCommand.cs:line
+        34\r\n   at Tp.Rest.Web.Controllers.ResourcesController.DeleteInternal(Nullable`1
+        id, IEndPoint endpoint) in c:\\.jenkins\\workspace\\BuildPackage\\Code\\Main\\Tp.Rest.Web\\Controllers\\ResourcesController.cs:line
+        58\r\n   at lambda_method(Closure , ControllerBase , Object[] )\r\n   at System.Web.Mvc.ReflectedActionDescriptor.Execute(ControllerContext
+        controllerContext, IDictionary`2 parameters)\r\n   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethod(ControllerContext
+        controllerContext, ActionDescriptor actionDescriptor, IDictionary`2 parameters)\r\n
+        \  at System.Web.Mvc.ControllerActionInvoker.&lt;&gt;c__DisplayClass15.&lt;InvokeActionMethodWithFilters&gt;b__12()\r\n
+        \  at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter
+        filter, ActionExecutingContext preContext, Func`1 continuation)\r\n   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter
+        filter, ActionExecutingContext preContext, Func`1 continuation)\r\n   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter
+        filter, ActionExecutingContext preContext, Func`1 continuation)\r\n   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodFilter(IActionFilter
+        filter, ActionExecutingContext preContext, Func`1 continuation)\r\n   at System.Web.Mvc.ControllerActionInvoker.InvokeActionMethodWithFilters(ControllerContext
+        controllerContext, IList`1 filters, ActionDescriptor actionDescriptor, IDictionary`2
+        parameters)\r\n   at System.Web.Mvc.ControllerActionInvoker.InvokeAction(ControllerContext
+        controllerContext, String actionName)</StackTrace>\r\n  </Error>\r\n</Error>"
+    http_version: 
+  recorded_at: Fri, 26 Jul 2013 10:13:06 GMT
+recorded_with: VCR 2.5.0

@@ -37,4 +37,43 @@ describe "assignables", vcr: true do
   describe Targetprocess::UserStory do
     it_behaves_like "an assignable"
   end
+  describe Targetprocess::Process do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Priority do
+    it_behaves_like "an assignable"
+  end 
+  describe Targetprocess::Severity do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Entitystate do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Program do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Testplan do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Testplanrun do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Testcaserun do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Time do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Assignment do
+    it_behaves_like "an assignable"
+  end
+  describe Targetprocess::Role do
+    it_behaves_like "an assignable"
+  end  
+  describe Targetprocess::Roleeffort do
+    it_behaves_like "an assignable"
+  end  
+  describe Targetprocess::Projectmember do
+    it_behaves_like "an assignable"
+  end
 end
