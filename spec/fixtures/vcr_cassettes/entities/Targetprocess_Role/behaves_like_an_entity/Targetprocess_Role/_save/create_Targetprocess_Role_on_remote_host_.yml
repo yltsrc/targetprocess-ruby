@@ -1,0 +1,49 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Roles
+    body:
+      encoding: UTF-8
+      string: ! '{"name":"Test Targetprocess::Role-1375101123"}'
+    headers:
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Mon, 29 Jul 2013 12:32:03 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '108'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '22'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Id\": 12,\r\n  \"Name\": \"Test Targetprocess::Role-1375101123\",\r\n
+        \ \"IsPair\": false,\r\n  \"HasEffort\": true\r\n}"
+    http_version: 
+  recorded_at: Mon, 29 Jul 2013 12:32:03 GMT
+recorded_with: VCR 2.5.0

@@ -1,48 +1,3 @@
-# common_getable:
-  # - id 
-  # - name 
-  # - description 
-  # - startdate 
-  # - enddate 
-  # - createdate 
-  # - modifydate 
-  # - lastcommentdate 
-  # - tags 
-  # - numericpriority 
-  # - effort
-  # - effortcompleted 
-  # - efforttodo 
-  # - timespent 
-  # - timeremain 
-  # - entitytype 
-  # - owner 
-  # - lastcommenteduser 
-  # - project 
-  # - release 
-  # - iteration 
-  # - teamiteration 
-  # - team 
-  # - priority 
-  # - entitystate
-  # - customfields
-# common_writable: 
-  # - id
-  # - name
-  # - description
-  # - startdate
-  # - enddate
-  # - lastcommentdate
-  # - tags
-  # - numericpriority
-  # - owner
-  # - project
-  # - release
-  # - iteration
-  # - teamiteration
-  # - team
-  # - priority
-  # - entitystate
-
 task: 
   readable:
     - id 
@@ -836,3 +791,67 @@ projectmember:
     - project
     - user
     - role
+
+
+
+build:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - builddate
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - release
+    - iteration
+    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - tags
+    - numericpriority
+    - builddate
+    - owner
+    - project
+    - release
+    - iteration
+
+company:
+  readable:
+    - id
+    - name
+    - url 
+    - description
+  writable:
+    - id
+    - name
+    - url 
+    - description
+
+customactivity:
+  readable:
+    - id
+    - name
+    - created
+    - estimate
+    - project
+    - user
+  writable:
+    - id
+    - name
+    - estimate
+    - project
+    - user

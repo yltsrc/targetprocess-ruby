@@ -1,42 +1,13 @@
 require "targetprocess/version"
-require "targetprocess/user_story"
-require "targetprocess/user"
-require "targetprocess/task"
-require "targetprocess/bug"
-require "targetprocess/feature"
-require "targetprocess/project"
-require "targetprocess/release"
-require "targetprocess/request"
-require "targetprocess/testcase"
-require "targetprocess/impediment"
-require "targetprocess/iteration"
-require "targetprocess/comment"
 require "targetprocess/errors"
-require "targetprocess/process"
-require "targetprocess/priority"
-require "targetprocess/severity"
-require "targetprocess/entitystate"
-require "targetprocess/program"
-require "targetprocess/testplan"
-require "targetprocess/testplanrun"
-require "targetprocess/testcaserun"
-require "targetprocess/time"
-require "targetprocess/assignment"
-require "targetprocess/role"
-require "targetprocess/roleeffort"
-require "targetprocess/projectmember"
+require "targetprocess/entities_initializer"
 
 module Targetprocess
   class << self
-    attr_accessor :configuration 
 
     def configuration
-      c = @configuration
-      if c.nil? || c.domain.nil? || c.username.nil? || c.password.nil?
-        raise Targetprocess::ConfigurationError
-      else
-        @configuration
-      end
+      msg = "Targetproces is not configured yet"
+      @configuration || raise(Targetprocess::ConfigurationError.new(msg))
     end
   end
 
@@ -46,11 +17,31 @@ module Targetprocess
   end
 
   class Configuration
-    attr_accessor :domain, :username, :password
+
+    attr_writer :domain, :username, :password
+
+    def password
+      msg = "Targetprocess.configuration.password is not specifyed yet please 
+            review the README to find out a way to configure Targetprocess"
+      @password || raise(Targetprocess::ConfigurationError.new(msg))
+    end
+
+    def username 
+      msg = "Targetprocess.configuration.username is not specifyed yet please 
+            review the README to find out way to configure Targetprocess"
+      @username || raise(Targetprocess::ConfigurationError.new(msg))
+    end
 
     def domain 
-      @domain[-1] == "/" ? @domain : @domain + "/" unless @domain.nil?
+      msg = "Targetprocess.configuration.domain is not specifyed yet please 
+            review the README to find out way to configure Targetprocess"
+      if @domain
+        @domain[-1] == "/" ? @domain : @domain + "/" unless @domain.nil?
+      else
+        raise Targetprocess::ConfigurationError.new(msg)
+      end
     end
+
   end
 
 end

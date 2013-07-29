@@ -1,0 +1,52 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: http://admin:admin@kamrad.tpondemand.com/api/v1/Assignments
+    body:
+      encoding: US-ASCII
+      string: take=1&format=json
+    headers: {}
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Server:
+      - nginx/1.4.1
+      Date:
+      - Mon, 29 Jul 2013 12:31:44 GMT
+      Content-Type:
+      - application/json; charset=utf-8
+      Content-Length:
+      - '454'
+      Connection:
+      - keep-alive
+      Keep-Alive:
+      - timeout=60
+      Cache-Control:
+      - no-cache, no-store, must-revalidate
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      X-Aspnet-Version:
+      - 4.0.30319
+      X-Aspnetmvc-Version:
+      - '3.0'
+      X-Stopwatch:
+      - '6'
+      X-Ua-Compatible:
+      - IE=edge
+    body:
+      encoding: US-ASCII
+      string: ! "{\r\n  \"Next\": \"http://kamrad.tpondemand.com/api/v1/Assignments/?format=json&take=1&skip=1\",\r\n
+        \ \"Items\": [\r\n    {\r\n      \"Id\": 149,\r\n      \"Assignable\": {\r\n
+        \       \"Id\": 222,\r\n        \"Name\": \"readme\"\r\n      },\r\n      \"GeneralUser\":
+        {\r\n        \"Kind\": \"User\",\r\n        \"Id\": 1,\r\n        \"FirstName\":
+        \"Administrator\",\r\n        \"LastName\": \"Administrator\"\r\n      },\r\n
+        \     \"Role\": {\r\n        \"Id\": 6,\r\n        \"Name\": \"Support Person\"\r\n
+        \     }\r\n    }\r\n  ]\r\n}"
+    http_version: 
+  recorded_at: Mon, 29 Jul 2013 12:31:43 GMT
+recorded_with: VCR 2.5.0
