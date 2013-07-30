@@ -3,12 +3,10 @@ require "targetprocess/errors"
 require "targetprocess/entities_initializer"
 
 module Targetprocess
-  class << self
 
-    def configuration
-      msg = "Targetproces is not configured yet"
-      @configuration || raise(Targetprocess::ConfigurationError.new(msg))
-    end
+  def self.configuration
+    msg = "Targetprocess is not configured yet"
+    @configuration || raise(Targetprocess::ConfigurationError.new(msg))
   end
 
   def self.configure
@@ -21,20 +19,17 @@ module Targetprocess
     attr_writer :domain, :username, :password
 
     def password
-      msg = "Targetprocess.configuration.password is not specifyed yet please 
-            review the README to find out a way to configure Targetprocess"
+      msg = "There is no password for configuration"
       @password || raise(Targetprocess::ConfigurationError.new(msg))
     end
 
     def username 
-      msg = "Targetprocess.configuration.username is not specifyed yet please 
-            review the README to find out way to configure Targetprocess"
+      msg = "There is no username for configuration"
       @username || raise(Targetprocess::ConfigurationError.new(msg))
     end
 
     def domain 
-      msg = "Targetprocess.configuration.domain is not specifyed yet please 
-            review the README to find out way to configure Targetprocess"
+      msg = "There is no domain for configuration"
       if @domain
         @domain[-1] == "/" ? @domain : @domain + "/" unless @domain.nil?
       else

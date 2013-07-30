@@ -692,6 +692,7 @@ testcaserun:
     - comment
     - rundate
     - testplanrun
+    - testcase 
   writable:
     - id
     - executed
@@ -699,7 +700,7 @@ testcaserun:
     - comment
     - rundate
     - testplanrun
-
+    - testcase 
 time:
   readable:
     - id
@@ -855,3 +856,338 @@ customactivity:
     - estimate
     - project
     - user
+
+attachment:
+  readable:
+    - id
+    - name
+    - description
+    - date
+    - mimetype
+    - uri
+    - thumbnailuri
+    - size
+    - owner
+    - general
+    - message
+  writable:
+    - id
+    - name
+    - description
+    - date
+    - owner
+    - general
+    - message
+
+entitytype:
+  readable:
+    - id
+    - name
+    - isextendable
+    - issearchable
+  writable:
+    - id
+
+general:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+
+
+assignable:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - effort
+    - effortcompleted
+    - efforttodo
+    - timespent
+    - timeremain
+    - entitytype
+    - owner
+    - lastcommenteduser
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - customfields
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - owner
+    - project
+    - release
+    - iteration
+    - teamiteration
+    - team
+    - priority
+    - entitystate
+    - customfields
+
+generaluser:
+  readable:
+    - id
+    - firstname
+    - lastname
+    - email
+    - login
+    - createdate
+    - modifydate
+    - deletedate
+    - isactive
+    - isadministrator
+    - kind
+  writable:
+    - id
+    - firstname
+    - lastname
+    - email
+    - login
+    - isactive
+    - isadministrator
+
+requesttype:
+  readable:
+    - id
+    - name
+  writable:
+    - id 
+    - name
+
+message:
+  readable:
+    - id
+    - subject
+    - recipients
+    - body
+    - isread
+    - isprocessed
+    - createdate
+    - senddate
+    - messagetype
+    - contenttype
+  writable:
+    - id
+    - subject
+    - recipients
+    - body
+    - isread
+    - isprocessed
+    - createdate
+    - senddate
+    - messagetype
+    - contenttype
+
+messageuid:
+  readable:
+    - id
+    - uid
+    - mailserver
+    - maillogin
+  writable:
+    - id
+    - uid
+    - mailserver
+    - maillogin
+
+milestone:
+  readable:
+    - id
+    - name
+    - description
+    - date
+    - cssclass
+  writable:
+    - id
+    - name
+    - description
+    - date
+    - cssclass
+
+relation:
+  readable:
+    - id
+  writable:
+    - id
+
+relationtype:
+  readable:
+    - id
+    - name
+  writable:
+    - id
+    - name
+
+requester:
+  readable:
+    - id
+    - firstname
+    - lastname
+    - email
+    - login
+    - createdate
+    - modifydate
+    - deletedate
+    - isactive
+    - isadministrator
+    - kind
+    - phone
+    - notes
+    - sourcetype
+  writable:
+    - id
+    - firstname
+    - lastname
+    - email
+    - login
+    - modifydate
+    - isactive
+    - isadministrator
+    - password
+    - phone
+    - notes
+    - sourcetype
+
+revision:
+  readable:
+    - id
+    - sourcecontrolid
+    - description
+    - commitdate
+  writable:
+    - id
+
+revisionfile:
+  readable:
+    - id
+    - filename
+    - fileaction
+  writable:
+    - id
+    - fileaction
+
+tag:
+  readable:
+    - id
+    - name
+  writable:
+    - id
+    - name
+
+team:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - icon
+    - isactive
+    - abbreviation
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - icon
+    - isactive
+    - abbreviation
+
+teamiteration:
+  readable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - createdate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - iscurrent
+    - velocity
+    - duration
+  writable:
+    - id
+    - name
+    - description
+    - startdate
+    - enddate
+    - modifydate
+    - lastcommentdate
+    - tags
+    - numericpriority
+    - velocity
+    - duration
+
+teammember:
+  readable:
+    - id
+    - startdate
+    - enddate
+  writable:
+    - id
+    - startdate
+    - enddate
+
+teamproject:
+  readable:
+    - id
+    - startdate
+    - enddate
+  writable:
+    - id
+    - startdate
+    - enddate

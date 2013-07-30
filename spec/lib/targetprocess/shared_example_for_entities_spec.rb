@@ -117,7 +117,7 @@ shared_examples "an entity" do
         {name: "Test #{described_class}-#{Time.now.to_i}", description: "something",
          project: {id: 221}, owner:{id: 2}, 
          enddate: Time.now, general: {id:182},
-         startdate: Time.new(2013,12,27,8,0,0,"+03:00"),
+         startdate: Time.now+10 ,
          enddate: Time.new(2013,12,28,8,0,0,"+03:00"),
          release:{id: 282}, userstory: {id: 234},
          steps: "check", success: "ok", 
@@ -125,7 +125,8 @@ shared_examples "an entity" do
          login: "user-#{Time.now.to_i}", password: "secretsecret",
          entitytype: {id: 12}, testplan: {id: 57},
          testplanrun: {id: 217}, assignable: {id: 143},
-         generaluser: {id: 1}, role: {id: 1}, user: {id: 1}
+         generaluser: {id: 1}, role: {id: 1}, user: {id: 1},
+         testcase:{id: 467}
          }.each do |k,v|
            if described_class.attributes["writable"].include?(k.to_s) && !(described_class.to_s.demodulize.downcase == k.to_s )
               item.send(k.to_s+"=", v) 

@@ -23,15 +23,14 @@ require 'targetprocess/request'
       def all(options={})
         options = {:body => options} 
         url = self.collection_url
-        response = Targetprocess::Request.perform(:get, url, options)
-        return_array_of response["Items"]   
+        response = Targetprocess::HTTPRequest.perform(:get, url, options)
+        collection_from response["Items"]   
       end
 
       def find(id, options={})
         options = {:body => options} 
         url = self.collection_url+"/#{id}"
-        response = Targetprocess::Request.perform(:get, url, options)
-        self.new response
+        self.new Targetprocess::HTTPRequest.perform(:get, url, options)
       end
 
       def define_accessors
@@ -52,7 +51,7 @@ require 'targetprocess/request'
 
       private 
 
-      def return_array_of(response)
+      def collection_from(response)
         response.is_a?(Hash) ? [self.new(response)] : response.collect! do |item| 
           self.new(item) 
         end 
@@ -67,14 +66,14 @@ require 'targetprocess/request'
       
       def delete
         url = self.entity_url
-        resp = Targetprocess::Request.perform(:delete, url)
+        resp = Targetprocess::HTTPRequest.perform(:delete, url)
       end
 
       def save 
         url = self.class.collection_url
         header = { 'Content-Type' => 'application/json' }
         content = Oj::dump(self.to_hash, :mode => :compat)
-        resp = Targetprocess::Request.perform(:post, url, {body: content ,headers: header})
+        resp = Targetprocess::HTTPRequest.perform(:post, url, {body: content ,headers: header})
         saved = self.class.new resp
         self.class.attributes["readable"].each do |at|
           self.instance_variable_set("@#{at}", saved.send(at))
