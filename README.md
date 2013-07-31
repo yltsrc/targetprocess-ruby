@@ -39,7 +39,7 @@ PASSWORD and USERNAME - your bugtracker's inner ACCOUNT.tpondemand.com credentia
     
 To check configuration:
 
-    > Targetprocess.credentials #=> 
+    > Targetprocess.configuration #=> 
     #<Targetprocess::Configuration:0x00000004fa7b80
     @domain="http://myacc.tpondemand.com/api/v1/",
     @password="login",
