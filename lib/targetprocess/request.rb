@@ -18,11 +18,27 @@ module Targetprocess
         status = error["Status"] || response["Status"]
         raise ("Targetprocess::" + status).safe_constantize , error["Message"]
       else
-        response
+        normalize_data(response)
       end 
     end
 
-    private_class_method :error_check
+    def self.normalize_data(hash) 
+      hash = Hash[hash.map {|k, v| [k.downcase.to_sym, v] }]
+      hash.each do |k,v|
+        hash[k] = case v 
+        when Hash
+          normalize_data(v)
+        when Array
+          v.collect! { |el| normalize_data(el) }
+        when /Date\((\d+)-(\d+)\)/
+          ::Time.at($1.to_i/1000)
+        else
+          v
+        end
+      end
+    end
+
+    private_class_method :error_check, :normalize_data
 
   end
 end

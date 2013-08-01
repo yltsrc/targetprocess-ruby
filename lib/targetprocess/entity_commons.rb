@@ -8,11 +8,12 @@ require 'targetprocess/request'
     def self.included(base)
       base.send(:include, InstanceMethods)   
       base.extend(ClassMethods)
-      base.define_accessors
     end
 
     ATTR_FILE = File.join(File.dirname(__FILE__), 'attributes.yml')            
     
+    attr_accessor :attributes
+
     module ClassMethods 
 
       def where(params_str,options={})
@@ -24,7 +25,9 @@ require 'targetprocess/request'
         options = {:body => options} 
         url = self.collection_url
         response = Targetprocess::HTTPRequest.perform(:get, url, options)
-        collection_from response["Items"]   
+        response[:items].collect! do |item| 
+          self.new(item) 
+        end    
       end
 
       def find(id, options={})
@@ -33,35 +36,37 @@ require 'targetprocess/request'
         self.new Targetprocess::HTTPRequest.perform(:get, url, options)
       end
 
-      def define_accessors
-        self.attributes["readable"].each { |a| attr_reader a }
-        self.attributes["writable"].each { |a| attr_writer a } 
-      end
-      
-      def attributes 
-        all_attributes = YAML::load_file(ATTR_FILE)
-        class_name = self.to_s.demodulize.downcase
-        all_attributes[class_name]    
-      end 
-
       def collection_url
         url = Targetprocess.configuration.domain
         url + self.to_s.demodulize.pluralize
       end
 
-      private 
-
-      def collection_from(response)
-        response.is_a?(Hash) ? [self.new(response)] : response.collect! do |item| 
-          self.new(item) 
-        end 
+      def meta(option) 
+        url = collection_url + "/meta"
+        resp = Targetprocess::HTTPRequest.perform(:get, url)
+        hash={}
+        case option
+        when :actions
+          [:cancreate, :canupdatem, :candelete].each do |key|
+            hash.merge!({key =>resp[key]})
+          end
+        when :values
+          hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcevaluesdescription][:items]
+        when :references
+          hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcereferencesdescription][:items]
+        when :collections
+          hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcecollectionsdescription][:items]
+        else
+          resp
+        end
+        hash
       end
     end
 
     module InstanceMethods
 
       def initialize(hash={})
-        hash_to_obj(hash) 
+        @attributes = hash
       end
       
       def delete
@@ -88,10 +93,24 @@ require 'targetprocess/request'
         true
       end
 
-      def entity_url
-        self.class.collection_url + "/#{self.id}"
+      def method_missing(name, *args)
+        if @attributes.keys.include?(name)
+          @attributes[name] 
+        elsif name.to_s.match("=")
+          @attributes[name.to_s.delete("=").to_sym] = args.first
+        else
+          raise NoMethodError
+        end
       end
       
+      def respond_to?(name)
+        if name.to_s.match("=") || @attributes.keys.include?(name.to_s)
+          true
+        else
+          super
+        end
+      end
+
       def to_hash
         hash = {}
         self.class.attributes["writable"].each do |k|
@@ -108,17 +127,10 @@ require 'targetprocess/request'
         "\/Date(#{time.to_i}000+0#{time.utc_offset/3600}00)\/"
       end
 
-      def hash_to_obj(hash) 
-        hash.each do |k,v|
-          case v 
-          when Hash
-            v = Hash[v.map {|nk, nv| [nk.downcase.to_sym, nv] }]
-          when /Date\((\d+)-(\d+)\)/
-            v = Time.at($1.to_i/1000)
-          end
-          self.instance_variable_set("@#{k.downcase}", v)
-        end
+      def entity_url
+        self.class.collection_url + "/#{self.id}"
       end
+
     end
 
   end
