@@ -1,7 +1,6 @@
 require 'rspec/autorun'
 require 'targetprocess'
 require 'vcr'
-require 'lib/targetprocess/shared_example_for_entities_spec'
 
 VCR.configure do |c|
   c.cassette_library_dir = 'spec/fixtures/vcr_cassettes'

@@ -1,9 +1,7 @@
-require "yaml"
+require 'yaml'
 require 'active_support/inflector'
-require 'httparty'
-require 'oj'
-require 'targetprocess/request'
 
+module  Targetprocess
   module EntityCommons
     def self.included(base)
       base.send(:include, InstanceMethods)   
@@ -16,29 +14,25 @@ require 'targetprocess/request'
 
     module ClassMethods 
 
-      def where(params_str,options={})
+      def where(params_str, options={})
         options.merge!({:where => params_str})
         self.all(options)
       end
 
       def all(options={})
-        options = {:body => options} 
         url = self.collection_url
-        response = Targetprocess::HTTPRequest.perform(:get, url, options)
-        response[:items].collect! do |item| 
-          self.new(item) 
-        end    
+        response = Targetprocess.client.get(url, options)
+        p response
+        response[:items].collect! { |hash| self.new hash }   
       end
 
       def find(id, options={})
-        options = {:body => options} 
-        url = self.collection_url+"/#{id}"
-        self.new Targetprocess::HTTPRequest.perform(:get, url, options)
+        url = collection_url+"#{id}"
+        self.new Targetprocess.client.get(url, options)
       end
 
       def collection_url
-        url = Targetprocess.configuration.domain
-        url + self.to_s.demodulize.pluralize
+        self.to_s.demodulize.pluralize + "/"
       end
 
       def meta(option) 
@@ -71,14 +65,12 @@ require 'targetprocess/request'
       
       def delete
         url = self.entity_url
-        resp = Targetprocess::HTTPRequest.perform(:delete, url)
+        resp = Targetprocess.client.delete(url)
       end
 
       def save 
         url = self.class.collection_url
-        header = { 'Content-Type' => 'application/json' }
-        content = Oj::dump(self.to_hash, :mode => :compat)
-        resp = Targetprocess::HTTPRequest.perform(:post, url, {body: content ,headers: header})
+        resp = Targetprocess.client.post(url, content)
         saved = self.class.new resp
         self.class.attributes["readable"].each do |at|
           self.instance_variable_set("@#{at}", saved.send(at))
@@ -111,26 +103,13 @@ require 'targetprocess/request'
         end
       end
 
-      def to_hash
-        hash = {}
-        self.class.attributes["writable"].each do |k|
-          value = self.send(k)
-          value = json_date(value) if !value.nil? && k.match(/date/)
-          hash.merge!(k.to_sym => value) unless value.nil?
-        end
-        hash
-      end
-      
       private
 
-      def json_date(time)
-        "\/Date(#{time.to_i}000+0#{time.utc_offset/3600}00)\/"
-      end
-
       def entity_url
-        self.class.collection_url + "/#{self.id}"
+        self.class.collection_url + self.id.to_s
       end
 
     end
 
   end
+end
