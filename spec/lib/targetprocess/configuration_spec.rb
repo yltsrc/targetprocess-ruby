@@ -1,4 +1,4 @@
-require 'spec_helper.rb'
+require 'spec_helper'
 
 describe Targetprocess do
   describe '#configure' do
@@ -21,11 +21,18 @@ describe Targetprocess do
       expect(config.username).to eql('admin')
       expect(config.password).to eql('secret')
     end
-  end
-end
 
-describe Targetprocess::Configuration do
-  describe "#username" do
+    it 'setup api client after configuration' do
+      Targetprocess.configure do |c|
+        c.domain = 'domain'
+        c.username = 'admin'
+        c.password = 'secret'
+      end
+
+      client = Targetprocess.client
+      expect(client).to be_an_instance_of(Targetprocess::APIClient)
+    end
+
     it 'raises configuration error without username' do
       Targetprocess.configure do |c|
         c.domain = 'domain'
@@ -37,8 +44,7 @@ describe Targetprocess::Configuration do
         Targetprocess.configuration.username
       }.to raise_error(Targetprocess::ConfigurationError)
     end
-  end
-  describe "#password" do
+
     it 'raises configuration error without password' do
       Targetprocess.configure do |c|
         c.domain = 'domain'
@@ -50,9 +56,7 @@ describe Targetprocess::Configuration do
         Targetprocess.configuration.password
       }.to raise_error(Targetprocess::ConfigurationError)
     end
-  end
 
-  describe "#domain" do
     it 'raises configuration error without domain' do
       Targetprocess.configure do |c|
         c.domain = nil
@@ -65,4 +69,5 @@ describe Targetprocess::Configuration do
       }.to raise_error(Targetprocess::ConfigurationError)
     end
   end
+
 end

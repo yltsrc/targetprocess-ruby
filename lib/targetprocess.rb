@@ -1,6 +1,9 @@
-require "targetprocess/version"
-require "targetprocess/errors"
-require "targetprocess/entities_initializer"
+require 'targetprocess/version'
+require 'targetprocess/configuration'
+require 'targetprocess/errors'
+require 'targetprocess/api_client'
+require 'targetprocess/entity_commons'
+require 'targetprocess/entities_initializer'
 
 module Targetprocess
 
@@ -9,34 +12,15 @@ module Targetprocess
     @configuration || raise(Targetprocess::ConfigurationError.new(msg))
   end
 
+  def self.client
+    msg = "Targetprocess is not configured yet"
+    @client || raise(Targetprocess::ConfigurationError.new(msg))
+  end
+
   def self.configure
     @configuration ||= Configuration.new
     yield(@configuration)
-  end
-
-  class Configuration
-
-    attr_writer :domain, :username, :password
-
-    def password
-      msg = "There is no password for configuration"
-      @password || raise(Targetprocess::ConfigurationError.new(msg))
-    end
-
-    def username 
-      msg = "There is no username for configuration"
-      @username || raise(Targetprocess::ConfigurationError.new(msg))
-    end
-
-    def domain 
-      msg = "There is no domain for configuration"
-      if @domain
-        @domain[-1] == "/" ? @domain : @domain + "/" unless @domain.nil?
-      else
-        raise Targetprocess::ConfigurationError.new(msg)
-      end
-    end
-
+    @client ||= APIClient.new(@configuration)
   end
 
 end
