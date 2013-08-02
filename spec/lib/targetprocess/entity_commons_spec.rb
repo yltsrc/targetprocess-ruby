@@ -103,39 +103,6 @@ require 'spec_helper'
     end
 
     describe "#meta" do
-      it "returns task's actions" do 
-        response = Targetprocess::Task.meta(:actions)
-        actions = {:cancreate =>true, :canupdate=>true, :candelete=>true}
-        expect(response).to eq(actions)
-      end      
-
-      it "returns task's values" do 
-        response = Targetprocess::Task.meta(:values)
-        
-        expect(response).to have(15).hashes
-        response.each do |hash|
-          expect(hash).to have_key(:canget)
-        end
-      end
-
-      it "returns task's references" do 
-        response = Targetprocess::Task.meta(:references)
-       
-        expect(response).to have(11).hashes
-        response.each do |hash|
-          expect(hash).to have_key(:canget)
-        end
-      end
-
-      it "returns task's collections" do 
-        response = Targetprocess::Task.meta(:collections)
-        
-        expect(response).to have(14).hashes
-        response.each do |hash|
-          expect(hash).to have_key(:canget)
-        end
-      end
-
       it "returns task's metadata" do 
         response = Targetprocess::Task.meta
         description = "A small chunk of work, typically less than 16 hours. Task must relate to User Story. It is not possible to create Tasks without User Story."
@@ -147,10 +114,10 @@ require 'spec_helper'
 
     describe "#delete" do
       it "delete #{Targetprocess::Task} with the greatest id" do
-        item = Targetprocess::Task.all(createondesc: "id").first
+        item = Targetprocess::Task.all(createondesc: "id", take: 1).first
         resp = item.delete
 
-        expect(resp).to eq("200")
+        expect(resp).to eq(true)
         expect{item.delete}.to raise_error(Targetprocess::NotFound)
         expect{
           Targetprocess::Task.find(item.id) 
@@ -164,9 +131,32 @@ require 'spec_helper'
                  priority: {id: 11} } 
         item = Targetprocess::Task.new(props)
         item.save 
+        id = Targetprocess::Task.all(orderbydesc: 'id', take: 1 ).first.id
 
         expect(item).to be_an_instance_of(Targetprocess::Task)
-        expect(Targetprocess::Task.all(orderbydesc: 'id')[0].id).to eq(item.id)
+        expect(id).to eq(item.id)
+      end
+
+      it "updates task on remote host " do
+
+        item = Targetprocess::Task.all(orderbydesc: "id", take: 1).first
+        item.name = "new task name"
+        item.save 
+
+        expect(Targetprocess::Task.find(item.id)).to eq(item)
+      end
+
+      it 'test' do
+        task = Targetprocess::Task.new({:name => 'test', :userstory => {id:531}})
+        expect(task.name).to eq('test')
+        task.name = 'old name'
+        expect(task.name).to eq('old name')
+        task.save
+        expect(task.name).to eq('old name')
+        task.name = 'new name'
+        expect(task.name).to eq('new name')
+        task.save
+        expect(task.name).to eq('new name')
       end
     end
 

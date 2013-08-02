@@ -4,36 +4,35 @@ require 'oj'
 
 module Targetprocess
   class APIClient
-    attr_reader :config
 
-    def initialize(config)
-      @config = config
+    def initialize
     end
 
     def get(url, options={})
       options.merge!(format: 'json')
       options = {body: options}
-      response = perform(:get, @config.domain+url, options)
+      response = perform(:get, Targetprocess.configuration.domain+url, options)
       normalize_data response.parsed_response
     end
 
     def post(url, attr_hash)
       attr_hash.each { |k,v| attr_hash[k] = json_date(v) if v.is_a?(Date) }
-      content = Oj::dump(attr_hash, :mode => :compat)
+      content = Oj::dump(convert_dates(attr_hash), :mode => :compat)
       options = {body: content, headers: {'Content-Type' => 'application/json'}}
-      response = perform(:post, @config.domain+url, options)
+      response = perform(:post, Targetprocess.configuration.domain+url, options)
       normalize_data response.parsed_response
     end
 
     def delete(url)
-      perform(:delete, @config.domain+url).response.code
+      url = Targetprocess.configuration.domain + url
+      true if perform(:delete, url).response.code == "200" 
     end
 
     private
 
     def perform(type, url, options={})
-      auth = { username: @config.username,
-               password: @config.password }
+      auth = { username: Targetprocess.configuration.username,
+               password: Targetprocess.configuration.password }
       options.merge!(basic_auth: auth)  
       check_for_api_errors HTTParty.send(type, url, options)
     end
@@ -42,7 +41,7 @@ module Targetprocess
       if response['Error']
         error = response['Error']
         status = error['Status'] || response['Status']
-        msg = error['Message'] || response["Message"]
+        msg = response["Error"]
         raise ("Targetprocess::#{status}".safe_constantize || Targetprocess::ServerError).new(msg)
       else
         response
@@ -68,6 +67,18 @@ module Targetprocess
     def json_date(time)
       "\/Date(#{time.to_i}000+0#{time.utc_offset/3600}00)\/"
     end
+
+    def convert_dates(hash)
+      hash.each do |k,v|
+        case v
+        when ::Time
+          hash[k] = "\/Date(#{v.to_i*1000})\/"
+        when Hash
+          hash[k] = convert_dates(v)
+        end
+        hash
+      end
+    end 
 
   end
 end

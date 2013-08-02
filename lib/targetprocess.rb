@@ -13,14 +13,13 @@ module Targetprocess
   end
 
   def self.client
-    msg = "Targetprocess is not configured yet"
-    @client || raise(Targetprocess::ConfigurationError.new(msg))
+    @client || APIClient.new
   end
 
   def self.configure
     @configuration ||= Configuration.new
     yield(@configuration)
-    @client ||= APIClient.new(@configuration)
+    @client ||= APIClient.new
   end
 
 end

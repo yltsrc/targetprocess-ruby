@@ -8,9 +8,7 @@ module  Targetprocess
       base.extend(ClassMethods)
     end
 
-    ATTR_FILE = File.join(File.dirname(__FILE__), 'attributes.yml')            
-    
-    attr_accessor :attributes
+    attr_accessor :attributes, :changed
 
     module ClassMethods 
 
@@ -37,29 +35,15 @@ module  Targetprocess
       def meta(option="") 
         url = collection_url + "/meta"
         resp = Targetprocess.client.get(url)
-        hash={}
-        case option
-        when :actions
-          [:cancreate, :canupdate, :candelete].each do |key|
-            hash.merge!({key =>resp[key]})
-          end
-        when :values
-          hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcevaluesdescription][:items]
-        when :references
-          hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcereferencesdescription][:items]
-        when :collections
-          hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcecollectionsdescription][:items]
-        else
-          hash = resp
-        end
-        hash
       end
     end
 
     module InstanceMethods
 
       def initialize(hash={})
-        @attributes = hash
+        hash[:id].nil? ? @changed = hash : @attributes = hash
+        @changed ||= {}
+        @attributes ||= {}
       end
       
       def delete
@@ -69,25 +53,26 @@ module  Targetprocess
 
       def save 
         url = self.class.collection_url
-        resp = Targetprocess.client.post(url, self.attributes)
-        self.attributes.merge!(resp)
+        content = @attributes[:id].nil? ? self.changed : self.changed.merge(id: @attributes[:id])
+
+        resp = Targetprocess.client.post(url, content)
+        self.changed = {}
+        @attributes.merge!(resp)
       end
 
       def ==(obj)
-        self.attributes.each  do |k,v| 
-          return false unless v == obj.attributes(k) 
-        end
+          return false unless self.attributes == obj.attributes and self.changed == obj.changed
         true
       end
 
       def method_missing(name, *args)
-        p name
-        if @attributes.keys.include?(name)
-          @attributes[name] 
+        if @changed.has_key?(name) or @attributes.has_key?(name)
+          @changed[name] or @attributes[name]
         elsif name.to_s.match("=")
-          @attributes[name.to_s.delete("=").to_sym] = args.first
+          key = name.to_s.delete("=").to_sym
+          @changed[key] = args.first unless @attributes[key] == args.first
         else
-          raise NoMethodError
+          super
         end
       end
       

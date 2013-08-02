@@ -45,7 +45,7 @@ describe Targetprocess::APIClient, :vcr => true do
 
   describe '#delete' do
     it 'returns code 200' do
-      expect(subject.delete('projects/534')).to eq("200")
+      expect(subject.delete('projects/534')).to eq(true)
     end
 
     it 'raise NotFound error' do
