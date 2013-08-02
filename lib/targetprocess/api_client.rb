@@ -38,7 +38,6 @@ module Targetprocess
       check_for_api_errors HTTParty.send(type, url, options)
     end
 
-
     def check_for_api_errors(response)
       if response['Error']
         error = response['Error']

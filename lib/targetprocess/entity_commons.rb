@@ -22,7 +22,6 @@ module  Targetprocess
       def all(options={})
         url = self.collection_url
         response = Targetprocess.client.get(url, options)
-        p response
         response[:items].collect! { |hash| self.new hash }   
       end
 
@@ -35,13 +34,13 @@ module  Targetprocess
         self.to_s.demodulize.pluralize + "/"
       end
 
-      def meta(option) 
+      def meta(option="") 
         url = collection_url + "/meta"
-        resp = Targetprocess::HTTPRequest.perform(:get, url)
+        resp = Targetprocess.client.get(url)
         hash={}
         case option
         when :actions
-          [:cancreate, :canupdatem, :candelete].each do |key|
+          [:cancreate, :canupdate, :candelete].each do |key|
             hash.merge!({key =>resp[key]})
           end
         when :values
@@ -51,7 +50,7 @@ module  Targetprocess
         when :collections
           hash = resp[:resourcemetadatapropertiesdescription][:resourcemetadatapropertiesresourcecollectionsdescription][:items]
         else
-          resp
+          hash = resp
         end
         hash
       end
@@ -64,28 +63,25 @@ module  Targetprocess
       end
       
       def delete
-        url = self.entity_url
+        url = entity_url
         resp = Targetprocess.client.delete(url)
       end
 
       def save 
         url = self.class.collection_url
-        resp = Targetprocess.client.post(url, content)
-        saved = self.class.new resp
-        self.class.attributes["readable"].each do |at|
-          self.instance_variable_set("@#{at}", saved.send(at))
-        end
-        self
+        resp = Targetprocess.client.post(url, self.attributes)
+        self.attributes.merge!(resp)
       end
 
       def ==(obj)
-        self.class.attributes["readable"].each  do |var| 
-          return false unless self.send(var) == obj.send(var) 
+        self.attributes.each  do |k,v| 
+          return false unless v == obj.attributes(k) 
         end
         true
       end
 
       def method_missing(name, *args)
+        p name
         if @attributes.keys.include?(name)
           @attributes[name] 
         elsif name.to_s.match("=")
@@ -103,10 +99,8 @@ module  Targetprocess
         end
       end
 
-      private
-
       def entity_url
-        self.class.collection_url + self.id.to_s
+        self.class.collection_url + self.attributes[:id].to_s
       end
 
     end

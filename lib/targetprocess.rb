@@ -21,7 +21,6 @@ module Targetprocess
     @configuration ||= Configuration.new
     yield(@configuration)
     @client ||= APIClient.new(@configuration)
-    raise Targetprocess::ConfigurationError, msg if @configuration == nil
   end
 
 end

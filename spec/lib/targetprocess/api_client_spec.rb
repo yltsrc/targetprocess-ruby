@@ -16,7 +16,7 @@ describe Targetprocess::APIClient, :vcr => true do
     it 'returns response hash' do
       et = {id:5, name: "Task", isextendable: true, issearchable: true}
 
-      expect(subject.get("entitytypes/5")).to eql(et)        #=============do something 
+      expect(subject.get("entitytypes/5")).to eql(et)
     end
 
     it 'it returns response array' do
@@ -45,13 +45,11 @@ describe Targetprocess::APIClient, :vcr => true do
 
   describe '#delete' do
     it 'returns code 200' do
-
       expect(subject.delete('projects/534')).to eq("200")
     end
 
-    it 'returns code 300' do
-
-      expect(subject.delete('projects/534')).to eq("200")
+    it 'raise NotFound error' do
+      expect{subject.delete('projects/123')}.to raise_error(Targetprocess::NotFound)
     end
   end
 
