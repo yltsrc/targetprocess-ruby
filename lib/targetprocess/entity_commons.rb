@@ -8,7 +8,7 @@ module  Targetprocess
       base.extend(ClassMethods)
     end
 
-    attr_accessor :attributes, :changed
+    attr_accessor :attributes, :changed_attributes
 
     module ClassMethods 
 
@@ -18,59 +18,62 @@ module  Targetprocess
       end
 
       def all(options={})
-        url = self.collection_url
-        response = Targetprocess.client.get(url, options)
+        path = self.collection_path
+        response = Targetprocess.client.get(path, options)
         response[:items].collect! { |hash| self.new hash }   
       end
 
       def find(id, options={})
-        url = collection_url+"#{id}"
-        self.new Targetprocess.client.get(url, options)
+        path = collection_path+"#{id}"
+        self.new Targetprocess.client.get(path, options)
       end
 
-      def collection_url
+      def collection_path
         self.to_s.demodulize.pluralize + "/"
       end
 
-      def meta(option="") 
-        url = collection_url + "/meta"
-        resp = Targetprocess.client.get(url)
+      def meta 
+        path = collection_path + "/meta"
+        resp = Targetprocess.client.get(path)
       end
     end
 
     module InstanceMethods
 
       def initialize(hash={})
-        hash[:id].nil? ? @changed = hash : @attributes = hash
-        @changed ||= {}
+        hash[:id].nil? ? @changed_attributes = hash : @attributes = hash
+        @changed_attributes ||= {}
         @attributes ||= {}
       end
       
       def delete
-        url = entity_url
-        resp = Targetprocess.client.delete(url)
+        path = entity_path
+        resp = Targetprocess.client.delete(path)
       end
 
       def save 
-        url = self.class.collection_url
-        content = @attributes[:id].nil? ? self.changed : self.changed.merge(id: @attributes[:id])
-
-        resp = Targetprocess.client.post(url, content)
-        self.changed = {}
+        path = self.class.collection_path
+        content = if @attributes[:id].nil? 
+          self.changed_attributes 
+        else 
+          self.changed_attributes.merge(id: @attributes[:id])
+        end
+        resp = Targetprocess.client.post(path, content)
+        self.changed_attributes = {}
         @attributes.merge!(resp)
       end
 
       def ==(obj)
-          return false unless self.attributes == obj.attributes and self.changed == obj.changed
+          return false unless self.attributes == obj.attributes and self.changed_attributes == obj.changed_attributes
         true
       end
 
       def method_missing(name, *args)
-        if @changed.has_key?(name) or @attributes.has_key?(name)
-          @changed[name] or @attributes[name]
+        if @changed_attributes.has_key?(name) or @attributes.has_key?(name)
+          @changed_attributes[name] or @attributes[name]
         elsif name.to_s.match("=")
           key = name.to_s.delete("=").to_sym
-          @changed[key] = args.first unless @attributes[key] == args.first
+          @changed_attributes[key] = args.first unless @attributes[key] == args.first
         else
           super
         end
@@ -84,8 +87,8 @@ module  Targetprocess
         end
       end
 
-      def entity_url
-        self.class.collection_url + self.attributes[:id].to_s
+      def entity_path
+        self.class.collection_path + self.attributes[:id].to_s
       end
 
     end

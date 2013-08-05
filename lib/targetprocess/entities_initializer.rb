@@ -10,7 +10,10 @@ module Targetprocess
                "Requester", "Revision", "Revisionfile", "Tag", "Team", 
                "Teamiteration", "Teammember", "Teamproject"]
 
+  init_code = ""
   ENTITIES.each do |name|
-    eval "class #{name}; include EntityCommons; end"
+    init_code += "class #{name}; include EntityCommons; end \n"
   end
+
+  eval init_code
 end

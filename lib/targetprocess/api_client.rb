@@ -8,23 +8,24 @@ module Targetprocess
     def initialize
     end
 
-    def get(url, options={})
+    def get(path, options={})
       options.merge!(format: 'json')
       options = {body: options}
-      response = perform(:get, Targetprocess.configuration.domain+url, options)
+      response = perform(:get, Targetprocess.configuration.api_url+path, options)
       normalize_data response.parsed_response
     end
 
-    def post(url, attr_hash)
+    def post(path, attr_hash)
       attr_hash.each { |k,v| attr_hash[k] = json_date(v) if v.is_a?(Date) }
       content = Oj::dump(convert_dates(attr_hash), :mode => :compat)
       options = {body: content, headers: {'Content-Type' => 'application/json'}}
-      response = perform(:post, Targetprocess.configuration.domain+url, options)
+      url = Targetprocess.configuration.api_url+path
+      response = perform(:post, url, options)
       normalize_data response.parsed_response
     end
 
-    def delete(url)
-      url = Targetprocess.configuration.domain + url
+    def delete(path)
+      url = Targetprocess.configuration.api_url + path
       true if perform(:delete, url).response.code == "200" 
     end
 
@@ -42,7 +43,7 @@ module Targetprocess
         error = response['Error']
         status = error['Status'] || response['Status']
         msg = response["Error"]
-        raise ("Targetprocess::#{status}".safe_constantize || Targetprocess::ServerError).new(msg)
+        raise ("Targetprocess::Errors::#{status}".safe_constantize || Targetprocess::Errors::UnexpectedApiError).new(msg)
       else
         response
       end

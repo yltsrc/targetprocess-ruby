@@ -5,9 +5,9 @@ require 'targetprocess/version'
 Gem::Specification.new do |spec|
   spec.name          = "targetprocess"
   spec.version       = Targetprocess::VERSION
-  spec.authors       = ["Yura Tolstik"]
-  spec.email         = ["yltsrc@gmail.com"]
-  spec.description   = %q{Targetprocess ruby client}
+  spec.authors       = ["Yura Tolstik, Dmitry Brodnitskiy"]
+  spec.email         = ["yltsrc@gmail.com", "dm.brodnitskiy@gmail.com"]
+  spec.description   = %q{Targetprocess ruby wrapper}
   spec.summary       = %q{}
   spec.homepage      = "http://rubygems.org/gems/targetprocess"
   spec.license       = "MIT"
@@ -23,8 +23,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard"
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "vcr"
-  spec.add_development_dependency "webmock", "1.8"
-  spec.add_runtime_dependency "activesupport", "3.2.14"
+  spec.add_development_dependency "webmock", "~>1.8"
+  spec.add_runtime_dependency "activesupport", ">=3.2.14"
   spec.add_runtime_dependency "httparty"
   spec.add_runtime_dependency "oj"
 end

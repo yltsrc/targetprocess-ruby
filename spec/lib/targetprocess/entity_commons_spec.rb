@@ -3,7 +3,7 @@ require 'spec_helper'
   describe Targetprocess::EntityCommons, vcr: true do
     before do
       Targetprocess.configure do |config|
-        config.domain = 'http://kamrad.tpondemand.com/api/v1'
+        config.api_url = 'http://kamrad.tpondemand.com/api/v1'
         config.username = 'admin'
         config.password = 'admin'
       end
@@ -54,13 +54,13 @@ require 'spec_helper'
       it "raise Targetprocess::BadRequest error" do
         expect{
           Targetprocess::Task.find("asd")
-        }.to raise_error(Targetprocess::BadRequest)
+        }.to raise_error(Targetprocess::Errors::BadRequest)
       end
 
       it "raise an Targetprocess::NotFound error" do                     
         expect {
           Targetprocess::Task.find(1234)
-        }.to raise_error(Targetprocess::NotFound) 
+        }.to raise_error(Targetprocess::Errors::NotFound) 
       end
 
     end
@@ -91,14 +91,14 @@ require 'spec_helper'
       it "raise an Targetprocess::BadRequest" do 
         expect {
           Targetprocess::Task.where('asdsd lt 1286')
-        }.to raise_error(Targetprocess::BadRequest) 
+        }.to raise_error(Targetprocess::Errors::BadRequest) 
       end
 
       it "raise an Targetprocess::BadRequest " do
         conditions = '(asdsd lt 1286)and(createdate lt "2013-10-10")'
         expect {
           Targetprocess::Task.where(conditions)
-        }.to raise_error(Targetprocess::BadRequest) 
+        }.to raise_error(Targetprocess::Errors::BadRequest) 
       end
     end
 
@@ -118,10 +118,10 @@ require 'spec_helper'
         resp = item.delete
 
         expect(resp).to eq(true)
-        expect{item.delete}.to raise_error(Targetprocess::NotFound)
+        expect{item.delete}.to raise_error(Targetprocess::Errors::NotFound)
         expect{
           Targetprocess::Task.find(item.id) 
-        }.to raise_error(Targetprocess::NotFound)
+        }.to raise_error(Targetprocess::Errors::NotFound)
       end
     end
 

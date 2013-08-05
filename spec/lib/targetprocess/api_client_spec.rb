@@ -4,7 +4,7 @@ describe Targetprocess::APIClient, :vcr => true do
 
   before do
     Targetprocess.configure do |config|
-      config.domain = 'http://kamrad.tpondemand.com/api/v1'
+      config.api_url = 'http://kamrad.tpondemand.com/api/v1'
       config.username = 'admin'
       config.password = 'admin'
     end
@@ -44,12 +44,14 @@ describe Targetprocess::APIClient, :vcr => true do
   end
 
   describe '#delete' do
-    it 'returns code 200' do
+    it 'returns true' do
       expect(subject.delete('projects/534')).to eq(true)
     end
 
     it 'raise NotFound error' do
-      expect{subject.delete('projects/123')}.to raise_error(Targetprocess::NotFound)
+      expect{
+        subject.delete('projects/123')
+      }.to raise_error(Targetprocess::Errors::NotFound)
     end
   end
 
