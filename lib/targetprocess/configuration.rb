@@ -9,18 +9,18 @@ module Targetprocess
       if @api_url
         @api_url[-1] == "/" ? @api_url : @api_url + "/" unless @api_url.nil?
       else
-        raise Targetprocess::Errors::ConfigurationError.new(msg)
+        raise Targetprocess::ConfigurationError.new(msg)
       end
     end
 
     def username
       msg = "There is no username for configuration"
-      @username || raise(Targetprocess::Errors::ConfigurationError.new(msg))
+      @username || raise(Targetprocess::ConfigurationError.new(msg))
     end
 
     def password
       msg = "There is no password for configuration"
-      @password || raise(Targetprocess::Errors::ConfigurationError.new(msg))
+      @password || raise(Targetprocess::ConfigurationError.new(msg))
     end
 
   end

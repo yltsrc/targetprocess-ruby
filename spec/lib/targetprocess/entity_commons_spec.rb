@@ -29,7 +29,7 @@ require 'spec_helper'
       end
 
       it "returns all Targetprocess::Task with conditions " do
-        result = Targetprocess::Task.all(take: 1)
+        result = Targetprocess::Task.all(Take: 1)
        
         expect(result).to be_an_instance_of(Array)
         expect(result.first).to be_an_instance_of(Targetprocess::Task)
@@ -54,34 +54,34 @@ require 'spec_helper'
       it "raise Targetprocess::BadRequest error" do
         expect{
           Targetprocess::Task.find("asd")
-        }.to raise_error(Targetprocess::Errors::BadRequest)
+        }.to raise_error(Targetprocess::ApiErrors::BadRequest)
       end
 
       it "raise an Targetprocess::NotFound error" do                     
         expect {
           Targetprocess::Task.find(1234)
-        }.to raise_error(Targetprocess::Errors::NotFound) 
+        }.to raise_error(Targetprocess::ApiErrors::NotFound) 
       end
 
     end
 
     describe ".where" do
       it "return array of Targetprocess::Task" do 
-        response = Targetprocess::Task.where('createdate lt "2014-10-10"') 
+        response = Targetprocess::Task.where('CreateDate lt "2014-10-10"') 
         
         expect(response).to be_an_instance_of(Array) 
         expect(response.first).to be_an_instance_of(Targetprocess::Task)
       end      
       it "return array of Targetprocess::Task with conditions" do 
-        search = 'createdate lt "2014-10-10"'
-        response = Targetprocess::Task.where(search, orderbydesc: 'id', take: 1) 
+        search = 'CreateDate lt "2014-10-10"'
+        response = Targetprocess::Task.where(search, OrderByDesc: 'id', Take: 1) 
         
         expect(response).to have(1).task
         expect(response.first).to be_an_instance_of(Targetprocess::Task)
       end
 
       it "return array of Targetprocess::Task" do 
-        options = '(createdate lt "2014-07-08")and(createdate gt "1991-01-01")'
+        options = '(CreateDate lt "2014-07-08")and(CreateDate gt "1991-01-01")'
         response = Targetprocess::Task.where(options) 
 
         expect(response).to be_an_instance_of(Array) 
@@ -91,14 +91,14 @@ require 'spec_helper'
       it "raise an Targetprocess::BadRequest" do 
         expect {
           Targetprocess::Task.where('asdsd lt 1286')
-        }.to raise_error(Targetprocess::Errors::BadRequest) 
+        }.to raise_error(Targetprocess::ApiErrors::BadRequest) 
       end
 
       it "raise an Targetprocess::BadRequest " do
         conditions = '(asdsd lt 1286)and(createdate lt "2013-10-10")'
         expect {
           Targetprocess::Task.where(conditions)
-        }.to raise_error(Targetprocess::Errors::BadRequest) 
+        }.to raise_error(Targetprocess::ApiErrors::BadRequest) 
       end
     end
 
@@ -118,10 +118,10 @@ require 'spec_helper'
         resp = item.delete
 
         expect(resp).to eq(true)
-        expect{item.delete}.to raise_error(Targetprocess::Errors::NotFound)
+        expect{item.delete}.to raise_error(Targetprocess::ApiErrors::NotFound)
         expect{
           Targetprocess::Task.find(item.id) 
-        }.to raise_error(Targetprocess::Errors::NotFound)
+        }.to raise_error(Targetprocess::ApiErrors::NotFound)
       end
     end
 
@@ -146,7 +146,7 @@ require 'spec_helper'
         expect(Targetprocess::Task.find(item.id)).to eq(item)
       end
 
-      it 'test' do
+      it 'should have getter for dirty attributes' do
         task = Targetprocess::Task.new({:name => 'test', :userstory => {id:531}})
         expect(task.name).to eq('test')
         task.name = 'old name'
@@ -157,6 +157,26 @@ require 'spec_helper'
         expect(task.name).to eq('new name')
         task.save
         expect(task.name).to eq('new name')
+      end
+    end
+
+    describe "#eq" do
+      it "compares changed attributes" do
+        task1 = Targetprocess::Task.new(:name => 'first')
+        task2 = Targetprocess::Task.new(:name => 'second')
+        task1.name = 'second'
+
+        expect(task1).to eq(task2)
+      end
+
+      it "compares attributes with changed_attributes" do
+        task1 = Targetprocess::Task.new
+        task1.attributes = {:name => "name1"}
+        task2 = Targetprocess::Task.new
+        task2.attributes = {:name => "name2"}
+        task2.name = "name1"
+        
+        expect(task2).to eq(task1)
       end
     end
 

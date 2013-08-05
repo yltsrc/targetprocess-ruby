@@ -9,7 +9,7 @@ module Targetprocess
 
   def self.configuration
     msg = "Targetprocess is not configured yet"
-    @configuration || raise(Targetprocess::Errors::ConfigurationError.new(msg))
+    @configuration || raise(Targetprocess::ConfigurationError.new(msg))
   end
 
   def self.client

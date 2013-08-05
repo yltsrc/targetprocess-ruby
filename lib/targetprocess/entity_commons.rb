@@ -17,6 +17,7 @@ module  Targetprocess
     def delete
       path = entity_path
       resp = Targetprocess.client.delete(path)
+      true if resp.code == "200"
     end
 
     def save 
@@ -32,14 +33,19 @@ module  Targetprocess
     end
 
     def ==(obj)
-        return false unless self.attributes == obj.attributes and self.changed_attributes == obj.changed_attributes
+        self_keys = self.attributes.keys | self.changed_attributes.keys
+        obj_keys = obj.attributes.keys | obj.changed_attributes.keys
+        return false unless (self_keys <=> obj_keys) == 0
+        self_keys.each do |key|
+          return false unless self.send(key) == obj.send(key)
+        end
       true
     end
 
     def method_missing(name, *args)
       if @changed_attributes.has_key?(name) or @attributes.has_key?(name)
-        @changed_attributes[name] or @attributes[name]
-      elsif name.to_s.match("=")
+        @changed_attributes[name] || @attributes[name]
+      elsif name.to_s.match(/=\z/)
         key = name.to_s.delete("=").to_sym
         @changed_attributes[key] = args.first unless @attributes[key] == args.first
       else
@@ -48,7 +54,7 @@ module  Targetprocess
     end
     
     def respond_to?(name)
-      if name.to_s.match("=") || @attributes.keys.include?(name.to_s)
+      if name.to_s.match(/=\z/) || @attributes.keys.include?(name.to_s)
         true
       else
         super
@@ -58,7 +64,7 @@ module  Targetprocess
     def entity_path
       self.class.collection_path + self.attributes[:id].to_s
     end
-    
+
     module ClassMethods 
       def where(params_str, options={})
         options.merge!({:where => params_str})

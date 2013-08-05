@@ -5,8 +5,8 @@ describe Targetprocess do
     it 'raises configuration error if not configured' do
       Targetprocess.instance_variable_set(:"@configuration", nil)
       expect {
-        p Targetprocess.configuration
-      }.to raise_error(Targetprocess::Errors::ConfigurationError)
+        Targetprocess.configuration
+      }.to raise_error(Targetprocess::ConfigurationError)
     end
 
     it 'set http credentials' do
@@ -43,7 +43,7 @@ describe Targetprocess do
 
       expect {
         Targetprocess.configuration.username
-      }.to raise_error(Targetprocess::Errors::ConfigurationError)
+      }.to raise_error(Targetprocess::ConfigurationError)
     end
 
     it 'raises configuration error without password' do
@@ -55,7 +55,7 @@ describe Targetprocess do
 
       expect {
         Targetprocess.configuration.password
-      }.to raise_error(Targetprocess::Errors::ConfigurationError)
+      }.to raise_error(Targetprocess::ConfigurationError)
     end
 
     it 'raises configuration error without api_url' do
@@ -67,7 +67,7 @@ describe Targetprocess do
 
       expect {
         Targetprocess.configuration.api_url
-      }.to raise_error(Targetprocess::Errors::ConfigurationError)
+      }.to raise_error(Targetprocess::ConfigurationError)
     end
   end
 
