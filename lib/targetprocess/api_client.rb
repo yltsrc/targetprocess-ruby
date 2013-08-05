@@ -5,9 +5,6 @@ require 'oj'
 module Targetprocess
   class APIClient
 
-    def initialize
-    end
-
     def get(path, options={})
       options.merge!(format: 'json')
       options = {body: options}

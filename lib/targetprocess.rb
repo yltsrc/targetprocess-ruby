@@ -19,7 +19,6 @@ module Targetprocess
   def self.configure
     @configuration ||= Configuration.new
     yield(@configuration)
-    @client ||= APIClient.new
   end
 
 end
