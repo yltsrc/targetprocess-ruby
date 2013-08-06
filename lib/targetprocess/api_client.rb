@@ -8,7 +8,7 @@ module Targetprocess
     def get(path, options={})
       options.merge!(format: 'json')
       options = {body: options}
-      response = perform(:get, Targetprocess.configuration.api_url+path, options)
+      response = perform(:get, path, options)
       normalize_data response.parsed_response
     end
 
@@ -16,23 +16,21 @@ module Targetprocess
       attr_hash.each { |k,v| attr_hash[k] = json_date(v) if v.is_a?(::Time) }
       content = Oj::dump(convert_dates(attr_hash), :mode => :compat)
       options = {body: content, headers: {'Content-Type' => 'application/json'}}
-      url = Targetprocess.configuration.api_url+path
-      response = perform(:post, url, options)
+      response = perform(:post, path, options)
       normalize_data response.parsed_response
     end
 
     def delete(path)
-      url = Targetprocess.configuration.api_url + path
-      perform(:delete, url).response
+      perform(:delete, path).response
     end
 
     private
 
-    def perform(type, url, options={})
+    def perform(type, path, options={})
       auth = { username: Targetprocess.configuration.username,
                password: Targetprocess.configuration.password }
       options.merge!(basic_auth: auth) 
-      check_for_api_errors HTTParty.send(type, url, options)
+      check_for_api_errors HTTParty.send(type, generate_url(path), options)
     end
 
     def check_for_api_errors(response)
@@ -43,6 +41,14 @@ module Targetprocess
         raise ("Targetprocess::ApiErrors::#{status}".safe_constantize || Targetprocess::ApiErrors::UnexpectedError).new(msg)
       else
         response
+      end
+    end
+
+    def generate_url(path)
+      if Targetprocess.configuration.api_url[-1] == "/" 
+        Targetprocess.configuration.api_url + path  
+      else
+        Targetprocess.configuration.api_url + "/" + path 
       end
     end
 

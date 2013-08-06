@@ -6,5 +6,4 @@ module Targetprocess
     class MethodNotAllowed < StandardError; end
     class InternalServerError < StandardError; end
   end
-  class ConfigurationError < StandardError; end
 end

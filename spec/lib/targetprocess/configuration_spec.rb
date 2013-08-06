@@ -9,7 +9,7 @@ describe Targetprocess do
       }.to raise_error(Targetprocess::ConfigurationError)
     end
 
-    it 'set http credentials' do
+    it 'set targetprocess credentials' do
       Targetprocess.configure do |c|
         c.api_url = 'api_url'
         c.username = 'admin'
@@ -18,20 +18,9 @@ describe Targetprocess do
       config = Targetprocess.configuration
 
       expect(config).to be_an_instance_of(Targetprocess::Configuration)
-      expect(config.api_url).to eql('api_url/')
+      expect(config.api_url).to eql('api_url')
       expect(config.username).to eql('admin')
       expect(config.password).to eql('secret')
-    end
-
-    it 'setup api client after configuration' do
-      Targetprocess.configure do |c|
-        c.api_url = 'api_url'
-        c.username = 'admin'
-        c.password = 'secret'
-      end
-
-      client = Targetprocess.client
-      expect(client).to be_an_instance_of(Targetprocess::APIClient)
     end
 
     it 'raises configuration error without username' do
@@ -40,10 +29,11 @@ describe Targetprocess do
         c.username = nil
         c.password = 'secret'
       end
+      msg = "There is no username for configuration"
 
       expect {
         Targetprocess.configuration.username
-      }.to raise_error(Targetprocess::ConfigurationError)
+      }.to raise_error(Targetprocess::ConfigurationError, msg)
     end
 
     it 'raises configuration error without password' do
@@ -52,10 +42,11 @@ describe Targetprocess do
         c.username = 'admin'
         c.password = nil
       end
+      msg = "There is no password for configuration"
 
       expect {
         Targetprocess.configuration.password
-      }.to raise_error(Targetprocess::ConfigurationError)
+      }.to raise_error(Targetprocess::ConfigurationError, msg)
     end
 
     it 'raises configuration error without api_url' do
@@ -64,10 +55,11 @@ describe Targetprocess do
         c.username = 'admin'
         c.password = 'secret'
       end
+      msg = "There is no api_url for configuration"
 
       expect {
         Targetprocess.configuration.api_url
-      }.to raise_error(Targetprocess::ConfigurationError)
+      }.to raise_error(Targetprocess::ConfigurationError, msg)
     end
   end
 

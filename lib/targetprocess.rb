@@ -1,9 +1,8 @@
 require 'targetprocess/version'
 require 'targetprocess/configuration'
-require 'targetprocess/errors'
+require 'targetprocess/api_errors'
 require 'targetprocess/api_client'
-require 'targetprocess/entity_commons'
-require 'targetprocess/entities_initializer'
+require 'targetprocess/base'
 
 module Targetprocess
 
@@ -21,4 +20,22 @@ module Targetprocess
     yield(@configuration)
   end
 
+  ENTITIES = ["Task", "Userstory", "Feature", "Bug", "User", "Project", 
+            "Release", "Iteration", "Request", "Testcase", "Impediment", 
+            "Comment", "Process", "Priority", "Severity", "Entitystate", 
+            "Program", "Testplan", "Testplanrun", "Testcaserun", "Time", 
+            "Assignment", "Role", "Roleeffort", "Projectmember", "Build", 
+            "Company", "Customactivity", "Attachment", "Entitytype", 
+            "General", "Assignable", "Generaluser", "Requesttype", "Message",
+             "Messageuid", "Milestone", "Relation", "Relationtype", 
+             "Requester", "Revision", "Revisionfile", "Tag", "Team", 
+             "Teamiteration", "Teammember", "Teamproject"]
+
+  init_code = ""
+  ENTITIES.each do |name|
+    init_code += "class #{name}; include Base; end \n"
+  end
+
+  eval init_code
+  
 end

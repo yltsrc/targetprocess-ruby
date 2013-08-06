@@ -3,15 +3,14 @@ require 'active_support/inflector'
 require 'active_support/concern'
 
 module  Targetprocess
-  module EntityCommons
+  module Base
     extend ActiveSupport::Concern
     
     attr_accessor :attributes, :changed_attributes
 
     def initialize(hash={})
-      hash[:id].nil? ? @changed_attributes = hash : @attributes = hash
-      @changed_attributes ||= {}
-      @attributes ||= {}
+      @changed_attributes = hash
+      @attributes = {}
     end
     
     def delete
@@ -33,28 +32,24 @@ module  Targetprocess
     end
 
     def ==(obj)
-        self_keys = self.attributes.keys | self.changed_attributes.keys
-        obj_keys = obj.attributes.keys | obj.changed_attributes.keys
-        return false unless (self_keys <=> obj_keys) == 0
-        self_keys.each do |key|
-          return false unless self.send(key) == obj.send(key)
-        end
-      true
+      return false unless self.class == obj.class
+      self_keys = self.attributes.keys | self.changed_attributes.keys
+      obj_keys = obj.attributes.keys | obj.changed_attributes.keys
+      return (self_keys|obj_keys).all?  { |key| self.send(key) == obj.send(key)}
     end
 
     def method_missing(name, *args)
-      if @changed_attributes.has_key?(name) or @attributes.has_key?(name)
-        @changed_attributes[name] || @attributes[name]
-      elsif name.to_s.match(/=\z/)
+      if name.to_s.match(/=\z/)
         key = name.to_s.delete("=").to_sym
         @changed_attributes[key] = args.first unless @attributes[key] == args.first
+        @changed_attributes.delete(key) if @attributes[key] == args.first
       else
-        super
+        @changed_attributes[name] or @attributes[name] 
       end
     end
     
     def respond_to?(name)
-      if name.to_s.match(/=\z/) || @attributes.keys.include?(name.to_s)
+      if name.to_s.match(/=\z/) || @attributes.keys.include?(name.to_s) || @changed_attributes.include?(name.to_s)
         true
       else
         super
@@ -74,12 +69,18 @@ module  Targetprocess
       def all(options={})
         path = self.collection_path
         response = Targetprocess.client.get(path, options)
-        response[:items].collect! { |hash| self.new hash }   
+        response[:items].collect! do |hash| 
+          result = self.new 
+          result.attributes = hash
+          result
+        end
       end
 
       def find(id, options={})
-        path = collection_path+"#{id}"
-        self.new Targetprocess.client.get(path, options)
+        path = collection_path + "#{id}"
+        result = self.new  
+        result.attributes = Targetprocess.client.get(path, options)
+        result
       end
 
       def collection_path
@@ -91,6 +92,5 @@ module  Targetprocess
         resp = Targetprocess.client.get(path)
       end
     end
-
   end
 end
