@@ -38,7 +38,11 @@ module Targetprocess
         error = response['Error']
         status = error['Status'] || response['Status']
         msg = response["Error"]
-        raise ("Targetprocess::ApiErrors::#{status}".safe_constantize || Targetprocess::ApiErrors::UnexpectedError).new(msg)
+        if status
+          raise "Targetprocess::APIErrors::#{status}".safe_constantize.new(msg) 
+        else 
+          raise Targetprocess::APIErrors::UnexpectedError.new(msg)
+        end
       else
         response
       end

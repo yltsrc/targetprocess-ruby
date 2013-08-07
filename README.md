@@ -3,8 +3,10 @@
 [![Code Climate]
 (https://codeclimate.com/github/Kamrad117/targetprocess-ruby.png)]
 (https://codeclimate.com/github/Kamrad117/targetprocess-ruby)
+[![Travis CI]
+(https://api.travis-ci.org/kamrad117/targetprocess-ruby.png?branch=master)]
+(https://api.travis-ci.org/kamrad117/targetprocess-ruby)
 
-Gem provides ruby interface for interaction with 
 [Targetprocess](http://www.targetprocess.com/) through REST api.
 In development now!
 ## Installation

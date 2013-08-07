@@ -4,60 +4,66 @@ require 'active_support/concern'
 
 module  Targetprocess
   module Base
-    extend ActiveSupport::Concern
     
-    attr_accessor :attributes, :changed_attributes
-
-    def initialize(hash={})
-      @changed_attributes = hash
-      @attributes = {}
+    def self.included(base)
+      base.send(:include, InstanceMethods)
+      base.extend(ClassMethods)
     end
     
-    def delete
-      path = entity_path
-      resp = Targetprocess.client.delete(path)
-      true if resp.code == "200"
-    end
+    attr_reader :attributes, :changed_attributes
 
-    def save 
-      path = self.class.collection_path
-      content = if @attributes[:id].nil? 
-        self.changed_attributes 
-      else 
-        self.changed_attributes.merge(id: @attributes[:id])
+    module InstanceMethods
+      def initialize(hash={})
+        @changed_attributes = hash
+        @attributes = {}
       end
-      resp = Targetprocess.client.post(path, content)
-      self.changed_attributes = {}
-      @attributes.merge!(resp)
-    end
-
-    def ==(obj)
-      return false unless self.class == obj.class
-      self_keys = self.attributes.keys | self.changed_attributes.keys
-      obj_keys = obj.attributes.keys | obj.changed_attributes.keys
-      return (self_keys|obj_keys).all?  { |key| self.send(key) == obj.send(key)}
-    end
-
-    def method_missing(name, *args)
-      if name.to_s.match(/=\z/)
-        key = name.to_s.delete("=").to_sym
-        @changed_attributes[key] = args.first unless @attributes[key] == args.first
-        @changed_attributes.delete(key) if @attributes[key] == args.first
-      else
-        @changed_attributes[name] or @attributes[name] 
+      
+      def delete
+        path = entity_path
+        resp = Targetprocess.client.delete(path)
+        true if resp.code == "200"
       end
-    end
-    
-    def respond_to?(name)
-      if name.to_s.match(/=\z/) || @attributes.keys.include?(name.to_s) || @changed_attributes.include?(name.to_s)
-        true
-      else
-        super
-      end
-    end
 
-    def entity_path
-      self.class.collection_path + self.attributes[:id].to_s
+      def save 
+        path = self.class.collection_path
+        @changed_attributes.merge!(id: @attributes[:id]) if @attributes[:id]
+        resp = Targetprocess.client.post(path, @changed_attributes)
+        @changed_attributes = {}
+        @attributes.merge!(resp)
+        self
+      end
+
+      def ==(obj)
+        return false unless self.class == obj.class
+        self_keys = @attributes.keys | @changed_attributes.keys
+        obj_keys = obj.attributes.keys | obj.changed_attributes.keys
+        return (self_keys|obj_keys).all? {|key| self.send(key) == obj.send(key)}
+      end
+
+      def method_missing(name, *args)
+        if name.to_s.match(/=\z/) 
+          key = name.to_s.delete("=").to_sym unless name.to_s.match(/\bid\b/)
+          if @attributes[key] == args.first
+            @changed_attributes.delete(key)
+          else
+            @changed_attributes[key] = args.first
+          end
+        else
+          @changed_attributes[name] or @attributes[name] 
+        end
+      end
+      
+      def respond_to?(name)
+        if name.to_s.match(/=\z/) || @attributes.keys.include?(name.to_s) || @changed_attributes.include?(name.to_s)
+          true
+        else
+          super
+        end
+      end
+
+      def entity_path
+        self.class.collection_path + @attributes[:id].to_s
+      end
     end
 
     module ClassMethods 
@@ -71,7 +77,7 @@ module  Targetprocess
         response = Targetprocess.client.get(path, options)
         response[:items].collect! do |hash| 
           result = self.new 
-          result.attributes = hash
+          result.attributes.merge!(hash)
           result
         end
       end
@@ -79,7 +85,7 @@ module  Targetprocess
       def find(id, options={})
         path = collection_path + "#{id}"
         result = self.new  
-        result.attributes = Targetprocess.client.get(path, options)
+        result.attributes.merge!(Targetprocess.client.get(path, options))
         result
       end
 

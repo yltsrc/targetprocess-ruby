@@ -43,7 +43,15 @@ require 'spec_helper'
         
         expect(task.changed_attributes[:name]).to be_nil
         expect(task.attributes[:name]).to eq(prev_name)
-      end        
+      end   
+
+      it "not allow to edit id" do
+        task = Targetprocess::Task.new(name: "Foo", description: "Bar")
+        task.id = 123
+        
+        expect(task.id).to eq(nil)        
+        expect(task.changed_attributes[:id]).to eq(nil)        
+      end           
     end
 
     describe '.all' do
@@ -82,13 +90,13 @@ require 'spec_helper'
       it "raise Targetprocess::BadRequest error" do
         expect{
           Targetprocess::Task.find("asd")
-        }.to raise_error(Targetprocess::ApiErrors::BadRequest)
+        }.to raise_error(Targetprocess::APIErrors::BadRequest)
       end
 
       it "raise an Targetprocess::NotFound error" do                     
         expect {
           Targetprocess::Task.find(1234)
-        }.to raise_error(Targetprocess::ApiErrors::NotFound) 
+        }.to raise_error(Targetprocess::APIErrors::NotFound) 
       end
 
     end
@@ -119,7 +127,7 @@ require 'spec_helper'
       it "raise an Targetprocess::BadRequest" do 
         expect {
           Targetprocess::Task.where('asdsd lt 1286')
-        }.to raise_error(Targetprocess::ApiErrors::BadRequest) 
+        }.to raise_error(Targetprocess::APIErrors::BadRequest) 
       end
 
       it "raise an Targetprocess::BadRequest " do
@@ -127,7 +135,7 @@ require 'spec_helper'
         
         expect {
           Targetprocess::Task.where(conditions)
-        }.to raise_error(Targetprocess::ApiErrors::BadRequest) 
+        }.to raise_error(Targetprocess::APIErrors::BadRequest) 
       end
     end
 
@@ -147,10 +155,10 @@ require 'spec_helper'
         resp = item.delete
 
         expect(resp).to eq(true)
-        expect{item.delete}.to raise_error(Targetprocess::ApiErrors::NotFound)
+        expect{item.delete}.to raise_error(Targetprocess::APIErrors::NotFound)
         expect{
           Targetprocess::Task.find(item.id) 
-        }.to raise_error(Targetprocess::ApiErrors::NotFound)
+        }.to raise_error(Targetprocess::APIErrors::NotFound)
       end
     end
 
@@ -205,11 +213,11 @@ require 'spec_helper'
 
       it "compares attributes with changed_attributes" do
         task1 = Targetprocess::Task.new
-        task1.attributes = {:name => "name1"}
+        task1.instance_variable_set(:@attributes, name: "name1")
         task2 = Targetprocess::Task.new
-        task2.attributes = {:name => "name2"}
+        task2.instance_variable_set(:@attributes, name: "name2")
         task2.name = "name1"
-        
+
         expect(task2).to eq(task1)
       end
 

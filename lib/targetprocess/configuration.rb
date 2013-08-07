@@ -17,6 +17,4 @@ module Targetprocess
       @password || raise(Targetprocess::ConfigurationError.new(msg))
     end
   end
-  
-  class ConfigurationError < StandardError; end
 end

@@ -1,5 +1,5 @@
 module Targetprocess
-  module ApiErrors
+  module APIErrors
     class UnexpectedError < StandardError; end
     class BadRequest < StandardError; end
     class NotFound < StandardError; end

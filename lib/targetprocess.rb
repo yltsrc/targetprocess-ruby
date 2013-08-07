@@ -5,7 +5,8 @@ require 'targetprocess/api_client'
 require 'targetprocess/base'
 
 module Targetprocess
-
+  class ConfigurationError < StandardError; end
+  
   def self.configuration
     msg = "Targetprocess is not configured yet"
     @configuration || raise(Targetprocess::ConfigurationError.new(msg))
@@ -37,5 +38,4 @@ module Targetprocess
   end
 
   eval init_code
-  
 end

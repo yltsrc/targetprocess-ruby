@@ -2,13 +2,6 @@ require 'spec_helper'
 
 describe Targetprocess do
   describe '#configure' do
-    it 'raises configuration error if not configured' do
-      Targetprocess.instance_variable_set(:"@configuration", nil)
-      expect {
-        Targetprocess.configuration
-      }.to raise_error(Targetprocess::ConfigurationError)
-    end
-
     it 'set targetprocess credentials' do
       Targetprocess.configure do |c|
         c.api_url = 'api_url'
@@ -22,6 +15,16 @@ describe Targetprocess do
       expect(config.username).to eql('admin')
       expect(config.password).to eql('secret')
     end
+  end
+
+  describe "#configuration" do
+    it 'raises configuration error if not configured' do
+      Targetprocess.instance_variable_set(:"@configuration", nil)
+      expect {
+        Targetprocess.configuration
+      }.to raise_error(Targetprocess::ConfigurationError)
+    end
+
 
     it 'raises configuration error without username' do
       Targetprocess.configure do |c|
@@ -63,4 +66,11 @@ describe Targetprocess do
     end
   end
 
+  describe "#client" do
+    it "returns APIClient instance" do
+      endpoint = Targetprocess.client
+
+      expect(endpoint).to be_an_instance_of(Targetprocess::APIClient)
+    end 
+  end
 end
