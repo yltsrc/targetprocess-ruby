@@ -4,8 +4,8 @@
 (https://codeclimate.com/github/Kamrad117/targetprocess-ruby.png)]
 (https://codeclimate.com/github/Kamrad117/targetprocess-ruby)
 [![Travis CI]
-(https://api.travis-ci.org/kamrad117/targetprocess-ruby.png?branch=master)]
-(https://api.travis-ci.org/kamrad117/targetprocess-ruby)
+(https://api.travis-ci.org/Kamrad117/targetprocess-ruby.png?branch=master)]
+(https://api.travis-ci.org/Kamrad117/targetprocess-ruby)
 
 [Targetprocess](http://www.targetprocess.com/) through REST api.
 In development now!
