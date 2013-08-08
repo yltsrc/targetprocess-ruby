@@ -191,16 +191,6 @@ describe Targetprocess::Base, vcr: true do
         }.to raise_error(Targetprocess::APIErrors::NotFound)
       end
     end
-
-    # context "if project doesn't exit on remote host" do
-    #   it "raise NotFound error" do
-    #     pro = project
-    #     pro.delete
-    #     expect{
-    #       subject.find(pro.id)
-    #     }.to raise_error(Targetprocess::APIErrors::NotFound)
-    #   end
-    # end
   end
 
   describe "#save" do
@@ -266,14 +256,6 @@ describe Targetprocess::Base, vcr: true do
 
       expect(task1).to_not eq(task2)
       expect(task2).to_not eq(task1)
-    end
-  end
-
-  describe "temporary hack to prevent filling test account with garbage" do
-    it "is temporary, never mind and pass by" do
-      projects = subject.all(orderbydesc: "id", take: 7)
-        projects.each { |p| p.delete }
-      expect(true).to eq(true)
     end
   end
 end
