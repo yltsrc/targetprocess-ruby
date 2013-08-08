@@ -217,8 +217,11 @@ describe Targetprocess::Base, vcr: true do
         project = subject.all(orderbydesc: "id", take: 1).first
         project.name = "Project#{rand(99999)*rand(99999)}"
         project.save 
+        remote = subject.find(project.id)
+        remote.numeric_priority = nil
+        project.numeric_priority = nil 
 
-        expect(subject.find(project.id)).to eq(project)
+        expect(remote).to eq(project)
       end
     end
 
