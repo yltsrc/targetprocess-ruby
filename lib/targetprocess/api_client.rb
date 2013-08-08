@@ -1,6 +1,6 @@
 require 'active_support/inflector'
 require 'httparty'
-require 'oj'
+require 'json'
 
 module Targetprocess
   class APIClient
@@ -14,7 +14,7 @@ module Targetprocess
 
     def post(path, attr_hash)
       attr_hash.each { |k,v| attr_hash[k] = json_date(v) if v.is_a?(::Time) }
-      content = Oj::dump(convert_dates(attr_hash), :mode => :compat)
+      content = convert_dates(attr_hash).to_json
       options = {body: content, headers: {'Content-Type' => 'application/json'}}
       response = perform(:post, path, options)
       normalize_data response.parsed_response

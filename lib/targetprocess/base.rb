@@ -1,6 +1,5 @@
 require 'yaml'
 require 'active_support/inflector'
-require 'active_support/concern'
 
 module  Targetprocess
   module Base
