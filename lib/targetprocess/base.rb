@@ -94,8 +94,7 @@ module  Targetprocess
       end
 
       def meta 
-        path = collection_path + "/meta"
-        resp = Targetprocess.client.get(path)
+        Targetprocess.client.get(collection_path + "/meta")
       end
     end
   end
