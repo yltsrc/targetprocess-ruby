@@ -51,7 +51,7 @@ describe Targetprocess::APIClient, :vcr => true do
   describe '#post' do
     context "with correct path and options" do
       it "returns hash of entities's attributes" do
-        response = subject.post("projects", {:Name => "foobar#{Time.now.to_i}"})
+        response = subject.post("projects", {:Name => "foobar#{rand(9999999)}"})
 
         expect(response[:name]).to match(/foobar/)
         [:id, :name, :description, :start_date, :end_date, :create_date, 
