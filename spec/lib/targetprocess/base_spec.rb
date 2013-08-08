@@ -28,7 +28,7 @@ describe Targetprocess::Base, vcr: true do
 
   describe '.find' do
     let :project do
-      Targetprocess::Project.new(name: "Project#{Time.now.to_i}").save
+      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}").save
     end
   
     context "with passed correct id" do
@@ -130,7 +130,7 @@ describe Targetprocess::Base, vcr: true do
 
   describe "#method_missing" do
     let :project do
-      Targetprocess::Project.new(name: "Project#{Time.now.to_i}").save
+      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}").save
     end
 
     it "provide getters for attributes's values" do
@@ -179,7 +179,7 @@ describe Targetprocess::Base, vcr: true do
 
   describe "#delete" do
     let :project do
-      Targetprocess::Project.new(name: "Project#{Time.now.to_i}").save
+      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}").save
     end
 
     context "if project exist on remote host" do
@@ -206,16 +206,16 @@ describe Targetprocess::Base, vcr: true do
   describe "#save" do
     context "called on project with required fields" do
       it "save it on remote host and update local instance's attributes" do
-        project = subject.new(name: "Project#{Time.now.to_i}").save
-
-        expect(subject.find(project.id).attributes).to eq(project.attributes)
+        project = subject.new(name: "Project#{rand(99999)*rand(99999)}").save
+        attrs = subject.find(project.id).attributes.delete(:numeric_priority)
+        expect(attrs).to eq(project.attributes.delete(:numeric_priority))
       end
     end
 
     context "called on project with updated attributes" do
       it "updates task on remote host and clean changed attributes" do
         project = subject.all(orderbydesc: "id", take: 1).first
-        project.name = "Project#{Time.now.to_i}"
+        project.name = "Project#{rand(99999)*rand(99999)}"
         project.save 
 
         expect(subject.find(project.id)).to eq(project)
