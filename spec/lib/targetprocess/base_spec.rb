@@ -266,7 +266,7 @@ describe Targetprocess::Base, vcr: true do
     end
   end
 
-  describe '.respond_to?' do
+  describe '#respond_to?' do
     it "doesn't responds to underscored getter for non existed attribute" do
       expect(subject.new.respond_to?(:underscored_method)).to be_false
     end

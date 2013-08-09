@@ -1,6 +1,6 @@
 require 'targetprocess/version'
 require 'targetprocess/configuration'
-require 'targetprocess/api_errors'
+require 'targetprocess/api_error'
 require 'targetprocess/api_client'
 require 'targetprocess/base'
 

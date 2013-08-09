@@ -9,15 +9,14 @@ module Targetprocess
       options.merge!(format: 'json')
       options = {body: options}
       response = perform(:get, path, options)
-      normalize_data response.parsed_response
+      normalize_response(response.parsed_response)
     end
 
     def post(path, attr_hash)
-      attr_hash.each { |k,v| attr_hash[k] = json_date(v) if v.is_a?(::Time) }
-      content = attr_hash.to_json
+      content = prepare_data(attr_hash).to_json
       options = {body: content, headers: {'Content-Type' => 'application/json'}}
       response = perform(:post, path, options)
-      normalize_data response.parsed_response
+      normalize_response(response.parsed_response)
     end
 
     def delete(path)
@@ -49,14 +48,14 @@ module Targetprocess
       end
     end
 
-    def normalize_data(hash) 
+    def normalize_response(hash) 
       hash = Hash[hash.map {|k, v| [k.underscore.to_sym, v] }]
       hash.each do |k,v|
         hash[k] = case v 
         when Hash
-          normalize_data(v)
+          normalize_response(v)
         when Array
-          v.collect! { |el| normalize_data(el) }
+          v.collect! { |el| normalize_response(el) }
         when /Date\((\d+)-(\d+)\)/
           ::Time.at($1.to_i/1000)
         else
@@ -69,5 +68,9 @@ module Targetprocess
       "\/Date(#{time.to_i}000+0#{time.utc_offset/3600}00)\/"
     end
 
+    def prepare_data(hash)
+      hash = Hash[hash.map {|k, v| [k.to_s.camelize.to_sym, v] }]
+      hash.each { |k,v| hash[k] = json_date(v) if v.is_a?(::Time) }
+    end
   end
 end
