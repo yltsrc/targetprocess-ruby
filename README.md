@@ -5,9 +5,9 @@
 (https://codeclimate.com/github/Kamrad117/targetprocess-ruby)
 [![Travis CI]
 (https://api.travis-ci.org/Kamrad117/targetprocess-ruby.png?branch=master)]
-(https://api.travis-ci.org/Kamrad117/targetprocess-ruby)
+(https://travis-ci.org/Kamrad117/targetprocess-ruby)
 
-[Targetprocess](http://www.targetprocess.com/) through REST api.
+Ruby wrapper for [Targetprocess](http://www.targetprocess.com/) REST API.
 In development now!
 ## Installation
 

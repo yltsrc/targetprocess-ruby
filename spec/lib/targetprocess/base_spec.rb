@@ -197,8 +197,11 @@ describe Targetprocess::Base, vcr: true do
     context "called on project with required fields" do
       it "save it on remote host and update local instance's attributes" do
         project = subject.new(name: "Project#{rand(99999)*rand(99999)}").save
-        attrs = subject.find(project.id).attributes.delete(:numeric_priority)
-        expect(attrs).to eq(project.attributes.delete(:numeric_priority))
+        remote_project = subject.find(project.id)
+        project.numeric_priority = nil
+        remote_project.numeric_priority = nil
+
+        expect(remote_project).to eq(project)
       end
     end
 
