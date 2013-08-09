@@ -28,7 +28,8 @@ describe Targetprocess::Base, vcr: true do
 
   describe '.find' do
     let :project do
-      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}").save
+      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}",
+                                 start_date: Time.now).save
     end
   
     context "with passed correct id" do
@@ -55,7 +56,7 @@ describe Targetprocess::Base, vcr: true do
       it "raise Targetprocess::BadRequest error" do
         expect{
           subject.find("asd")
-        }.to raise_error(Targetprocess::APIErrors::BadRequest)
+        }.to raise_error(Targetprocess::APIError::BadRequest)
       end
     end
 
@@ -63,7 +64,7 @@ describe Targetprocess::Base, vcr: true do
       it "raise an Targetprocess::NotFound error" do                     
         expect {
           subject.find(123412)
-        }.to raise_error(Targetprocess::APIErrors::NotFound) 
+        }.to raise_error(Targetprocess::APIError::NotFound) 
       end
     end
   end
@@ -113,7 +114,7 @@ describe Targetprocess::Base, vcr: true do
       it "raise an Targetprocess::BadRequest" do 
         expect {
           subject.where('asdad asd asda ')
-        }.to raise_error(Targetprocess::APIErrors::BadRequest) 
+        }.to raise_error(Targetprocess::APIError::BadRequest) 
       end
     end
   end
@@ -188,7 +189,7 @@ describe Targetprocess::Base, vcr: true do
         expect(project.delete).to eq(true)
         expect{
           subject.find(project.id) 
-        }.to raise_error(Targetprocess::APIErrors::NotFound)
+        }.to raise_error(Targetprocess::APIError::NotFound)
       end
     end
   end

@@ -35,7 +35,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it 'it raises UnexpectedError' do
         expect{
           subject.get("foobars/")
-        }.to raise_error(Targetprocess::APIErrors::UnexpectedError)
+        }.to raise_error(Targetprocess::APIError)
       end
     end    
 
@@ -43,7 +43,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it 'it raises NotFound error' do
         expect{
           subject.get("tasks/123123")
-        }.to raise_error(Targetprocess::APIErrors::NotFound)
+        }.to raise_error(Targetprocess::APIError::NotFound)
       end
     end
   end
@@ -68,7 +68,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it "raises UnexpectedError" do
         expect{
           subject.post("foo/", {foo: "Bar"})
-        }.to raise_error(Targetprocess::APIErrors::UnexpectedError)
+        }.to raise_error(Targetprocess::APIError)
       end
     end
   end
@@ -86,7 +86,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it 'raise NotFound error' do
         expect{
           subject.delete('projects/123')
-        }.to raise_error(Targetprocess::APIErrors::NotFound)
+        }.to raise_error(Targetprocess::APIError::NotFound)
       end
     end
   end

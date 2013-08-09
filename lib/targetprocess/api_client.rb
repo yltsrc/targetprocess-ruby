@@ -14,7 +14,7 @@ module Targetprocess
 
     def post(path, attr_hash)
       attr_hash.each { |k,v| attr_hash[k] = json_date(v) if v.is_a?(::Time) }
-      content = convert_dates(attr_hash).to_json
+      content = attr_hash.to_json
       options = {body: content, headers: {'Content-Type' => 'application/json'}}
       response = perform(:post, path, options)
       normalize_data response.parsed_response
@@ -35,14 +35,7 @@ module Targetprocess
 
     def check_for_api_errors(response)
       if response['Error']
-        error = response['Error']
-        status = error['Status'] || response['Status']
-        msg = response["Error"]
-        if status
-          raise "Targetprocess::APIErrors::#{status}".safe_constantize.new(msg) 
-        else 
-          raise Targetprocess::APIErrors::UnexpectedError.new(msg)
-        end
+        raise APIError.parse(response)
       else
         response
       end
@@ -75,18 +68,6 @@ module Targetprocess
     def json_date(time)
       "\/Date(#{time.to_i}000+0#{time.utc_offset/3600}00)\/"
     end
-
-    def convert_dates(hash)
-      hash.each do |k,v|
-        case v
-        when ::Time
-          hash[k] = "\/Date(#{v.to_i*1000})\/"
-        when Hash
-          hash[k] = convert_dates(v)
-        end
-        hash
-      end
-    end 
 
   end
 end
