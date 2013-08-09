@@ -43,7 +43,7 @@ module  Targetprocess
       end
 
       def method_missing(name, *args)
-        if self.respond_to_missing?(name)
+        if self.respond_to?(name)
           if name.to_s.match(/=\z/) 
             key = name.to_s.delete("=").to_sym
             if @attributes[key] == args.first
