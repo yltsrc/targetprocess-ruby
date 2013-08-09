@@ -33,8 +33,8 @@ module  Targetprocess
       end
 
       def ==(obj)
-        if self.class == obj.class && self.has_attrs-obj.has_attrs==[]
-            (self.has_attrs|obj.has_attrs).all? do 
+        if self.class == obj.class && self.all_attrs-obj.all_attrs==[]
+            (self.all_attrs|obj.all_attrs).all? do 
               |key| self.send(key) == obj.send(key)
             end
         else 
@@ -43,7 +43,7 @@ module  Targetprocess
       end
 
       def method_missing(name, *args)
-        if self.respond_to?(name)
+        if self.respond_to_missing?(name)
           if name.to_s.match(/=\z/) 
             key = name.to_s.delete("=").to_sym
             if @attributes[key] == args.first
@@ -59,8 +59,8 @@ module  Targetprocess
         end  
       end
       
-      def respond_to?(name)
-        if name.to_s.match(/\A[a-z_]+\z/) && self.has_attrs.include?(name)
+      def respond_to_missing?(name, include_private = false)
+        if name.to_s.match(/\A[a-z_]+\z/) && self.all_attrs.include?(name)
           true
         elsif name.to_s.match(/\A[a-z_]+=\z/) && name != :id=
           true
@@ -73,7 +73,7 @@ module  Targetprocess
         self.class.collection_path + @attributes[:id].to_s
       end
       
-      def has_attrs
+      def all_attrs
         @attributes.keys | @changed_attributes.keys
       end
     end
