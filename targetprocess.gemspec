@@ -24,6 +24,8 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "guard-rspec"
   spec.add_development_dependency "vcr"
   spec.add_development_dependency "webmock", ">= 1.8.0"
+  spec.add_development_dependency "simplecov"
+  spec.add_development_dependency "simplecov-gem-adapter"
   spec.add_runtime_dependency "activesupport"
   spec.add_runtime_dependency "httparty"
   spec.add_runtime_dependency "json"
