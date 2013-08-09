@@ -1,4 +1,11 @@
 require 'rspec/autorun'
+
+if ENV['COVERAGE']
+  require 'simplecov'
+  require 'simplecov-gem-adapter'
+  SimpleCov.start 'gem'
+end
+
 require 'targetprocess'
 require 'vcr'
 
