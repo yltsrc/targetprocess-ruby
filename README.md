@@ -32,7 +32,7 @@ config/initializers/targetprocess.rb or use anywhere you need it.
     Targetprocess.configure do |config|
       config.domain = "http://ACCOUNT.tpondemand.com/api/v1/"
       config.username = "USERNAME"
-      config.password = "SECRET"
+      config.password = "PASSWORD"
     end  
     
 Do not confuse: 

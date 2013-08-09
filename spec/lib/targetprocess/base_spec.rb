@@ -149,11 +149,11 @@ describe Targetprocess::Base, vcr: true do
     end
 
     it "not allow to edit id" do
-      task = subject.new(name: "Foo", description: "Bar")
-      task.id = 123
+      project = subject.new(name: "Foo", description: "Bar")
       
-      expect(task.id).to eq(nil)        
-      expect(task.changed_attributes[:id]).to eq(nil)        
+      expect{
+        project.id = 123
+      }.to raise_error(NoMethodError)        
     end 
 
     context "if set any attribute" do
@@ -207,8 +207,8 @@ describe Targetprocess::Base, vcr: true do
 
     context "called on project with updated attributes" do
       it "updates task on remote host and clean changed attributes" do
-        project = subject.all(orderbydesc: "id", take: 1).first
-        project.name = "Project#{rand(99999)*rand(99999)}"
+        project = subject.new(name: "Project#{rand(99999)*rand(99999)}").save
+        project.name = "Project_new_name#{rand(99999)*rand(99999)}"
         project.save 
         remote = subject.find(project.id)
         remote.numeric_priority = nil
@@ -220,45 +220,85 @@ describe Targetprocess::Base, vcr: true do
 
     context "called on up-to-date local project" do
       it "do nothing with local instance" do
-        project = subject.all(orderbydesc: "id", take: 1).first
+        project = subject.new(name: "Project#{rand(99999)*rand(99999)}").save
         project.save 
+        remote = subject.find(project.id)
+        project.numeric_priority = nil
+        remote.numeric_priority = nil
 
-        expect(subject.find(project.id)).to eq(project)
+        expect(remote).to eq(project)
       end
     end
   end
     
   describe "#eq" do
     it "compares changed attributes" do
-      task1 = subject.new(:name => 'first')
-      task2 = subject.new(:name => 'second')
-      task1.name = 'second'
+      project1 = subject.new(:name => 'first')
+      project2 = subject.new(:name => 'second')
+      project1.name = 'second'
 
-      expect(task1).to eq(task2)
+      expect(project1).to eq(project2)
     end
 
     it "compares attributes with changed_attributes" do
-      task1 = subject.new
-      task1.instance_variable_set(:@attributes, name: "name1")
-      task2 = subject.new
-      task2.instance_variable_set(:@attributes, name: "name2")
-      task2.name = "name1"
+      project1 = subject.new
+      project1.instance_variable_set(:@attributes, name: "name1")
+      project2 = subject.new
+      project2.instance_variable_set(:@attributes, name: "name2")
+      project2.name = "name1"
 
-      expect(task2).to eq(task1)
+      expect(project2).to eq(project1)
     end
 
-    it "compares task with integer" do
-      task = subject.new(name: "New task")
+    it "compares project with integer" do
+      project = subject.new(name: "New project")
      
-      expect(task).to_not eq(3)
+      expect(project).to_not eq(3)
     end
 
-    it "comapres tasks with different attributes" do
-      task1 = subject.new(name: "New task")
-      task2 = subject.all(orderByDesc: "id", Take: 1).first 
+    it "comapres projects with different attributes" do
+      project1 = subject.new(name: "New project")
+      project2 = subject.new(name: "Project#{rand(99999)*rand(99999)}").save
 
-      expect(task1).to_not eq(task2)
-      expect(task2).to_not eq(task1)
+      expect(project1).to_not eq(project2)
+      expect(project2).to_not eq(project1)
+    end
+  end
+
+  describe '.respond_to?' do
+    it "doesn't responds to underscored getter for non existed attribute" do
+      expect(subject.new.respond_to?(:underscored_method)).to be_false
+    end
+    
+    it "responds to underscored getter forexisted attribute" do
+      expect(subject.new(foo: "bar").respond_to?(:foo)).to be_true
+    end
+
+    it "responds to underscored setter" do
+      expect(subject.new.respond_to?(:underscored_method=)).to be_true
+    end
+
+    it "doesn't responds to camelized getter" do
+      expect(subject.new.respond_to?(:camelizedMethod)).to be_false
+    end
+
+    it "doesn't responds to camelized setter" do
+      expect(subject.new.respond_to?(:camelizedMethod=)).to be_false
+    end
+
+    it "doesn't responds to id setter" do
+      expect(subject.new.respond_to?(:id=)).to be_false
+    end
+
+    it "doesn't responds to bang methods" do
+      expect(subject.new.respond_to?(:underscored_method!)).to be_false
+    end
+
+    it "doesn't responds to question methods" do
+      expect(subject.new.respond_to?(:underscored_method?)).to be_false
+    end
+   
+    it 'used respond_to? method for getters and setters' do
     end
   end
 end

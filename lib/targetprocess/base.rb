@@ -33,48 +33,60 @@ module  Targetprocess
       end
 
       def ==(obj)
-        return false unless self.class == obj.class
-        self_keys = @attributes.keys | @changed_attributes.keys
-        obj_keys = obj.attributes.keys | obj.changed_attributes.keys
-        return (self_keys|obj_keys).all? {|key| self.send(key) == obj.send(key)}
+        if self.class == obj.class && self.has_attrs-obj.has_attrs==[]
+            (self.has_attrs|obj.has_attrs).all? do 
+              |key| self.send(key) == obj.send(key)
+            end
+        else 
+          false
+        end
       end
 
       def method_missing(name, *args)
-        if name.to_s.match(/=\z/) 
-          key = name.to_s.delete("=").to_sym unless name.to_s.match(/\bid\b/)
-          if @attributes[key] == args.first
-            @changed_attributes.delete(key)
+        if self.respond_to?(name)
+          if name.to_s.match(/=\z/) 
+            key = name.to_s.delete("=").to_sym
+            if @attributes[key] == args.first
+              @changed_attributes.delete(key)
+            else
+              @changed_attributes[key] = args.first
+            end
           else
-            @changed_attributes[key] = args.first
+            @changed_attributes[name] or @attributes[name] 
           end
-        else
-          @changed_attributes[name] or @attributes[name] 
-        end
+        else 
+          super
+        end  
       end
       
       def respond_to?(name)
-        if name.to_s.match(/=\z/) || @attributes.keys.include?(name.to_s) || @changed_attributes.include?(name.to_s)
+        if name.to_s.match(/\A[a-z_]+\z/) && self.has_attrs.include?(name)
           true
-        else
-          super
+        elsif name.to_s.match(/\A[a-z_]+=\z/) && name != :id=
+          true
+        else 
+          super 
         end
       end
 
       def entity_path
         self.class.collection_path + @attributes[:id].to_s
       end
+      
+      def has_attrs
+        @attributes.keys | @changed_attributes.keys
+      end
     end
 
     module ClassMethods 
       def where(params_str, options={})
-        options.merge!({:where => params_str})
+        options.merge!(where: params_str)
         self.all(options)
       end
 
       def all(options={})
-        path = self.collection_path
-        response = Targetprocess.client.get(path, options)
-        response[:items].collect! do |hash| 
+        path = collection_path
+        Targetprocess.client.get(path, options)[:items].collect! do |hash| 
           result = self.new 
           result.attributes.merge!(hash)
           result
