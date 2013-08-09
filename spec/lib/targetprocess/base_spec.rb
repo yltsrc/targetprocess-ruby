@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Targetprocess::Base, vcr: true do
   before :all do
     Targetprocess.configure do |config|
-      config.api_url = 'http://kamrad.tpondemand.com/api/v1'
+      config.api_url = 'http://kamrad.tpondemand.com/api/v1/'
       config.username = 'admin'
       config.password = 'admin'
     end
