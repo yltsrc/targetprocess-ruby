@@ -200,7 +200,7 @@ describe Targetprocess::Base, vcr: true do
         project.numeric_priority = nil
         remote_project.numeric_priority = nil
 
-        expect(remote_project).to eq(project)        
+        remote_project.should == project       
       end
     end
 

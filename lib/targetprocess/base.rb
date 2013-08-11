@@ -33,9 +33,9 @@ module  Targetprocess
 
       def ==(obj)
         if self.class == obj.class && self.all_attrs-obj.all_attrs==[]
-            (self.all_attrs|obj.all_attrs).all? do 
-              |key| self.send(key) == obj.send(key)
-            end
+          (self.all_attrs|obj.all_attrs).all? do 
+            |key| self.send(key) == obj.send(key)
+          end
         else 
           false
         end
