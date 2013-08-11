@@ -1,4 +1,3 @@
-require 'yaml'
 require 'active_support/inflector'
 
 module  Targetprocess

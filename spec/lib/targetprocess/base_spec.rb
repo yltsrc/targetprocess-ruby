@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Targetprocess::Base, vcr: true do
   before :all do
     Targetprocess.configure do |config|
-      config.api_url = 'http://kamrad.tpondemand.com/api/v1/'
+      config.api_url = 'http://tpruby.tpondemand.com/api/v1/'
       config.username = 'admin'
       config.password = 'admin'
     end
@@ -31,7 +31,7 @@ describe Targetprocess::Base, vcr: true do
       Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}",
                                  start_date: Time.now).save
     end
-  
+    
     context "with passed correct id" do
       it "returns project" do
         item = subject.find(project.id) 
@@ -89,7 +89,6 @@ describe Targetprocess::Base, vcr: true do
     end
   end
 
-
   describe ".where" do
     context "with correct condition" do
       it "return array of subjects" do 
@@ -113,16 +112,16 @@ describe Targetprocess::Base, vcr: true do
     context "with random string without search condition" do
       it "raise an Targetprocess::BadRequest" do 
         expect {
-          subject.where('asdad asd asda ')
+          subject.where('asdad asd asda')
         }.to raise_error(Targetprocess::APIError::BadRequest) 
       end
     end
   end
 
   describe ".meta" do
-    it "returns task's metadata" do 
+    it "returns project's metadata" do 
       response = subject.meta
-      uri = "http://kamrad.tpondemand.com/api/v1/Projects"
+      uri = Targetprocess.configuration.api_url + "Projects"
 
       expect(response[:name]).to eq("Project")
       expect(response[:uri]).to match(uri)
@@ -185,7 +184,6 @@ describe Targetprocess::Base, vcr: true do
 
     context "if project exist on remote host" do
       it "delete project on remote host and return true" do
-
         expect(project.delete).to eq(true)
         expect{
           subject.find(project.id) 
@@ -202,7 +200,7 @@ describe Targetprocess::Base, vcr: true do
         project.numeric_priority = nil
         remote_project.numeric_priority = nil
 
-        expect(remote_project).to eq(project)
+        expect(remote_project).to eq(project)        
       end
     end
 
@@ -215,7 +213,7 @@ describe Targetprocess::Base, vcr: true do
         remote.numeric_priority = nil
         project.numeric_priority = nil 
 
-        expect(remote).to eq(project)
+        expect(remote).to eq(project)        
       end
     end
 
@@ -227,7 +225,7 @@ describe Targetprocess::Base, vcr: true do
         project.numeric_priority = nil
         remote.numeric_priority = nil
 
-        expect(remote).to eq(project)
+        expect(remote).to eq(project)        
       end
     end
   end
@@ -297,9 +295,6 @@ describe Targetprocess::Base, vcr: true do
 
     it "doesn't responds to question methods" do
       expect(subject.new.respond_to?(:underscored_method?)).to be_false
-    end
-   
-    it 'used respond_to? method for getters and setters' do
     end
   end
 end

@@ -4,7 +4,7 @@ describe Targetprocess::APIClient, :vcr => true do
 
   before do
     Targetprocess.configure do |config|
-      config.api_url = 'http://kamrad.tpondemand.com/api/v1'
+      config.api_url = 'http://tpruby.tpondemand.com/api/v1'
       config.username = 'admin'
       config.password = 'admin'
     end
