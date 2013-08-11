@@ -30,14 +30,13 @@ For rails usage you may put following code to
 config/initializers/targetprocess.rb or use anywhere you need it.
 
     Targetprocess.configure do |config|
-      config.domain = "http://ACCOUNT.tpondemand.com/api/v1/"
+      config.domain = "http://ALIAS.tpondemand.com/api/v1/"
       config.username = "USERNAME"
       config.password = "PASSWORD"
     end  
     
 Do not confuse: 
-ACCOUNT - targetprocess.com login;
-PASSWORD and USERNAME - your bugtracker's inner ACCOUNT.tpondemand.com credentials.   
+PASSWORD and USERNAME - your bugtracker's inner ALIAS.tpondemand.com credentials.   
     
 To check configuration:
 
@@ -144,7 +143,7 @@ You can also use it with options like:
 
 ####Update
 
-###### `#save`
+###### #save
 Example:
 After you get remote Entity as local instance and modify it, 
 you can update remote entity with `#save` method:
@@ -158,7 +157,7 @@ To find out what attributes you can modify browse this
 
 ####Delete
 
-##### `#delete`
+##### #delete
 
     >bug  = Targetprocess::Bug.find(347)      
     >bug.delete #=> true 
