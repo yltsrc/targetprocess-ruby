@@ -42,7 +42,7 @@ PASSWORD and USERNAME - your bugtracker's inner ALIAS.tpondemand.com credentials
 To check configuration:
 ```ruby
     > Targetprocess.configuration #=> 
-    #<Targetprocess::Configuration:0x00000004fa7b80
+    <Targetprocess::Configuration:0x00000004fa7b80
     @domain="http://myacc.tpondemand.com/api/v1/",
     @password="login",
     @username="secret">
@@ -213,6 +213,14 @@ Just call it on entity and...it's gone!
 >Targetprocess::Bug.find(347) #=>  will raise Targetprocess::NotFound error
 ```
 
+###Metadata
+##### #meta
+To get metadata of entity use `#meta`:
+```ruby
+Targetprocess::Userstory.meta
+# will make a http://tpruby.tpondemand.com/api/v1/userstories/meta?format=json request.
+```
+
 ####Errors
     
     ConfigurationError
@@ -227,9 +235,9 @@ You can catch APIError or a specific type of error.
 Example:
 ```ruby
 begin
-Targetprocess::Project.all
+  Targetprocess::Project.all
 resque Targetprocess::APIError  #or Targetprocess::APIError::NotFound
-#something awesome
+  #something awesome
 end
 ```
 ## Contributing
