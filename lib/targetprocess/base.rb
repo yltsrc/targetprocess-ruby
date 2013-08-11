@@ -51,7 +51,11 @@ module  Targetprocess
               @changed_attributes[key] = args.first
             end
           else
-            @changed_attributes[name] or @attributes[name] 
+            if @changed_attributes.has_key?(name)
+              @changed_attributes[name] 
+            else
+              @attributes[name] 
+            end
           end
         else 
           super
