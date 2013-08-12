@@ -92,7 +92,7 @@ module  Targetprocess
         Targetprocess.client.get(path, options)[:items].collect! do |hash| 
           result = self.new 
           result.attributes.merge!(hash)
-          result
+          result || []
         end
       end
 

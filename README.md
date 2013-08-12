@@ -47,6 +47,20 @@ To check configuration:
     @password="login",
     @username="secret">
 ```
+
+###Context
+To get context you can use `#context(options={})` method provided with gem.
+Examples:
+
+```ruby
+Targetprocess.context # http://myacc.tpondemand.com/api/v1/context/
+
+Targetprocess.context(ids: [1,88]) # http://myacc.tpondemand.com/api/v1/context/?ids=[1,88]
+
+Targetprocess.context(ids: [1,88], acid:"5FCD2783A543047AD90BB28A50EC2152") 
+# http://myacc.tpondemand.com/api/v1/context/?ids=[1,88]&acid=5FCD2783A543047AD90BB28A50EC2152
+```
+
 ###CRUD
 
 Here you can browse TP's REST CRUD api 
@@ -56,7 +70,7 @@ available with current entity.
 
 ####Create
 ```ruby
->project = Targetprocess::Project.new(name: "FooBar")        # to create it locally.
+>project = Targetprocess::Project.new(name: "FooBar")    # to create it locally.
  =>    
 <Targetprocess::Project:0x007f32a838c228
  @attributes={},

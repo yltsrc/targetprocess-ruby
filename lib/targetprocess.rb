@@ -21,16 +21,21 @@ module Targetprocess
     yield(@configuration)
   end
 
-  ENTITIES = ["Task", "Userstory", "Feature", "Bug", "User", "Project", 
-            "Release", "Iteration", "Request", "Testcase", "Impediment", 
-            "Comment", "Process", "Priority", "Severity", "Entitystate", 
-            "Program", "Testplan", "Testplanrun", "Testcaserun", "Time", 
-            "Assignment", "Role", "Roleeffort", "Projectmember", "Build", 
-            "Company", "Customactivity", "Attachment", "Entitytype", 
-            "General", "Assignable", "Generaluser", "Requesttype", "Message",
-             "Messageuid", "Milestone", "Relation", "Relationtype", 
-             "Requester", "Revision", "Revisionfile", "Tag", "Team", 
-             "Teamiteration", "Teammember", "Teamproject"]
+  def self.context(options={})
+    options.each { |item| item.to_s.slice(1..-2) if item.is_a?(Array)}
+    Targetprocess.client.get("context/", options)
+  end
+
+  ENTITIES = ["Task", "UserStory", "Feature", "Bug", "User", "Project", 
+            "Release", "Iteration", "Request", "TestCase", "Impediment", 
+            "Comment", "Process", "Priority", "Severity", "EntityState", 
+            "Program", "Testplan", "TestPlanRun", "TestCaseRun", "Time", 
+            "Assignment", "Role", "RoleEffort", "ProjectMember", "Build", 
+            "Company", "CustomActivity", "Attachment", "EntityType", 
+            "General", "Assignable", "GeneralUser", "RequestType", "Message",
+             "MessageUid", "Milestone", "Relation", "RelationType", 
+             "Requester", "Revision", "RevisionFile", "Tag", "Team", 
+             "TeamIteration", "TeamMember", "TeamProject"]
 
   init_code = ""
   ENTITIES.each do |name|
