@@ -162,7 +162,8 @@ Gem provides 3 read methods: `.find(id, options={})`, `.all(options={})`,
 #####.find(id, options={})
 Return instance with specified id. 
 ```ruby
->project = Targetprocess::Project.find(2) #`http://username:password@account.tpondemand.com/api/v1/Projects/2
+>project = Targetprocess::Project.find(2) 
+# http://username:password@account.tpondemand.com/api/v1/Projects/2
 => <Targetprocess::Project:0x007f32a8a9fe48
  @attributes=
   {:id=>2,
