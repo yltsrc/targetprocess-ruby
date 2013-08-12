@@ -27,28 +27,31 @@ describe Targetprocess::Base, vcr: true do
   end
 
   describe '.find' do
-    let :project do
-      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}",
-                                 start_date: Time.now).save
-    end
-    
     context "with passed correct id" do
       it "returns project" do
+        project = Targetprocess::Project.new(
+                  name: "Project#{rand(99999)*rand(99999)}",
+                  start_date: Time.now).save
         item = subject.find(project.id) 
 
         expect(item).to be_an_instance_of(subject)
         expect(item.id).to eql(project.id)
+        project.delete
       end 
     end
 
     context "with passed correct id and options" do
       it "returns formatted requested entity" do
+        project = Targetprocess::Project.new(
+                  name: "Project#{rand(99999)*rand(99999)}",
+                  start_date: Time.now).save
         options = {include: "[Tasks]", append: "[Tasks-Count]"}
         item = subject.find(project.id, options) 
         attributes = {:id=>project.id, :tasks_count=>0, :tasks=>{:items=>[]}}
 
         expect(item).to be_an_instance_of(subject)
         expect(item.attributes).to eq(attributes)
+         project.delete
       end
     end
 
@@ -129,14 +132,14 @@ describe Targetprocess::Base, vcr: true do
   end
 
   describe "#method_missing" do
-    let :project do
-      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}").save
-    end
-
     it "provide getters for attributes's values" do
+      unique_name = "Project#{rand(99999)*rand(99999)}"
+      project = Targetprocess::Project.new(name: unique_name).save
+      
       project.attributes.keys.each do |key|
         expect(project.send(key)).to eq(project.attributes[key])
       end
+      project.delete
     end      
 
     it "provides any setters" do
@@ -158,32 +161,37 @@ describe Targetprocess::Base, vcr: true do
 
     context "if set any attribute" do
       it "add it to changed_attributes" do
+        unique_name = "Project#{rand(99999)*rand(99999)}"
+        project = Targetprocess::Project.new(name: unique_name).save
         new_name = "new name"
         project.name = new_name
 
         expect(project.changed_attributes[:name]).to eq(new_name)
+        project.delete
       end
     end
 
     context "if edit attribute with the same old value in attributes" do
       it "delete attribute from changed_attributes" do
+        unique_name = "Project#{rand(99999)*rand(99999)}"
+        project = Targetprocess::Project.new(name: unique_name).save
         prev_name = project.name
         project.name = "foobar"
         project.name = prev_name
 
         expect(project.changed_attributes[:name]).to be_nil
         expect(project.attributes[:name]).to eq(prev_name)
+        project.delete
       end   
     end
   end
 
   describe "#delete" do
-    let :project do
-      Targetprocess::Project.new(name: "Project#{rand(99999)*rand(99999)}").save
-    end
-
     context "if project exist on remote host" do
       it "delete project on remote host and return true" do
+        unique_name = "Project#{rand(99999)*rand(99999)}"
+        project = Targetprocess::Project.new(name: unique_name).save
+        
         expect(project.delete).to eq(true)
         expect{
           subject.find(project.id) 
@@ -200,7 +208,8 @@ describe Targetprocess::Base, vcr: true do
         project.numeric_priority = nil
         remote_project.numeric_priority = nil
 
-        remote_project.should == project       
+        expect(remote_project).to eq(project)
+        project.delete
       end
     end
 
@@ -213,7 +222,8 @@ describe Targetprocess::Base, vcr: true do
         remote.numeric_priority = nil
         project.numeric_priority = nil 
 
-        expect(remote).to eq(project)        
+        expect(remote).to eq(project) 
+        project.delete       
       end
     end
 
@@ -225,7 +235,8 @@ describe Targetprocess::Base, vcr: true do
         project.numeric_priority = nil
         remote.numeric_priority = nil
 
-        expect(remote).to eq(project)        
+        expect(remote).to eq(project)     
+        project.delete   
       end
     end
   end
@@ -261,6 +272,7 @@ describe Targetprocess::Base, vcr: true do
 
       expect(project1).to_not eq(project2)
       expect(project2).to_not eq(project1)
+      project2.delete
     end
   end
 

@@ -61,6 +61,7 @@ describe Targetprocess::APIClient, :vcr => true do
         ].each do |at|
           expect(response).to have_key(at)
         end
+        subject.delete("projects/#{response[:id]}")
       end
     end
 
@@ -78,7 +79,8 @@ describe Targetprocess::APIClient, :vcr => true do
    
     context "with url to existed entity" do
       it 'respond with 200 code' do
-        expect(subject.delete("projects/#{id}").code).to eq('200')
+        project = Targetprocess::Project.new(name: "#{Time.now.to_i}").save
+        expect(subject.delete("projects/#{project.id}").code).to eq('200')
       end
     end
 
@@ -90,8 +92,6 @@ describe Targetprocess::APIClient, :vcr => true do
       end
     end
   end
-
-
 end
 
 
