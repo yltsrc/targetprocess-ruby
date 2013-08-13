@@ -6,7 +6,7 @@ if ENV['COVERAGE']
   SimpleCov.start 'gem'
 end
 
-require 'targetprocess'
+require 'target_process'
 require 'vcr'
 
 VCR.configure do |c|

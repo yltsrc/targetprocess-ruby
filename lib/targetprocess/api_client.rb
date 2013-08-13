@@ -2,7 +2,7 @@ require 'active_support/inflector'
 require 'httparty'
 require 'json'
 
-module Targetprocess
+module TargetProcess
   class APIClient
 
     def get(path, options={})
@@ -26,8 +26,8 @@ module Targetprocess
     private
 
     def perform(type, path, options={})
-      auth = { username: Targetprocess.configuration.username,
-               password: Targetprocess.configuration.password }
+      auth = { username: TargetProcess.configuration.username,
+               password: TargetProcess.configuration.password }
       options.merge!(basic_auth: auth) 
       check_for_api_errors HTTParty.send(type, generate_url(path), options)
     end
@@ -41,10 +41,10 @@ module Targetprocess
     end
 
     def generate_url(path)
-      if Targetprocess.configuration.api_url[-1] == "/" 
-        Targetprocess.configuration.api_url + path  
+      if TargetProcess.configuration.api_url[-1] == "/" 
+        TargetProcess.configuration.api_url + path  
       else
-        Targetprocess.configuration.api_url + "/" + path 
+        TargetProcess.configuration.api_url + "/" + path 
       end
     end
 

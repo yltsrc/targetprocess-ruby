@@ -1,6 +1,6 @@
 require 'active_support/inflector'
 
-module  Targetprocess
+module  TargetProcess
   module Base
     
     def self.included(base)
@@ -18,14 +18,14 @@ module  Targetprocess
       
       def delete
         path = entity_path
-        resp = Targetprocess.client.delete(path)
+        resp = TargetProcess.client.delete(path)
         true if resp.code == "200"
       end
 
       def save 
         path = self.class.collection_path
         @changed_attributes.merge!(id: @attributes[:id]) if @attributes[:id]
-        resp = Targetprocess.client.post(path, @changed_attributes)
+        resp = TargetProcess.client.post(path, @changed_attributes)
         @changed_attributes = {}
         @attributes.merge!(resp)
         self
@@ -89,7 +89,7 @@ module  Targetprocess
 
       def all(options={})
         path = collection_path
-        Targetprocess.client.get(path, options)[:items].collect! do |hash| 
+        TargetProcess.client.get(path, options)[:items].collect! do |hash| 
           result = self.new 
           result.attributes.merge!(hash)
           result || []
@@ -99,7 +99,7 @@ module  Targetprocess
       def find(id, options={})
         path = collection_path + "#{id}"
         result = self.new  
-        result.attributes.merge!(Targetprocess.client.get(path, options))
+        result.attributes.merge!(TargetProcess.client.get(path, options))
         result
       end
 
@@ -108,7 +108,7 @@ module  Targetprocess
       end
 
       def meta 
-        Targetprocess.client.get(collection_path + "/meta")
+        TargetProcess.client.get(collection_path + "/meta")
       end
     end
   end

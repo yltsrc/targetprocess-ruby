@@ -1,16 +1,16 @@
 require 'spec_helper'
 
-describe Targetprocess::APIClient, :vcr => true do
+describe TargetProcess::APIClient, :vcr => true do
 
   before do
-    Targetprocess.configure do |config|
+    TargetProcess.configure do |config|
       config.api_url = 'http://tpruby.tpondemand.com/api/v1'
       config.username = 'admin'
       config.password = 'admin'
     end
   end
 
-  subject { Targetprocess.client }
+  subject { TargetProcess.client }
 
   describe '#get' do
     context "with path like 'entity/id'"do
@@ -35,7 +35,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it 'it raises UnexpectedError' do
         expect{
           subject.get("foobars/")
-        }.to raise_error(Targetprocess::APIError)
+        }.to raise_error(TargetProcess::APIError)
       end
     end    
 
@@ -43,7 +43,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it 'it raises NotFound error' do
         expect{
           subject.get("tasks/123123")
-        }.to raise_error(Targetprocess::APIError::NotFound)
+        }.to raise_error(TargetProcess::APIError::NotFound)
       end
     end
   end
@@ -69,17 +69,17 @@ describe Targetprocess::APIClient, :vcr => true do
       it "raises UnexpectedError" do
         expect{
           subject.post("foo/", {foo: "Bar"})
-        }.to raise_error(Targetprocess::APIError)
+        }.to raise_error(TargetProcess::APIError)
       end
     end
   end
 
   describe '#delete' do
-    let(:id){Targetprocess::Project.new(name: "#{Time.now.to_i}").save.id}
+    let(:id){TargetProcess::Project.new(name: "#{Time.now.to_i}").save.id}
    
     context "with url to existed entity" do
       it 'respond with 200 code' do
-        project = Targetprocess::Project.new(name: "#{Time.now.to_i}").save
+        project = TargetProcess::Project.new(name: "#{Time.now.to_i}").save
         expect(subject.delete("projects/#{project.id}").code).to eq('200')
       end
     end
@@ -88,7 +88,7 @@ describe Targetprocess::APIClient, :vcr => true do
       it 'raise NotFound error' do
         expect{
           subject.delete('projects/123')
-        }.to raise_error(Targetprocess::APIError::NotFound)
+        }.to raise_error(TargetProcess::APIError::NotFound)
       end
     end
   end

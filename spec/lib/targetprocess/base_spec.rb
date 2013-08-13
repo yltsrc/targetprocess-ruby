@@ -1,15 +1,15 @@
 require 'spec_helper'
 
-describe Targetprocess::Base, vcr: true do
+describe TargetProcess::Base, vcr: true do
   before :all do
-    Targetprocess.configure do |config|
+    TargetProcess.configure do |config|
       config.api_url = 'http://tpruby.tpondemand.com/api/v1/'
       config.username = 'admin'
       config.password = 'admin'
     end
   end
 
-  subject {Targetprocess::Project}
+  subject {TargetProcess::Project}
 
   describe '.new' do
     it "creates an instance of Project" do
@@ -29,7 +29,7 @@ describe Targetprocess::Base, vcr: true do
   describe '.find' do
     context "with passed correct id" do
       it "returns project" do
-        project = Targetprocess::Project.new(
+        project = TargetProcess::Project.new(
                   name: "Project#{rand(99999)*rand(99999)}",
                   start_date: Time.now).save
         item = subject.find(project.id) 
@@ -42,7 +42,7 @@ describe Targetprocess::Base, vcr: true do
 
     context "with passed correct id and options" do
       it "returns formatted requested entity" do
-        project = Targetprocess::Project.new(
+        project = TargetProcess::Project.new(
                   name: "Project#{rand(99999)*rand(99999)}",
                   start_date: Time.now).save
         options = {include: "[Tasks]", append: "[Tasks-Count]"}
@@ -56,18 +56,18 @@ describe Targetprocess::Base, vcr: true do
     end
 
     context "with passed string" do
-      it "raise Targetprocess::BadRequest error" do
+      it "raise TargetProcess::BadRequest error" do
         expect{
           subject.find("asd")
-        }.to raise_error(Targetprocess::APIError::BadRequest)
+        }.to raise_error(TargetProcess::APIError::BadRequest)
       end
     end
 
     context "with passed unexisted id" do
-      it "raise an Targetprocess::NotFound error" do                     
+      it "raise an TargetProcess::NotFound error" do                     
         expect {
           subject.find(123412)
-        }.to raise_error(Targetprocess::APIError::NotFound) 
+        }.to raise_error(TargetProcess::APIError::NotFound) 
       end
     end
   end
@@ -113,10 +113,10 @@ describe Targetprocess::Base, vcr: true do
     end
 
     context "with random string without search condition" do
-      it "raise an Targetprocess::BadRequest" do 
+      it "raise an TargetProcess::BadRequest" do 
         expect {
           subject.where('asdad asd asda')
-        }.to raise_error(Targetprocess::APIError::BadRequest) 
+        }.to raise_error(TargetProcess::APIError::BadRequest) 
       end
     end
   end
@@ -124,7 +124,7 @@ describe Targetprocess::Base, vcr: true do
   describe ".meta" do
     it "returns project's metadata" do 
       response = subject.meta
-      uri = Targetprocess.configuration.api_url + "Projects"
+      uri = TargetProcess.configuration.api_url + "Projects"
 
       expect(response[:name]).to eq("Project")
       expect(response[:uri]).to match(uri)
@@ -134,7 +134,7 @@ describe Targetprocess::Base, vcr: true do
   describe "#method_missing" do
     it "provide getters for attributes's values" do
       unique_name = "Project#{rand(99999)*rand(99999)}"
-      project = Targetprocess::Project.new(name: unique_name).save
+      project = TargetProcess::Project.new(name: unique_name).save
       
       project.attributes.keys.each do |key|
         expect(project.send(key)).to eq(project.attributes[key])
@@ -162,7 +162,7 @@ describe Targetprocess::Base, vcr: true do
     context "if set any attribute" do
       it "add it to changed_attributes" do
         unique_name = "Project#{rand(99999)*rand(99999)}"
-        project = Targetprocess::Project.new(name: unique_name).save
+        project = TargetProcess::Project.new(name: unique_name).save
         new_name = "new name"
         project.name = new_name
 
@@ -174,7 +174,7 @@ describe Targetprocess::Base, vcr: true do
     context "if edit attribute with the same old value in attributes" do
       it "delete attribute from changed_attributes" do
         unique_name = "Project#{rand(99999)*rand(99999)}"
-        project = Targetprocess::Project.new(name: unique_name).save
+        project = TargetProcess::Project.new(name: unique_name).save
         prev_name = project.name
         project.name = "foobar"
         project.name = prev_name
@@ -190,12 +190,12 @@ describe Targetprocess::Base, vcr: true do
     context "if project exist on remote host" do
       it "delete project on remote host and return true" do
         unique_name = "Project#{rand(99999)*rand(99999)}"
-        project = Targetprocess::Project.new(name: unique_name).save
+        project = TargetProcess::Project.new(name: unique_name).save
         
         expect(project.delete).to eq(true)
         expect{
           subject.find(project.id) 
-        }.to raise_error(Targetprocess::APIError::NotFound)
+        }.to raise_error(TargetProcess::APIError::NotFound)
       end
     end
   end
