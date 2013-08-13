@@ -5,7 +5,7 @@ describe TargetProcess::Base, vcr: true do
     TargetProcess.configure do |config|
       config.api_url = 'http://tpruby.tpondemand.com/api/v1/'
       config.username = 'admin'
-      config.password = 'admin1'
+      config.password = 'admin'
     end
   end
 
