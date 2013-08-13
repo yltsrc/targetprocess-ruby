@@ -7,14 +7,14 @@
 (https://api.travis-ci.org/Kamrad117/targetprocess-ruby.png?branch=master)]
 (https://travis-ci.org/Kamrad117/targetprocess-ruby)
 
-Ruby wrapper for [Targetprocess](http://www.targetprocess.com/) JSON REST API.
+Ruby wrapper for [TargetProcess](http://www.targetprocess.com/) JSON REST API.
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'targetprocess'
+gem 'target_process'
 ```
 And then execute:
 ```bash
@@ -22,13 +22,13 @@ $ bundle
 ```
 Or install it yourself as:
 ```bash
-$ gem install targetprocess
+$ gem install target_process
 ```
 ## Usage
 
 ####Configuration
 For rails usage you may put following code to 
-config/initializers/targetprocess.rb or use anywhere you need it.
+config/initializers/target_process.rb or use anywhere you need it.
 ```ruby
 Targetprocess.configure do |config|
   config.domain = "http://ALIAS.tpondemand.com/api/v1/"
@@ -247,7 +247,7 @@ Targetprocess::Userstory.meta
     |-Forbidden
     |-NotImplemented
     |-Unauthorized
-    
+
 You can catch APIError or a specific type of error.
 
 Example:

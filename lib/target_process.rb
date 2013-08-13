@@ -1,8 +1,8 @@
-require 'targetprocess/version'
-require 'targetprocess/configuration'
-require 'targetprocess/api_error'
-require 'targetprocess/api_client'
-require 'targetprocess/base'
+require 'target_process/version'
+require 'target_process/configuration'
+require 'target_process/api_error'
+require 'target_process/api_client'
+require 'target_process/base'
 
 module TargetProcess
   class ConfigurationError < StandardError; end

@@ -1,6 +1,6 @@
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'targetprocess/version'
+require 'target_process/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "target_process"
@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["dm.brodnitskiy@gmail.com", "yltsrc@gmail.com"]
   spec.description   = %q{ruby wrapper for TargetProcess JSON REST API}
   spec.summary       = %q{ruby wrapper for TargetProcess JSON REST API}
-  spec.homepage      = "http://rubygems.org/gems/targetprocess"
+  spec.homepage      = "http://rubygems.org/gems/target_process"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
