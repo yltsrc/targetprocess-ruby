@@ -75,11 +75,9 @@ describe TargetProcess::APIClient, :vcr => true do
   end
 
   describe '#delete' do
-    let(:id){TargetProcess::Project.new(name: "#{Time.now.to_i}").save.id}
-   
     context "with url to existed entity" do
       it 'respond with 200 code' do
-        project = TargetProcess::Project.new(name: "#{Time.now.to_i}").save
+        project = TargetProcess::Project.new(name: "Foo-#{rand(99999999)}").save
         expect(subject.delete("projects/#{project.id}").code).to eq('200')
       end
     end
