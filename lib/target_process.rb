@@ -6,7 +6,7 @@ require 'target_process/base'
 
 module TargetProcess
   class ConfigurationError < StandardError; end
-  
+
   def self.configuration
     msg = "TargetProcess is not configured yet"
     @configuration || raise(TargetProcess::ConfigurationError.new(msg))
@@ -26,15 +26,15 @@ module TargetProcess
     TargetProcess.client.get("context/", options)
   end
 
-  ENTITIES = ["Task", "UserStory", "Feature", "Bug", "User", "Project", 
-            "Release", "Iteration", "Request", "TestCase", "Impediment", 
-            "Comment", "Process", "Priority", "Severity", "EntityState", 
-            "Program", "Testplan", "TestPlanRun", "TestCaseRun", "Time", 
-            "Assignment", "Role", "RoleEffort", "ProjectMember", "Build", 
-            "Company", "CustomActivity", "Attachment", "EntityType", 
+  ENTITIES = ["Task", "UserStory", "Feature", "Bug", "User", "Project",
+            "Release", "Iteration", "Request", "TestCase", "Impediment",
+            "Comment", "Process", "Priority", "Severity", "EntityState",
+            "Program", "Testplan", "TestPlanRun", "TestCaseRun", "Time",
+            "Assignment", "Role", "RoleEffort", "ProjectMember", "Build",
+            "Company", "CustomActivity", "Attachment", "EntityType",
             "General", "Assignable", "GeneralUser", "RequestType", "Message",
-             "MessageUid", "Milestone", "Relation", "RelationType", 
-             "Requester", "Revision", "RevisionFile", "Tag", "Team", 
+             "MessageUid", "Milestone", "Relation", "RelationType",
+             "Requester", "Revision", "RevisionFile", "Tag", "Team",
              "TeamIteration", "TeamMember", "TeamProject"]
 
   init_code = ""

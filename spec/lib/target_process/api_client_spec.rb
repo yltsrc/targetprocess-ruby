@@ -29,7 +29,7 @@ describe TargetProcess::APIClient, :vcr => true do
 
         expect(response[:items]).to eql(items)
       end
-    end    
+    end
 
     context "with unexisted path "do
       it 'it raises UnexpectedError' do
@@ -37,7 +37,7 @@ describe TargetProcess::APIClient, :vcr => true do
           subject.get("foobars/")
         }.to raise_error(TargetProcess::APIError)
       end
-    end    
+    end
 
     context "with unexisted id "do
       it 'it raises NotFound error' do
@@ -54,9 +54,9 @@ describe TargetProcess::APIClient, :vcr => true do
         response = subject.post("projects", {:Name => "foobar#{rand(9999999)}"})
 
         expect(response[:name]).to match(/foobar/)
-        [:id, :name, :description, :start_date, :end_date, :create_date, 
-        :modify_date, :last_comment_date, :tags, :numeric_priority, :is_active, 
-        :is_product, :abbreviation, :mail_reply_address, :color, :entity_type, 
+        [:id, :name, :description, :start_date, :end_date, :create_date,
+        :modify_date, :last_comment_date, :tags, :numeric_priority, :is_active,
+        :is_product, :abbreviation, :mail_reply_address, :color, :entity_type,
         :owner, :project, :program, :process, :company, :custom_fields
         ].each do |at|
           expect(response).to have_key(at)

@@ -71,6 +71,6 @@ describe TargetProcess do
       endpoint = TargetProcess.client
 
       expect(endpoint).to be_an_instance_of(TargetProcess::APIClient)
-    end 
+    end
   end
 end

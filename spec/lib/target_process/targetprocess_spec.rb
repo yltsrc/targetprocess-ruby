@@ -11,14 +11,13 @@ describe TargetProcess, vcr: true do
 
   describe ".context" do
     it "return global context" do
-      global_acid = "5FCD2783A543047AD90BB28A50EC2152"
       expect(TargetProcess.context[:acid]).to_not be_nil
     end
 
     it "return context by ids" do
       ids = [1705, 1706]
       expect(TargetProcess.context(ids: ids)[:acid]).to_not be_nil
-    end    
+    end
 
     it "return context by single id" do
       ids = 1705

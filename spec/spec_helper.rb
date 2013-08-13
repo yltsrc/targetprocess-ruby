@@ -14,7 +14,7 @@ VCR.configure do |c|
   c.hook_into :webmock # or :fakeweb
   c.configure_rspec_metadata!
 end
-			
+
 # Run this commands in case you want to send any request to api, otherwise
 # VCR and WebMock will not allow you
 # VCR.turn_off!

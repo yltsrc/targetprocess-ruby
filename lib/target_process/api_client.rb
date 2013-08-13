@@ -28,7 +28,7 @@ module TargetProcess
     def perform(type, path, options={})
       auth = { username: TargetProcess.configuration.username,
                password: TargetProcess.configuration.password }
-      options.merge!(basic_auth: auth) 
+      options.merge!(basic_auth: auth)
       check_for_api_errors HTTParty.send(type, generate_url(path), options)
     end
 
@@ -41,17 +41,17 @@ module TargetProcess
     end
 
     def generate_url(path)
-      if TargetProcess.configuration.api_url[-1] == "/" 
-        TargetProcess.configuration.api_url + path  
+      if TargetProcess.configuration.api_url[-1] == "/"
+        TargetProcess.configuration.api_url + path
       else
-        TargetProcess.configuration.api_url + "/" + path 
+        TargetProcess.configuration.api_url + "/" + path
       end
     end
 
-    def normalize_response(hash) 
+    def normalize_response(hash)
       hash = Hash[hash.map {|k, v| [k.underscore.to_sym, v] }]
       hash.each do |k,v|
-        hash[k] = case v 
+        hash[k] = case v
         when Hash
           normalize_response(v)
         when Array
