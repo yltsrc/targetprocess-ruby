@@ -244,7 +244,10 @@ Targetprocess::Userstory.meta
     |-NotFound 
     |-MethodNotAllowed
     |-InternalServerError
-
+    |-Forbidden
+    |-NotImplemented
+    |-Unauthorized
+    
 You can catch APIError or a specific type of error.
 
 Example:

@@ -4,6 +4,9 @@ module Targetprocess
     class NotFound < APIError; end
     class MethodNotAllowed < APIError; end
     class InternalServerError < APIError; end
+    class Forbidden < APIError; end
+    class NotImplemented < APIError; end
+    class Unauthorized < APIError; end
 
     def self.parse(response)
       error = response['Error']

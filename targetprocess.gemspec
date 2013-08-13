@@ -7,8 +7,8 @@ Gem::Specification.new do |spec|
   spec.version       = Targetprocess::VERSION
   spec.authors       = ["Dmitry Brodnitskiy", "Yura Tolstik"]
   spec.email         = ["dm.brodnitskiy@gmail.com", "yltsrc@gmail.com"]
-  spec.description   = %q{ruby wrapper for Targetprocess REST API}
-  spec.summary       = %q{}
+  spec.description   = %q{ruby wrapper for Targetprocess JSON REST API}
+  spec.summary       = %q{ruby wrapper for Targetprocess JSON REST API}
   spec.homepage      = "http://rubygems.org/gems/targetprocess"
   spec.license       = "MIT"
 
