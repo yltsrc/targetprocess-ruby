@@ -1,4 +1,4 @@
-# Targetprocess
+# TargetProcess
 
 [![Code Climate]
 (https://codeclimate.com/github/Kamrad117/targetprocess-ruby.png)]
@@ -30,7 +30,7 @@ $ gem install target_process
 For rails usage you may put following code to 
 config/initializers/target_process.rb or use anywhere you need it.
 ```ruby
-Targetprocess.configure do |config|
+TargetProcess.configure do |config|
   config.domain = "http://ALIAS.tpondemand.com/api/v1/"
   config.username = "USERNAME"
   config.password = "PASSWORD"
@@ -41,8 +41,8 @@ PASSWORD and USERNAME - your bugtracker's inner ALIAS.tpondemand.com credentials
     
 To check configuration:
 ```ruby
-    > Targetprocess.configuration #=> 
-    <Targetprocess::Configuration:0x00000004fa7b80
+    > TargetProcess.configuration #=> 
+    <TargetProcess::Configuration:0x00000004fa7b80
     @domain="http://myacc.tpondemand.com/api/v1/",
     @password="login",
     @username="secret">
@@ -53,11 +53,11 @@ To get context you can use `#context(options={})` method provided with gem.
 Examples:
 
 ```ruby
-Targetprocess.context # http://myacc.tpondemand.com/api/v1/context/
+TargetProcess.context # http://myacc.tpondemand.com/api/v1/context/
 
-Targetprocess.context(ids: [1,88]) # http://myacc.tpondemand.com/api/v1/context/?ids=[1,88]
+TargetProcess.context(ids: [1,88]) # http://myacc.tpondemand.com/api/v1/context/?ids=[1,88]
 
-Targetprocess.context(ids: [1,88], acid:"5FCD2783A543047AD90BB28A50EC2152") 
+TargetProcess.context(ids: [1,88], acid:"5FCD2783A543047AD90BB28A50EC2152") 
 # http://myacc.tpondemand.com/api/v1/context/?ids=[1,88]&acid=5FCD2783A543047AD90BB28A50EC2152
 ```
 
@@ -70,14 +70,14 @@ available with current entity.
 
 ####Create
 ```ruby
->project = Targetprocess::Project.new(name: "FooBar")    # to create it locally.
+>project = TargetProcess::Project.new(name: "FooBar")    # to create it locally.
  =>    
-<Targetprocess::Project:0x007f32a838c228
+<TargetProcess::Project:0x007f32a838c228
  @attributes={},
  @changed_attributes={:name=>"FooBar"}>
 >project.save          #to save on server.
  => 
-<Targetprocess::Project:0x007f32a8918bb0
+<TargetProcess::Project:0x007f32a8918bb0
  @attributes=
   {:id=>3154,
    :name=>"FooBar",
@@ -123,8 +123,8 @@ You can access current value of each hash with the key-named getters
 Example of usage:
 
 ```ruby
-role = Targetprocess::Role.find(1)
-=> <Targetprocess::Role:0x8a7cad0
+role = TargetProcess::Role.find(1)
+=> <TargetProcess::Role:0x8a7cad0
  @attributes={:id=>1, :name=>"Developer", :is_pair=>true, :has_effort=>true}
  @changed_attributes={}>
 
@@ -134,14 +134,14 @@ role.name
 role.name = "Programmer"
 
 role
-=> <Targetprocess::Role:0x8a7cad0
+=> <TargetProcess::Role:0x8a7cad0
  @attributes={:id=>1, :name=>"Developer", :is_pair=>true, :has_effort=>true},
  @changed_attributes={:name=>"Programmer"}>
  
 role.name = "Developer" 
 
 role
-=> <Targetprocess::Role:0x8a7cad0
+=> <TargetProcess::Role:0x8a7cad0
  @attributes={:id=>1, :name=>"Developer", :is_pair=>true, :has_effort=>true},
  @changed_attributes={}>
 
@@ -149,7 +149,7 @@ role.name = "Programmer"
 => "Programmer"
 
 role.save       # send changes on server.
-=> <Targetprocess::Role:0x8a7cad0  
+=> <TargetProcess::Role:0x8a7cad0  
  @attributes={:id=>1, :name=>"Programmer", :is_pair=>true, :has_effort=>true},
  @changed_attributes={}>
 ```
@@ -162,9 +162,9 @@ Gem provides 3 read methods: `.find(id, options={})`, `.all(options={})`,
 #####.find(id, options={})
 Return instance with specified id. 
 ```ruby
->project = Targetprocess::Project.find(2) 
+>project = TargetProcess::Project.find(2) 
 # http://username:password@account.tpondemand.com/api/v1/Projects/2
-=> <Targetprocess::Project:0x007f32a8a9fe48
+=> <TargetProcess::Project:0x007f32a8a9fe48
  @attributes=
   {:id=>2,
    :name=>"Tau Product - Kanban #1",
@@ -180,25 +180,25 @@ If you want to learn more about available options - browse this
 #####.all(options={})
 
 ```ruby
-Targetprocess::Project.all  # will  make a 
+TargetProcess::Project.all  # will  make a 
 # http://username:password@account.tpondemand.com/api/v1/Projects/?format=json` request, 
-# and return an array of Targetprocess::Project instances. 
+# and return an array of TargetProcess::Project instances. 
 ```
 Could be used with options:
 ```ruby
-Targetprocess::Project.all( take: 5, include: "[Tasks]", append: "[Tasks-Count]") 
+TargetProcess::Project.all( take: 5, include: "[Tasks]", append: "[Tasks-Count]") 
 # will make this request:
 # http://kamrad.tpondemand.com/api/v1/projects?format=json&take=5&include=[Tasks]&append=[Tasks-Count]
 ```    
 #####.where(search_condition, options={})
  
 ```ruby
-> Targetprocess::Comment.where('General.Id eq 182') #=> 
+> TargetProcess::Comment.where('General.Id eq 182') #=> 
 #http://username:password@account.tpondemand.com/api/v1/comments?format=json&where=General.Id%20eq%20183
 ```
 You can also use it with options like:
 ```ruby
-Targetprocess::Comment.where('General.Id eq 182', take: 1)
+TargetProcess::Comment.where('General.Id eq 182', take: 1)
 # http://username:password@account.tpondemand.com/api/v1/comments?format=json&where=General.Id%20eq%20182&take=1
 ```
 ####Update
@@ -211,7 +211,7 @@ you can update remote entity with `#save` method:
 
 Example:
 ```ruby    
->bug = Targetprocess::Bug.find(123)
+>bug = TargetProcess::Bug.find(123)
 >bug.description = "new description"
 >bug.save
 ```    
@@ -223,16 +223,16 @@ To find out what attributes you can modify browse this
 ##### #delete
 Just call it on entity and...it's gone!
 ```ruby
->bug  = Targetprocess::Bug.find(347)      
+>bug  = TargetProcess::Bug.find(347)      
 >bug.delete #=> true 
->Targetprocess::Bug.find(347) #=>  will raise Targetprocess::NotFound error
+>TargetProcess::Bug.find(347) #=>  will raise TargetProcess::NotFound error
 ```
 
 ###Metadata
 ##### #meta
 To get metadata of entity use `#meta`:
 ```ruby
-Targetprocess::Userstory.meta
+TargetProcess::Userstory.meta
 # will make a http://tpruby.tpondemand.com/api/v1/userstories/meta?format=json request.
 ```
 
@@ -253,8 +253,8 @@ You can catch APIError or a specific type of error.
 Example:
 ```ruby
 begin
-  Targetprocess::Project.all
-resque Targetprocess::APIError  #or Targetprocess::APIError::NotFound
+  TargetProcess::Project.all
+resque TargetProcess::APIError  #or TargetProcess::APIError::NotFound
   #something awesome
 end
 ```
