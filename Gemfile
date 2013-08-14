@@ -1,4 +1,4 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in targetprocess.gemspec
+# Specify your gem's dependencies in target_process.gemspec
 gemspec
